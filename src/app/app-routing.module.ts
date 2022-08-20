@@ -5,16 +5,16 @@ import { UnhomeComponent } from './unhome/unhome.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    component: UnhomeComponent,
-  },
   // {
   //   path: '',
   //   pathMatch: 'full',
-  //   component: LoginComponent,
+  //   component: UnhomeComponent,
   // },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: LoginComponent,
+  },
   {
     path: 'user-dashboard',
     component: UserDashboardComponent,
