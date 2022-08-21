@@ -1,20 +1,19 @@
 // connect to database using mysql
+// npm install --save mysql2
+var mysql = require('mysql2');
 
-var mysql = require('mysql');
-var pool = mysql.createPool({
-    connectionLimit: 10,
+var con = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'workbench_mysql',
+    password: 'workbench_mysql123',
     database: 'thesis'
 });
 
-pool.query('SELECT 1 + 1 AS solution', function(error, results, fields) {
-    if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
 });
-
 
 
 
