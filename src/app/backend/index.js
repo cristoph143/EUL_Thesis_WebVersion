@@ -1,5 +1,25 @@
-// // connect to database using mysql-wrapper
-// // const mysql = require('mysql-wrapper');
+// connect to database using mysql
+
+var mysql = require('mysql');
+var pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'workbench_mysql',
+    database: 'thesis'
+});
+
+pool.query('SELECT 1 + 1 AS solution', function(error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results[0].solution);
+});
+
+
+
+
+
+
 // const express = require('express');
 // const cors = require('cors');
 // const bodyParser = require('body-parser');
@@ -40,15 +60,15 @@
 //     console.log(`Server reconnected on port ${port}`);
 // });
 
-var mysql = require('mysql-wrapper');
-var conn = mysql({
-    host: 'localhost',
-    port: '3306',
-    user: 'root',
-    password: 'workbench_mysql123',
-    database: 'thesis'
-});
-conn.query(
-    // insert into table user with id, name, email, password, department, and role
-    'INSERT INTO users (id, name, email, password, department, role) VALUES (1, "John Doe", "john.doe@gmail.com", "password", "IT", "admin"), (2, "Jane Doe", "jane.doe@gmail.com", "password", "IT", "user"), (3, "John Smith", "john.smith@gmail.com", "password", "IT", "teacher")'
-);
+// // var mysql = require('mysql-wrapper');
+// // var conn = mysql({
+// //     host: 'localhost',
+// //     port: '3306',
+// //     user: 'root',
+// //     password: 'workbench_mysql123',
+// //     database: 'thesis'
+// // });
+// // conn.query(
+// //     // insert into table user with id, name, email, password, department, and role
+// //     'INSERT INTO users (id, name, email, password, department, role) VALUES (1, "John Doe", "john.doe@gmail.com", "password", "IT", "admin"), (2, "Jane Doe", "jane.doe@gmail.com", "password", "IT", "user"), (3, "John Smith", "john.smith@gmail.com", "password", "IT", "teacher")'
+// // );

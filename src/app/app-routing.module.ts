@@ -5,13 +5,12 @@ import { UnhomeComponent } from './unhome/unhome.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   component: UnhomeComponent,
-  // },
   {
     path: '',
+    component: UnhomeComponent,
+  },
+  {
+    path: 'login',
     pathMatch: 'full',
     component: LoginComponent,
   },
