@@ -13,6 +13,13 @@ var con = mysql.createConnection({
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
+    var sql = 'INSERT INTO user (id, name, email, password, department, role) VALUES (1, "John Doe", "john.doe@gmail.com", "password", "IT", "admin"), (2, "Jane Doe", "jane.doe@gmail.com", "password", "IT", "user"), (3, "John Smith", "john.smith@gmail.com", "password", "IT", "teacher")'
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("Result: ");
+        // print the result in a json form
+        console.log(JSON.stringify(result));
+    });
 });
 
 
