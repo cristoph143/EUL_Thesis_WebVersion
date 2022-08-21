@@ -18,8 +18,6 @@ import { UnhomeComponent } from './unhome/unhome.component';
 import { NavigateComponent } from './navigate/navigate.component';
 import { HttpClientModule } from '@angular/common/http';
 
-// npm install --save @angular/material
-// npm install --save @angular/animations
 
 @NgModule({
   declarations: [
