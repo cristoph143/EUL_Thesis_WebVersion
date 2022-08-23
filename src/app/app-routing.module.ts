@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { UnhomeComponent } from './unhome/unhome.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
@@ -21,7 +20,6 @@ const routes: Routes = [
   //     role: 'ROLE_USER'
   //   }
   // },
-  { path: '**', component: NotFoundComponent },
   /*
   Admin: dashboard, search, upload
   student: unhome, signin, enter code, register, homepage,

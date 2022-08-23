@@ -1,38 +1,20 @@
 <mat-toolbar color="accent">
-    <span>
-      <a routerLink="/">
-        <span>Eul</span>
-    </a>
-    </span>
-    <span>
-      <a
-        routerLinkActive="active-link"
-        routerLink="/posts"
-      >
-      <!-- <a
-        *ngIf="isAuthenticated"
-routerLinkActive="active-link"
-        routerLink="/posts"
-> -->
-<span>Posts</span>
-    </a>
-    <a routerLinkActive="active-link" routerLink="/login">
-        <span>Login</span>
-    </a>
-    <a routerLinkActive="active-link" routerLink="/login">
-        <span>Logout</span>
-    </a>
-    <a routerLinkActive="active-link" routerLink="/unhome">
-        <span>Signup</span>
-    </a>
-    <!-- <a *ngIf="!isAuthenticated" routerLinkActive="active-link" routerLink="/login">
-        <span>Login</span>
-    </a>
-    <a *ngIf="isAuthenticated" (click)="logout()" routerLinkActive="active-link" routerLink="/login">
-        <span>Logout</span>
-    </a>
-    <a *ngIf="!isAuthenticated" routerLinkActive="active-link" routerLink="/signup">
-        <span>Signup</span>
-    </a> -->
-    </span>
+    <div class="logo">
+        <img alt="logo" class="icon1" src="../../assets/icon@2x.svg" />
+        <a class="title">EUL</a>
+    </div>
+    <div class="navbar">
+        <!-- if the curent position is home, it will highlight the text-->
+        <!-- <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a> -->
+        <a class="home list highlight" routerLinkActive="active-link" routerLink="/">Home</a>
+        <a class=" about list " routerLinkActive="active-link " routerLink="/posts ">About</a>
+        <a class="contact list " routerLinkActive="active-link " routerLink="/posts ">Contact</a>
+        <div class="dropdown ">
+            <button class="dropbtn ltr list ">Account</button>
+            <div class="dropdown-content ">
+                <a routerLinkActive="active-link " routerLink="/posts ">SignIn</a>
+                <a routerLinkActive="active-link " routerLink="/posts ">Enter Code</a>
+            </div>
+        </div>
+    </div>
 </mat-toolbar>

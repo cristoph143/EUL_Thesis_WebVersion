@@ -1,7 +1,15 @@
 mat-toolbar {
     display: flex;
     justify-content: space-between;
-    padding: 0 64px;
+    padding: 10px;
+    /* use sticky margin*/
+    margin-top: -1px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 a {
@@ -12,6 +20,98 @@ a {
     color: white;
 }
 
-span {
+div {
     margin-left: 24px;
+}
+
+.title {
+    position: absolute;
+    width: 58px;
+    height: 49px;
+    left: 120px;
+    top: 25px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 32.6667px;
+    line-height: 49px;
+    /* identical to box height */
+    color: #15E937;
+}
+
+.navbar {
+    overflow: hidden;
+    padding: 6px 20px;
+    letter-spacing: 10px;
+    background-color: #15E937;
+    width: 620px;
+    height: 50px;
+    padding-top: 8px;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    padding-right: 45px;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.ltr {
+    letter-spacing: 5px;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.higlight {
+    /* identical to box height */
+    color: #FFFFFF;
+    text-shadow: 5px 10px 2px rgba(0, 0, 0, 0.25);
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
