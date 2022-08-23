@@ -2,9 +2,7 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
-const groceryRoutes = require('../backend/routes');
-
-const errorController = require('../backend/error');
+const errorController = require('./controller/error');
 
 const app = express();
 
