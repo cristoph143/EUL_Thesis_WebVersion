@@ -1,7 +1,3 @@
-root {
-    --green: #15E937;
-}
-
 mat-toolbar {
     display: flex;
     justify-content: space-between;
@@ -40,7 +36,7 @@ div {
     font-size: 32.6667px;
     line-height: 49px;
     /* identical to box height */
-    color: var(--green);
+    color: #15E937;
 }
 
 .navbar {
