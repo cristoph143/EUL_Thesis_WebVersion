@@ -9,3 +9,6 @@ create table if not exists user (
     department varchar(255) not null,
     role varchar(255) not null
 );
+
+ALTER TABLE `thesis`.`user` 
+RENAME TO  `thesis`.`account` ;
