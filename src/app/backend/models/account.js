@@ -9,6 +9,7 @@ module.exports = class Account {
         this.image = image;
         this.password = password;
         this.role = role;
+        this.research_list = [research_list];
     }
 
     // Fetch

@@ -17,15 +17,15 @@
         <div class="form-group">
             <!-- form section for inputting text field of email type, school_id for text type and
                 dropdown type for school_role like student and teacher -->
-            <form class="form-inline" action="">
+            <form class="form-inline" action="" [formGroup]="req_form" (ngSubmit)="onSubmitReq()">
                 <div class="form-group">
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    <input type="email" formControlName="email_req" class="form-control" id="exampleInputEmail1" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="school_id" placeholder="School ID">
+                    <input type="text" formControlName="school_id_req" class="form-control" id="school_id" placeholder="School ID">
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="role">
+                    <select class="form-control" id="role" formControlName="role_req">
                         <option value="">Select Role</option>
                         <option value="Student">Student</option>
                         <option value="Teacher">Teacher</option>

@@ -58,10 +58,17 @@ exports.login = async(req, res, next) => {
         const email = req.body.email;
         const password = req.body.password;
         const accounts = await Account.login(email, password);
-        res.status(200).json({
-            message: 'Logged in',
-            accounts: accounts
-        });
+        // if email and password dont match, return error
+        if (accounts.email != email && accounts.password != password) {
+            res.status(401).json({
+                message: 'Email or password is incorrect'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Logged in',
+                accounts: accounts
+            });
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -101,11 +108,20 @@ exports.createAccount = async(req, res, next) => {
         const image = req.body.image;
         const password = req.body.password;
         const role = req.body.role;
+        // research_list as empty array
+        const research = req.body.research;
         const accounts = await Account.create(email, name, department, school_id, image, password, role);
-        res.status(200).json({
-            message: 'Created account',
-            accounts: accounts
-        });
+        // if email exist and school_id exist, return error
+        if (accounts.email == email && accounts.school_id == school_id) {
+            res.status(409).json({
+                message: 'Email and school_id already exist'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Created account',
+                accounts: accounts
+            });
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -145,10 +161,17 @@ exports.deleteAccountBySchoolId = async(req, res, next) => {
     try {
         const school_id = req.params.school_id;
         const accounts = await Account.deleteBySchoolId(school_id);
-        res.status(200).json({
-            message: 'Deleted account',
-            accounts: accounts
-        });
+        // if school_id doesn't exist, return error
+        if (accounts.school_id != school_id) {
+            res.status(404).json({
+                message: 'School_id not found'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Deleted account',
+                accounts: accounts
+            });
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({

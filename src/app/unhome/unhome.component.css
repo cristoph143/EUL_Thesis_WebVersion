@@ -203,9 +203,10 @@ h1 {
 
 .form-group {
     top: 900px;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
-.form-inline {
+
+/* .form-inline {
     padding: 120px 0 0 100px;
-}
+} */

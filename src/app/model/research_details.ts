@@ -1,7 +1,7 @@
 export interface ResearchDetails {
     id: number;
     category: String[];
-    date_published: Date;
+    date_published: String;
     adviser: String;
     authors: String[];
     title: String;
@@ -9,4 +9,5 @@ export interface ResearchDetails {
     keywords: String[];
     department: String;
     qr: String;
+    number_of_views: number;
 }

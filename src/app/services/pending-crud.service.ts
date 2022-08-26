@@ -7,11 +7,14 @@ import { catchError, tap } from "rxjs/operators";
 import { ErrorHandlerService } from "./error-handler.service";
 
 import { Pending } from "../model/pending";
+import { AnonymousSubject } from "rxjs/internal/Subject";
 
 @Injectable({
     providedIn: "root",
 })
 export class PendingCrudService {
+    
+    // private url = "http://127.0.0.1:3006/pending";
     private url = "http://localhost:3000/pending";
 
     httpOptions: { headers: HttpHeaders } = {
@@ -27,12 +30,13 @@ export class PendingCrudService {
 
     // fetch all accounts from Account
     fetchAllPending(): Observable<Pending[]> {
+        console.log('Welcome')
         return this.http
             .get<Pending[]>(this.url, { responseType: "json" })
             .pipe(
                 tap((_) => console.log("fetched pending")),
                 catchError(
-                    this.errorHandlerService.handleError<Pending[]>("fetchAllPending")
+                    this.errorHandlerService.handleError<Pending[]>("fetchAllPending",)
                 )
         );
     }
@@ -54,16 +58,31 @@ export class PendingCrudService {
     // Post
     
     // create a new account
-    createPending(pending: Pending): Observable<Pending> {
+    createPending(pending: Partial<Pending>): Observable<any>  {
+        // print pending into json form
+        console.log(pending + "pending");
         return this.http
             .post<Pending>(this.url, pending, this.httpOptions)
             .pipe(
-                tap((newPending: Pending) => console.log(`added pending w/ id=${newPending.id}`)),
+                tap((
+                    newPending: Pending
+                ) =>
+                    console.log(`added pending w/ id=${newPending.school_id}`)),
                 catchError(
-                    this.errorHandlerService.handleError<Pending>("createPending")
+                    this.errorHandlerService.handleError<any>("createPending")
                 )
         );
     }
+    // createPending(arg0: { pending: { email: any; school_id: any; role: any; approve: boolean; }; }) {
+    //     return this.http
+    //         .post<Pending>(this.url, arg0, this.httpOptions)
+    //         .pipe(
+    //             tap((newPending: Pending) => console.log(`added pending w/ id=${newPending.school_id}`)),
+    //             catchError(
+    //                 this.errorHandlerService.handleError<Pending>("createPending")
+    //             )
+    //     );
+    //   }
 
 
     // Update

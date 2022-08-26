@@ -1,5 +1,4 @@
 export interface Account {
-    id: number;
     email: string;
     name: string;
     department: string;
@@ -7,4 +6,5 @@ export interface Account {
     image: string;
     password: string;
     role: string;
+    research_list: string[];
 }
