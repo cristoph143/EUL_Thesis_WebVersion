@@ -7,10 +7,14 @@ const Account = require('../models/account');
 
 exports.signup = async(req, res, next) => {
     const errors = validationResult(req);
+    console.log(errors.result)
 
     // school_id, first_name, last_name, email, department, image, password, approve
+    console.log('controller auth')
 
-    if (!errors.isEmpty()) return;
+    if (!errors.isEmpty()) {
+        return res.status(500).json({ tokens: null, error: errors.array() });
+    }
 
     const school_id = req.body.school_id;
     const first_name = req.body.first_name;
@@ -21,7 +25,10 @@ exports.signup = async(req, res, next) => {
     const password = req.body.password;
     const approve = req.body.approve;
 
+    console.log('controller auth aft')
     try {
+
+        console.log('controller auth try')
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const AccountDetails = {

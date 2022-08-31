@@ -8,6 +8,7 @@ const Account = require('../models/account');
 
 const authController = require('../controller/auth');
 
+console.log('auth')
 router.post(
     '/signup', [
         // school_id, first_name, last_name, email, department, image, password, approve
@@ -35,7 +36,6 @@ router.post(
 
         body('approve'),
     ],
-
     authController.signup
 );
 

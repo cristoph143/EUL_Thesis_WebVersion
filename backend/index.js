@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 // routes
 const authRoutes = require('./routes/auth');
-// const accountRoutes = require('./routes/account');
+const accountRoutes = require('./routes/account');
 // const researchRoutes = require('./routes/research');
 
 const errorController = require('./controller/error');
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 
-// app.use('/api/account', accountRoutes);
+app.use('/api/account', accountRoutes);
 // app.use('/api/research', researchRoutes);
 
 app.use(errorController.get404);

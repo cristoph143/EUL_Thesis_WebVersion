@@ -36,4 +36,10 @@ module.exports = class Account {
             'SELECT * FROM account WHERE email = ?', [email]
         );
     }
+
+    static fetchAll() {
+        return db.execute(
+            'SELECT * FROM account'
+        );
+    }
 };
