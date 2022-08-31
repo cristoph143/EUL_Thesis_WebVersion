@@ -1,0 +1,6 @@
+{
+    "host": "localhost",
+    "user": "root",
+    "password": "workbench_mysql123",
+    "database": "thesis"
+}
