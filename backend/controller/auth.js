@@ -9,7 +9,7 @@ exports.signup = async(req, res, next) => {
     const errors = validationResult(req);
     console.log(errors.result)
 
-    // school_id, first_name, last_name, email, department, image, password, approve
+    // school_id, first_name, last_name, email, department, image, password
     console.log('controller auth')
 
     if (!errors.isEmpty()) {
@@ -23,7 +23,6 @@ exports.signup = async(req, res, next) => {
     const department = req.body.department;
     const image = req.body.image;
     const password = req.body.password;
-    const approve = req.body.approve;
 
     console.log('controller auth aft')
     try {
@@ -39,12 +38,11 @@ exports.signup = async(req, res, next) => {
             department: department,
             image: image,
             password: hashedPassword,
-            approve: approve,
         };
 
         const result = await Account.createAccount(AccountDetails);
 
-        console.log(result);
+        console.log(result.values());
         res.status(201).json({ message: 'Account registered!' });
     } catch (err) {
         if (!err.statusCode) {

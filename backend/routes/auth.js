@@ -11,7 +11,7 @@ const authController = require('../controller/auth');
 console.log('auth')
 router.post(
     '/signup', [
-        // school_id, first_name, last_name, email, department, image, password, approve
+        // school_id, first_name, last_name, email, department, image, password
         body('school_id')
         .custom(async(school_id) => {
             const account = await Account.findBySchoolID(school_id);
@@ -33,8 +33,6 @@ router.post(
         body('department').trim().not().isEmpty(),
         body('image').trim().not().isEmpty(),
         body('password').trim().not().isEmpty(),
-
-        body('approve'),
     ],
     authController.signup
 );

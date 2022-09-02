@@ -1,12 +1,11 @@
 export interface Account {
-    email: string;
+    school_id: string;
     first_name: string;
     last_name: string;
+    email: string;
     department: string;
-    school_id: string;
     image: string;
     password: string;
     role?: string;
-    research_list?: string[];
-    approve?: boolean;
+    approve?: number;
 }

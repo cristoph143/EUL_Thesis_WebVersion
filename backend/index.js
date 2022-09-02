@@ -15,12 +15,16 @@ const ports = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, X-Custom-Header, Authorization');
-    next();
-});
+const cors = require('cors');
+
+
+app.use(cors({
+    origin: '*',
+    credentials: true,
+    // list of cors specific 
+    optionsSuccessStatus: 200,
+
+}));
 
 app.use('/auth', authRoutes);
 

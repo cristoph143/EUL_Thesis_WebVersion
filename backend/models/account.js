@@ -14,14 +14,14 @@ module.exports = class Account {
         this.approve = 0;
     }
 
-    // sequence school_id, first_name, last_name, email, department, image, password, role, approve
+    // sequence school_id, first_name, last_name, email, department, image, password, role
 
     // Post
 
-    // create new account
+    // create new account with school_id, first_name, last_name, email, department, image, password
     static createAccount(account) {
         return db.execute(
-            'INSERT INTO account (school_id, first_name, last_name, email, department, image, password, approve) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.first_name, account.last_name, account.email, account.department, account.image, account.password, account.approve]
+            'INSERT INTO account (school_id, first_name, last_name, email, department, image, password) VALUES (?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.first_name, account.last_name, account.email, account.department, account.image, account.password]
         );
     }
 

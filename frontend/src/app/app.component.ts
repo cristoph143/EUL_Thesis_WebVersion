@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-root',
