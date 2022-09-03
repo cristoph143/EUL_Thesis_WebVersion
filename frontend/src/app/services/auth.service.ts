@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Account } from "../model/account";
-import { Observable } from 'rxjs';
-import { first, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { first, catchError, tap } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
 
 
@@ -19,6 +19,9 @@ export class AuthService {
   ) { }
 
   private url = "http://127.0.0.1:3000/auth"
+
+  isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
+  userId!: Pick<Account, "school_id">;
 
   httpOptions: {
     headers : HttpHeaders
@@ -43,26 +46,75 @@ export class AuthService {
       )
   }
 
-  // signup(school_id: String, first_name: String, last_name: String, email: String, department: String, image: String, password: String) {
-  //   const acc_json = {
-  //     school_id: school_id,
-  //     first_name: first_name,
-  //     last_name: last_name,
-  //     email: email,
-  //     department: department,
-  //     image: image,
-  //     password: password
-  //   }
-  //   // print the values of acc_json
-  //   console.log("acc====")
-  //   console.log(acc_json)
-  //   // return this.http
-  //   //   .post<Account>(
-  //   //     `${this.url}/signup`,
-  //   //     acc_json,
-  //   //     this.httpOptions
-  //   // )
-    
+  login(
+    school_id: Pick<Account, "school_id">,
+    password: Pick<Account, "password">
+  ): Observable<{
+    token: string,
+    userid: Pick<Account, "school_id">
+  }> {
+    console.log('login');
+    return this.http
+      .post(
+        `${this.url}/login`,
+        {
+          school_id,
+          password
+        },
+        this.httpOptions
+      )
+      .pipe(
+        first(),
+        tap((tokenObject: any) => {
+          this.userId = tokenObject.userid;
+          localStorage.setItem("token", tokenObject.token);
+          this.isUserLoggedIn$.next(true);
+        }),
+        catchError(
+          this.errorHandlerService.handleError<{
+            token: string,
+            userid: Pick<Account, "school_id">
+          }>()
+        )
+      ) 
+  }
+
+
+  // login(
+  //   school_id: Pick<Account, "school_id">,
+  //   password: Pick<Account, "password">
+  // ): Observable<{
+  //   token: string,
+  //   userid: Pick<Account, "school_id">
+  // }> {
+  //   console.log('login');
+  //   return this.http
+  //     .post(
+  //       `${this.url}/login`,
+  //       {
+  //         school_id,
+  //         password
+  //       },
+  //       this.httpOptions
+  //     )
+  //     .pipe(
+  //       first(),
+  //       tap((
+  //         tokenObject: {
+  //           token: string,
+  //           userid: Pick<Account, "school_id">
+  //       }) => {
+  //         this.userId = tokenObject.userid;
+  //         localStorage.setItem("token", tokenObject.token);
+  //         this.isUserLoggedIn$.next(true);
+  //       }),
+  //       catchError(
+  //         this.errorHandlerService.handleError<{
+  //           token: string,
+  //           userid: Pick<Account, "school_id">
+  //         }>()
+  //       )
+  //     ) 
   // }
 
 }

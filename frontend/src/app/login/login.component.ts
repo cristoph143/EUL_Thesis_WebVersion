@@ -46,25 +46,26 @@ export class LoginComponent implements OnInit {
       return;
     }
     const cred = {
-      id: this.loginForm.value.idLogin,
+      school_id: this.loginForm.value.idLogin,
       password: this.loginForm.value.passLogin
     }
 
-    // this.account$ = this.AccountCrudService
-
-
-
-    //   this.authService.login(this.loginForm.value.emailLogin,this.loginForm.value.passLogin).pipe(
-    //     this.toast.observe({
-    //       success: 'Logged In Sucessfully',
-    //       loading: 'Loading',
-    //       error: 'There was a problem with your login.'
-    //     })
-    //   ).subscribe(()=>{
-    //      this.router.navigate(['/user-dashboard']);
-
-    //   });
-
+    this.authService
+      .login(
+        cred.school_id,
+        cred.password
+      )
+      .pipe(
+        this.toast.observe({
+          success: 'Registered Sucessfully',
+          loading: 'Loading',
+          error: (msg) => msg
+        })
+      )
+      .subscribe(
+        (msg) =>
+          console.log(msg)
+      );
   }
 
 
@@ -74,18 +75,6 @@ export class LoginComponent implements OnInit {
       this.toast.error("Invalid Registration");
       return;
     }
-    
-    // console.log(this.registerForm.value)
-    // this.authService
-    //   .signup(
-    //     this.registerForm.value.school_idRegister,
-    //     this.registerForm.value.first_nameRegister,
-    //     this.registerForm.value.last_nameRegister,
-    //     this.registerForm.value.emailRegister,
-    //     this.registerForm.value.departmentRegister,
-    //     this.registerForm.value.imageRegister,
-    //     this.registerForm.value.passwordRegister
-    //   )
 
     const acc = {
       school_id: this.registerForm.value.school_idRegister,
@@ -112,16 +101,6 @@ export class LoginComponent implements OnInit {
         (msg) =>
           console.log(msg)
       );
-    // this.authService.register(this.registerForm.value.emailRegister,this.registerForm.value.passwordRegister).pipe(
-    //   this.toast.observe({
-    //     success: 'Registered Successfully!',
-    //     loading: 'Processing',
-    //     error: (message) => `${message}`
-    //   })
-    // ).subscribe(()=>{
-    //   this.router.navigate(['/user-dashboard']);
-    // });
-
   }
 
 }

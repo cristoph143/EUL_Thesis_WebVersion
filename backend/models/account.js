@@ -11,7 +11,7 @@ module.exports = class Account {
         this.password = password;
         this.role = null;
         this.research_list = [research_list];
-        this.approve = 0;
+        this.approve = null;
     }
 
     // sequence school_id, first_name, last_name, email, department, image, password, role
