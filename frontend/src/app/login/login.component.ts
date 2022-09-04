@@ -31,13 +31,37 @@ export class LoginComponent implements OnInit {
     passLogin: new FormControl('', Validators.required)
   });
   registerForm: FormGroup = new FormGroup({
-    school_idRegister: new FormControl('', Validators.required),
-    first_nameRegister: new FormControl('', Validators.required),
-    last_nameRegister: new FormControl('', Validators.required),
-    emailRegister: new FormControl('', Validators.required),
-    departmentRegister: new FormControl('', Validators.required),
-    imageRegister: new FormControl('', Validators.required),
-    passwordRegister: new FormControl('', Validators.required),
+      school_idRegister: new FormControl(
+        '', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$")
+      ]),
+    first_nameRegister: new FormControl(
+      '', [
+      Validators.required, Validators.minLength(2),
+      Validators.maxLength(20)
+    ]),
+    last_nameRegister: new FormControl(
+      '', [
+      Validators.required, Validators.minLength(2),
+      Validators.maxLength(20)
+    ]),
+    emailRegister: new FormControl(
+      '', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(50), Validators.email]),
+    departmentRegister: new FormControl('', [Validators.required]),
+    imageRegister: new FormControl('', [Validators.required]),
+    passwordRegister: new FormControl(
+      '', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+      Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")
+    ]),
   });
  
   onSubmitLogin(){
@@ -50,7 +74,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.passLogin
     }
 
-    this.authService
+    console.log(this.authService
       .login(
         cred.school_id,
         cred.password
@@ -65,7 +89,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (msg) =>
           console.log(msg)
-      );
+      ));
   }
 
 

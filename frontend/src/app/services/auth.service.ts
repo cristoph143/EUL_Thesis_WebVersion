@@ -78,43 +78,4 @@ export class AuthService {
         )
       ) 
   }
-
-
-  // login(
-  //   school_id: Pick<Account, "school_id">,
-  //   password: Pick<Account, "password">
-  // ): Observable<{
-  //   token: string,
-  //   userid: Pick<Account, "school_id">
-  // }> {
-  //   console.log('login');
-  //   return this.http
-  //     .post(
-  //       `${this.url}/login`,
-  //       {
-  //         school_id,
-  //         password
-  //       },
-  //       this.httpOptions
-  //     )
-  //     .pipe(
-  //       first(),
-  //       tap((
-  //         tokenObject: {
-  //           token: string,
-  //           userid: Pick<Account, "school_id">
-  //       }) => {
-  //         this.userId = tokenObject.userid;
-  //         localStorage.setItem("token", tokenObject.token);
-  //         this.isUserLoggedIn$.next(true);
-  //       }),
-  //       catchError(
-  //         this.errorHandlerService.handleError<{
-  //           token: string,
-  //           userid: Pick<Account, "school_id">
-  //         }>()
-  //       )
-  //     ) 
-  // }
-
 }

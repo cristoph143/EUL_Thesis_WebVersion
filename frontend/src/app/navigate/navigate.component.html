@@ -1,20 +1,26 @@
 <mat-toolbar color="accent">
-    <div class="logo">
-        <img alt="logo" class="icon1" src="../../assets/icon@2x.svg" />
+    <!-- span for logo section -->
+    <span>
+        <img src="../../assets/oeam8427-1024x683-1@1x.png" alt="logo" class="logo">
         <a class="title">EUL</a>
-    </div>
-    <div class="navbar">
-        <!-- if the curent position is home, it will highlight the text-->
-        <!-- <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a> -->
-        <a class="home list highlight" routerLinkActive="active-link" routerLink="/">Home</a>
-        <a class=" about list " routerLinkActive="active-link " routerLink="/posts ">About</a>
-        <a class="contact list " routerLinkActive="active-link " routerLink="/posts ">Contact</a>
-        <div class="dropdown ">
-            <button class="dropbtn ltr list ">Account</button>
-            <div class="dropdown-content ">
-                <a routerLinkActive="active-link " routerLink="/posts ">SignIn</a>
-                <a routerLinkActive="active-link " routerLink="/posts ">Enter Code</a>
+    </span>
+    <!-- span for navigation section -->
+    <span class="auth_hidden">
+        <!-- a link that is hidden by when not isAuthenticated -->
+        
+
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        <!-- dropdown for account  -->
+        <div class="dropdown">
+            <button class="dropbtn">Account
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a routerLink="/login" routerLinkActive="active">Login</a>
+                <a routerLink="/register" routerLinkActive="active">Register</a>
             </div>
         </div>
-    </div>
+    </span>
 </mat-toolbar>

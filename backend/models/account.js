@@ -10,7 +10,6 @@ module.exports = class Account {
         this.image = image;
         this.password = password;
         this.role = null;
-        this.research_list = [research_list];
         this.approve = null;
     }
 
@@ -42,4 +41,81 @@ module.exports = class Account {
             'SELECT * FROM account'
         );
     }
-};
+
+    // update account profile
+    static updateAccountProfile(account) {
+        return db.execute(
+            'UPDATE account SET first_name = ?, last_name = ?, email = ?, department = ?, image = ? WHERE school_id = ?', [account.first_name, account.last_name, account.email, account.department, account.image, account.school_id]
+        );
+    }
+
+    // delete account profile
+    static deleteAccountProfile(account) {
+        return db.execute(
+            'DELETE FROM account WHERE school_id = ? AND password = ?', [account.school_id, account.password]
+        );
+    }
+
+    // get all accounts using specific department
+    static fetchAllByDepartment(department) {
+        return db.execute(
+            'SELECT * FROM account WHERE department = ?', [department]
+        );
+    }
+
+    // get all accounts using specific role
+    static fetchAllByRole(role) {
+        return db.execute(
+            'SELECT * FROM account WHERE role = ?', [role]
+        );
+    }
+
+    // get all accounts using specific approve
+    static fetchAllByApprove(approve) {
+        return db.execute(
+            'SELECT * FROM account WHERE approve = ?', [approve]
+        );
+    }
+
+    // get all accounts using specific department and role
+    static fetchAllByDepartmentAndRole(department, role) {
+        return db.execute(
+            'SELECT * FROM account WHERE department = ? AND role = ?', [department, role]
+        );
+    }
+
+    // get all accounts using specific department and approve
+    static fetchAllByDepartmentAndApprove(department, approve) {
+        return db.execute(
+            'SELECT * FROM account WHERE department = ? AND approve = ?', [department, approve]
+        );
+    }
+
+    // get all accounts using specific role and approve
+    static fetchAllByRoleAndApprove(role, approve) {
+        return db.execute(
+            'SELECT * FROM account WHERE role = ? AND approve = ?', [role, approve]
+        );
+    }
+
+    // get all accounts using specific department, role and approve
+    static fetchAllByDepartmentAndRoleAndApprove(department, role, approve) {
+        return db.execute(
+            'SELECT * FROM account WHERE department = ? AND role = ? AND approve = ?', [department, role, approve]
+        );
+    }
+
+    // update password
+    static updatePassword(account) {
+        return db.execute(
+            'UPDATE account SET password = ? WHERE school_id = ? AND password = ?', [account.new_password, account.school_id, account.password]
+        );
+    }
+
+    // get password
+    static getPassword(school_id) {
+        return db.execute(
+            'SELECT password FROM account WHERE school_id = ?', [school_id]
+        );
+    }
+}
