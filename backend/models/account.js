@@ -118,4 +118,18 @@ module.exports = class Account {
             'SELECT password FROM account WHERE school_id = ?', [school_id]
         );
     }
+
+    // get user using school_id
+    static getUser(school_id) {
+        return db.execute(
+            'SELECT * FROM account WHERE school_id = ?', [school_id]
+        );
+    }
+
+    // get user using school_id or name and select the first_name, last_name, school_id, department and image  from account
+    static getUserInfo(input) {
+        return db.execute(
+            'SELECT first_name, last_name, school_id, department, image FROM account WHERE school_id = ? OR first_name = ? OR last_name = ?', [input, input, input]
+        );
+    }
 }

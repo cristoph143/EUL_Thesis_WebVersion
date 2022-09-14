@@ -26,4 +26,6 @@ router.post(
     accountController.updateAccountProfile
 )
 
+router.get('/department/:department', accountController.fetchAllByDepartment);
+
 module.exports = router;

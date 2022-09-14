@@ -73,7 +73,13 @@ export class LoginComponent implements OnInit {
       school_id: this.loginForm.value.idLogin,
       password: this.loginForm.value.passLogin
     }
-
+    // console.log(this.authService
+    //   .login(
+    //     cred.school_id,
+    //     cred.password
+    //   )
+    //   .subscribe());
+        
     console.log(this.authService
       .login(
         cred.school_id,
@@ -89,7 +95,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (msg) =>
           console.log(msg)
-      ));
+    ));
+    // 
   }
 
 
