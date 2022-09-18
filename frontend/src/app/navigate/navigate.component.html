@@ -1,26 +1,20 @@
-<mat-toolbar color="accent">
-    <!-- span for logo section -->
-    <span>
+<mat-toolbar>
+    <span class="header">
         <img src="../../assets/group1.png" alt="logo" class="logo">
-        <a class="title">EUL</a>
+        <mat-card-title>EUL Thesis</mat-card-title>
     </span>
-    <!-- span for navigation section -->
-    <span class="auth_hidden">
-        <!-- a link that is hidden by when not isAuthenticated -->
-        
-
+    <span class="auth_hidden nav-list" *ngif="isLoggedIn$ | async">        
         <a routerLink="/home" routerLinkActive="active">Home</a>
         <a routerLink="/about" routerLinkActive="active">About</a>
         <a routerLink="/contact" routerLinkActive="active">Contact</a>
-        <!-- dropdown for account  -->
-        <div class="dropdown">
-            <button class="dropbtn">Account
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a routerLink="/login" routerLinkActive="active">Login</a>
-                <a routerLink="/register" routerLinkActive="active">Register</a>
-            </div>
-        </div>
     </span>
+    <div class="dropdown nav-list">
+        <button class="dropbtn">Account
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')">Login</a>
+            <a routerLink="/register" routerLinkActive="active" (click)="nav('signup')">Register</a>
+        </div>
+    </div>
 </mat-toolbar>

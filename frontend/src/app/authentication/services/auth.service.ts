@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { map } from "rxjs/operators";
 import { Account } from "../model/account";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { first, catchError, tap } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
+import { Router } from '@angular/router';
 
+import { Inject} from "@angular/core";
+// import { LibraryConfig } from "../model/config";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +19,16 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private errorHandlerService: ErrorHandlerService
-  ) { }
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService,
+    // @Inject('config') private config: LibraryConfig) {}
+  ) {}
 
   private url = "http://127.0.0.1:3000/auth"
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
-  userId!: Pick<Account, "school_id">;
-
+  userId: Pick<Account, "school_id"> | undefined;
+  school_id: any;
   httpOptions: {
     headers : HttpHeaders
   } = {
@@ -54,7 +60,7 @@ export class AuthService {
     userid: Pick<Account, "school_id">
   }> {
     console.log('login');
-    return this.http
+    const user = this.http
       .post(
         `${this.url}/login`,
         {
@@ -69,13 +75,35 @@ export class AuthService {
           this.userId = tokenObject.userid;
           localStorage.setItem("token", tokenObject.token);
           this.isUserLoggedIn$.next(true);
+          this.school_id = school_id;
+          console.log('sdd=>',this.school_id);
+          this.router.navigate(["home"]);
+          // alert("Successfully logged in");
         }),
         catchError(
           this.errorHandlerService.handleError<{
             token: string,
             userid: Pick<Account, "school_id">
           }>()
-        )
-      ) 
+        ),
+    ) 
+    return user;
+  }
+
+  logout(): void {
+    localStorage.removeItem("token");
+    this.router.navigate(["/login"]);
+  }
+
+  getLoggedUser(): Account {
+      // Perform localStorage action
+      const item = localStorage.getItem('token');
+      // if item is not null return parse
+      return item ? JSON.parse(item) : null;
+    // return JSON.parse(localStorage.getItem("token", null));
+  }
+
+  isUserAuthenticated(): boolean {
+    return !!localStorage.getItem("token");
   }
 }
