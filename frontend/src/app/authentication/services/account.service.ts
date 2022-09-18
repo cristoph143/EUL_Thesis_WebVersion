@@ -11,7 +11,7 @@ import { ErrorHandlerService } from "./error-handler.service";
     providedIn: "root",
 })
 export class AccountService {
-    private url = "http://localhost:3000/post";
+    private url = "http://localhost:3000/api/account";
 
     httpOptions: { headers: HttpHeaders } = {
         headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -23,7 +23,7 @@ export class AccountService {
     ) { }
     
     // fetchAccount using school_id
-    fetchAccount(school_id: Pick<Account, "school_id">): Observable<Account> {
+    fetchAccountUsingId(school_id: Pick<Account, "school_id">): Observable<Account> {
         return this.http
             .get<Account>(`${this.url}/${school_id}`, this.httpOptions)
             .pipe(

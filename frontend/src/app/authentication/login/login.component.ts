@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit{
   //     Validators.required
   //   )
   // })
+
   
 
   onSubmitLogin(){
@@ -89,16 +90,20 @@ export class LoginComponent implements OnInit{
           success: 'Successfully logged in',
           loading: 'loading',
           error: (msg) => {
-              return msg;
+            console.log(msg)
+            alert(msg)
+            return msg;
           }
         })
       )
-      .subscribe(
-        (msg) =>
-          console.log(msg)
+      .subscribe(data => {
+        console.log('Data', data);
+        
+        // this.router.navigate(['/home']);
+      }
       )
     );
-    console.log(this.authService.userId)
+    console.log(this.authService.currUser)
     console.log(this.authService.isUserAuthenticated)
   }
   getErrorMessage() {

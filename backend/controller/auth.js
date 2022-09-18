@@ -47,6 +47,7 @@ exports.signup = async(req, res, next) => {
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
+            res.status(500).json({ err });
         }
         next(err);
     }
@@ -93,6 +94,7 @@ exports.login = async(req, res, next) => {
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
+            res.status(500).json({ err });
         }
         next(err);
     }

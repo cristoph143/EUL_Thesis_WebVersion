@@ -119,10 +119,10 @@ module.exports = class Account {
         );
     }
 
-    // get user using school_id
-    static getUser(school_id) {
+    // get user using school_id except password
+    static getUserInfoExceptPassword(school_id) {
         return db.execute(
-            'SELECT * FROM account WHERE school_id = ?', [school_id]
+            'SELECT school_id, first_name, last_name, email, department, image, role, approve FROM account WHERE school_id = ?', [school_id]
         );
     }
 

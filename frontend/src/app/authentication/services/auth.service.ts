@@ -27,6 +27,7 @@ export class AuthService {
   private url = "http://127.0.0.1:3000/auth"
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
+  // isUserLoggedIn$ = false;
   userId: Pick<Account, "school_id"> | undefined;
   school_id: any;
   httpOptions: {
@@ -52,6 +53,8 @@ export class AuthService {
       )
   }
 
+  currUser: any;
+
   login(
     school_id: Pick<Account, "school_id">,
     password: Pick<Account, "password">
@@ -75,6 +78,7 @@ export class AuthService {
           this.userId = tokenObject.userid;
           localStorage.setItem("token", tokenObject.token);
           this.isUserLoggedIn$.next(true);
+          // this.isUserLoggedIn$ = true;
           this.school_id = school_id;
           console.log('sdd=>',this.school_id);
           this.router.navigate(["home"]);
@@ -87,6 +91,8 @@ export class AuthService {
           }>()
         ),
     ) 
+    this.currUser = user;
+    console.log(this.currUser,"djsjsdj");
     return user;
   }
 
@@ -104,6 +110,7 @@ export class AuthService {
   }
 
   isUserAuthenticated(): boolean {
+    console.log(!!localStorage.getItem("token"));
     return !!localStorage.getItem("token");
   }
 }

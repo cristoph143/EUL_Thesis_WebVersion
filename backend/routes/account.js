@@ -27,5 +27,5 @@ router.post(
 )
 
 router.get('/department/:department', accountController.fetchAllByDepartment);
-
+router.get('/:school_id', accountController.fetchAccountBySchoolID);
 module.exports = router;

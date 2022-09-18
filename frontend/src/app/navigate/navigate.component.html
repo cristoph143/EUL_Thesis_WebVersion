@@ -3,18 +3,36 @@
         <img src="../../assets/group1.png" alt="logo" class="logo">
         <mat-card-title>EUL Thesis</mat-card-title>
     </span>
-    <span class="auth_hidden nav-list" *ngif="isLoggedIn$ | async">        
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-        <a routerLink="/about" routerLinkActive="active">About</a>
-        <a routerLink="/contact" routerLinkActive="active">Contact</a>
-    </span>
+    <!-- mat-search-bar -->
+    <mat-form-field class="example-full-width">
+        <span matPrefix> </span>
+        <input type="tel" matInput placeholder="Search" name="search" [(ngModel)]="search" *ngIf="isAuthenticated">
+        <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+    </mat-form-field>
+    <!-- <br/>
+        {{search}} -->
+    <!-- <div class="auth_hidden nav-list" *ngIf="isAuthenticated">
+        <a class="links" routerLink="/home" routerLinkActive="active">Home</a>
+        <a class="links" routerLink="/about" routerLinkActive="active">About</a>
+        <a class="links" routerLink="/contact" routerLinkActive="active">Contact</a>
+    </div> -->
     <div class="dropdown nav-list">
         <button class="dropbtn">Account
             <i class="fa fa-caret-down"></i>
         </button>
+        <!-- <button class="dropbtn" *ngIf="!isAuthenticated; then templateName">Account
+            <i class="fa fa-caret-down"></i>
+        </button> -->
+        <!-- <ng-template #templateName>
+            {{this.account$.first_name}} {{this.account$.last_name}}
+        </ng-template> -->
         <div class="dropdown-content">
-            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')">Login</a>
-            <a routerLink="/register" routerLinkActive="active" (click)="nav('signup')">Register</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="!isAuthenticated">Login</a>
+            <a routerLink="/register" routerLinkActive="active" (click)="nav('signup')" *ngIf="!isAuthenticated">Register</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('upload')" *ngIf="isAuthenticated">Profile</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">My Favorites</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Setting</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Logout</a>
         </div>
     </div>
 </mat-toolbar>

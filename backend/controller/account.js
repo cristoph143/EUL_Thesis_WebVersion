@@ -84,21 +84,39 @@ exports.updateAccountProfile = async(req, res, next) => {
 //     }
 //     // get all accounts using specific department
 exports.fetchAllByDepartment = async(req, res, next) => {
-        const department = req.params.department;
-        console.log(department)
-        try {
-            const result = await account.fetchAllByDepartment(department);
-            console.log('result' + result)
-            res.status(200).json(result);
-        } catch (err) {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
+    const department = req.params.department;
+    console.log(department)
+    try {
+        const result = await account.fetchAllByDepartment(department);
+        console.log('result' + result)
+        res.status(200).json(result);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
         }
+        next(err);
     }
-    //     // get all accounts using specific role
-    // exports.fetchAllByRole = async(req, res, next) => {
+}
+
+// fetch account using schhol_id except password
+exports.fetchAccountBySchoolID = async(req, res, next) => {
+    const school_id = req.params.school_id;
+    console.log(school_id)
+    try {
+        const result = await account.getUserInfoExceptPassword(school_id);
+        console.log('result' + result)
+        res.status(200).json(result);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            res.status(500).json(err);
+        }
+        next(err);
+    }
+}
+
+//     // get all accounts using specific role
+// exports.fetchAllByRole = async(req, res, next) => {
 
 //     }
 //     // get all accounts using specific approve

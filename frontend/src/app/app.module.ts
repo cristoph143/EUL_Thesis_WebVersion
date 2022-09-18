@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { NavigateComponent } from './navigate/navigate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -24,7 +24,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { UploadResearchComponent } from './users/upload-research/upload-research.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NotFoundComponent,
     AdminComponent,
     SignupComponent,
+    UploadResearchComponent,
   ],
   imports: [
     BrowserModule,
