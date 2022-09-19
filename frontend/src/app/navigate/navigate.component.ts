@@ -34,9 +34,10 @@ export class NavigateComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem("token");
-    this.authService.isUserLoggedIn$.next(false);
+    // const remove = this.authService.isUserLoggedIn$.next(false);
+    const remove: any = this.authService.isUserLoggedIn$.next(false);
     // this.authService.isUserLoggedIn$ = false;
-    this.isAuthenticated = false;
+    this.isAuthenticated = remove;
     this.router.navigate(["login"]);
   }
 

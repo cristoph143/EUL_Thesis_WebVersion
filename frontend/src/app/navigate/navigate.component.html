@@ -4,7 +4,7 @@
         <mat-card-title>EUL Thesis</mat-card-title>
     </span>
     <!-- mat-search-bar -->
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width" *ngIf="isAuthenticated">
         <span matPrefix> </span>
         <input type="tel" matInput placeholder="Search" name="search" [(ngModel)]="search" *ngIf="isAuthenticated">
         <button matSuffix mat-button><mat-icon >search</mat-icon></button>
@@ -18,7 +18,8 @@
     </div> -->
     <div class="dropdown nav-list">
         <button class="dropbtn">Account
-            <i class="fa fa-caret-down"></i>
+            <!-- <i class="fa fa-caret-down"></i>
+            <mat-icon>arrow_drop_down_circle</mat-icon> -->
         </button>
         <!-- <button class="dropbtn" *ngIf="!isAuthenticated; then templateName">Account
             <i class="fa fa-caret-down"></i>
@@ -32,7 +33,7 @@
             <a routerLink="/login" routerLinkActive="active" (click)="nav('upload')" *ngIf="isAuthenticated">Profile</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">My Favorites</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Setting</a>
-            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Logout</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated">Logout</a>
         </div>
     </div>
 </mat-toolbar>
