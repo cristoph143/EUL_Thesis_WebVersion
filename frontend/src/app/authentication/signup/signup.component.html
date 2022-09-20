@@ -40,11 +40,9 @@
                         </form>
                     </div>
                     <div class="block right">
-                        <mat-icon class="upIcon" *ngIf="!validImage">cloud_upload</mat-icon>
-                        <img src="{{url}}" *ngIf="validImage" alt="car-image" class="car-image" id="carImg">
-                        <input type="file" class="upload" id="profileImage" placeholder="Upload Image" (change)="selectFiles($event)" required>
+                        <mat-icon class="upIcon" *ngIf="!validImage">add_photo_alternate</mat-icon>
                         <img *ngFor='let preview of previews' [src]="preview" class="preview">
-                        <!-- <input type="file" class="upload" id="profileImage" placeholder="Upload Image" (change)="onFileChanged($event)" required> -->
+                        <input type="file" class="upload" id="profileImage" placeholder="Upload Image" accept="image/*" (change)="selectFiles($event)" required>
                     </div>
                 </div>
             </mat-step>
@@ -61,24 +59,22 @@
                             <mat-label>Enter your password</mat-label>
                             <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>Confirm your password</mat-label>
                             <input formControlName="confirm_password" matInput [type]="hide ? 'password' : 'text'" />
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                         </mat-form-field>
                     </p>
 
-                    <p>
-                        <mat-checkbox class="example-margin" required>I agree to Terms and Agreement</mat-checkbox>
-                    </p>
-
                     <div>
-                        <p>Go to a different step to see the error state</p>
+                        <p>
+                            <mat-checkbox class="example-margin" required>I agree to Terms and Agreement</mat-checkbox>
+                        </p>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext (click)="onSubmitRegister()">Register</button>
                         <button mat-button (click)="stepper.reset()">Reset</button>

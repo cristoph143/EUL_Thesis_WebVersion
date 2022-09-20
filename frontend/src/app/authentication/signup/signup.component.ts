@@ -195,30 +195,6 @@ export class SignupComponent implements OnInit {
     this.router.navigate([dest]);
   }
 
-
-
-  // onFileChanged(event:any) {
-  //   const files = event.target.files;
-  //   if (files.length === 0)
-  //     return;
-
-  //   const mimeType = files[0].type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     this.message = "Only images are supported.";
-  //     alert(this.message)
-  //     return;
-  //   }
-    
-
-  //   const reader = new FileReader();
-  //   this.imagePath = files;
-  //   reader.readAsDataURL(files[0]);
-  //   reader.onload = (_event) => {
-  //     this.url = reader.result;
-  //     this.validImage = true;
-  //   }
-  // }
-
   selectFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
@@ -234,6 +210,7 @@ export class SignupComponent implements OnInit {
         reader.onload = (e: any) => {
           console.log(e.target.result);
           this.previews.push(e.target.result);
+          this.validImage = true;
         };
 
         reader.readAsDataURL(this.selectedFiles[i]);
