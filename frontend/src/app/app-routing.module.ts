@@ -7,23 +7,11 @@ import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.co
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: LoginComponent,
-  // },
-  // {
-  //   path: 'login',
-  //   pathMatch: 'full',
-  //   component: LoginComponent,
-  // },
-  // {
-  //   path: 'user-dashboard',
-  //   component: UserDashboardComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  // default route
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '', 
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'login', 

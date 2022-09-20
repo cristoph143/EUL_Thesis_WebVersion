@@ -9,7 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
-
+import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './authentication/login/login.component';
@@ -29,7 +29,10 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HomepageComponent } from './users/homepage/homepage.component';
 import { ProfileComponent } from './users/profile/profile.component';
-
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +66,9 @@ import { ProfileComponent } from './users/profile/profile.component';
     MatSortModule,
     MatCheckboxModule,
     MatTabsModule,
+    CdkStepperModule, 
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

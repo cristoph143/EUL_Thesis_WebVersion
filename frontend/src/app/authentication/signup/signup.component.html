@@ -1,1 +1,100 @@
-<p>jjj</p>
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<div class="body">
+    <mat-card-title>Login</mat-card-title>
+    <p>{{firstFormGroup.value | json}} </p>
+    <p>{{secondFormGroup.value | json}} </p>
+    <div class="wholepage">
+        <mat-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="firstFormGroup" errorMessage="Fill Up the Form">
+                <div class="page">
+                    <div class="block left">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Personal Information</ng-template>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput placeholder="Last name" formControlName="last_name" class="block" required/>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>First Name</mat-label>
+                                <input matInput placeholder="First name" formControlName="first_name" class="block" required />
+                            </mat-form-field>
+                            <p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="patz@usjr.edu.ph" formControlName="email" required />
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
+                                    <mat-select formControlName="department" required>
+                                        <mat-option>-- None --</mat-option>
+                                        <mat-option value="option">Option</mat-option>
+                                    </mat-select>
+                                    <mat-label>Department</mat-label>
+                                </mat-form-field>
+                            </p>
+                            <div>
+                                <button mat-button matStepperNext>Next</button>
+                                <button mat-button (click)="nav('login')">Back to Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="block right">
+                        <mat-icon class="upIcon" *ngIf="!validImage">cloud_upload</mat-icon>
+                        <img src="{{url}}" *ngIf="validImage" alt="car-image" class="car-image" id="carImg">
+                        <input type="file" class="upload" id="profileImage" placeholder="Upload Image" (change)="selectFiles($event)" required>
+                        <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                        <!-- <input type="file" class="upload" id="profileImage" placeholder="Upload Image" (change)="onFileChanged($event)" required> -->
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup" errorMessage="Fill Up The Form">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Login Information</ng-template>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>School ID</mat-label>
+                        <input matInput placeholder="2018021001" formControlName="school_id" required />
+                    </mat-form-field>
+                    <p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Enter your password</mat-label>
+                            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Confirm your password</mat-label>
+                            <input formControlName="confirm_password" matInput [type]="hide ? 'password' : 'text'" />
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+                        </mat-form-field>
+                    </p>
+
+                    <p>
+                        <mat-checkbox class="example-margin" required>I agree to Terms and Agreement</mat-checkbox>
+                    </p>
+
+                    <div>
+                        <p>Go to a different step to see the error state</p>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext (click)="onSubmitRegister()">Register</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                        <button mat-button (click)="nav('login')">Back to Login</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <h1>Congratiolation Josenian for Signing Up!</h1>
+                <p>Wait for the Admin's Approval through your registered email!</p>
+                <!-- <p>{{con | json}}</p> -->
+                <div>
+                    <button mat-button (click)="nav('login')">Back to Login</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>
