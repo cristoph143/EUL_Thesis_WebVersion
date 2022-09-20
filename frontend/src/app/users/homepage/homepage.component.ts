@@ -5,12 +5,13 @@ import { AccountService } from '../../../app/authentication/services/account.ser
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
+
 @Component({
-  selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.css']
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.css']
 })
-export class UserDashboardComponent implements OnInit {
+export class HomepageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
@@ -60,5 +61,6 @@ export class UserDashboardComponent implements OnInit {
   // OpenDialog() {
   //   this.dialog.open(UploadResearchComponent);
   // }
+
 
 }

@@ -26,6 +26,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import {MatTabsModule} from '@angular/material/tabs';
+import { HomepageComponent } from './users/homepage/homepage.component';
+import { ProfileComponent } from './users/profile/profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +40,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     AdminComponent,
     SignupComponent,
     UploadResearchComponent,
+    HomepageComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,8 +62,10 @@ import { FileSelectDirective } from 'ng2-file-upload';
     MatPaginatorModule,
     MatSortModule,
     MatCheckboxModule,
+    MatTabsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // entryComponents: [UploadResearchComponent]
 })
 export class AppModule { }

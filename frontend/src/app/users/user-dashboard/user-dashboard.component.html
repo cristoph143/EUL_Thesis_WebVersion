@@ -1,8 +1,24 @@
-<p>user-dashboard works!</p>
-<p>{{school_id}}</p>
-<!-- object to json -->
-<p>{{account$ | json}}</p>
-<p>{{this.account$.first_name}}</p>
-<p>{{this.account$.last_name}}</p>
-<p>user-dashboard works!</p>
-<app-upload-research></app-upload-research>
+<mat-tab-group>
+    <mat-tab label="Home">
+        <app-homepage></app-homepage>
+    </mat-tab>
+    <mat-tab label="Search">
+        Search
+        <!-- object to json -->
+        <p>{{account$ | json}}</p>
+    </mat-tab>
+    <mat-tab label="Library">
+        Library
+        <p>{{this.account$.first_name}}</p>
+        <p>{{this.account$.last_name}}</p>
+    </mat-tab>
+    <mat-tab label="Authored Books">
+        Authored Books
+        <p>user-dashboard works!</p>
+        <app-upload-research></app-upload-research>
+        <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+    </mat-tab>
+    <mat-tab label="Profile">
+        <app-profile></app-profile>
+    </mat-tab>
+</mat-tab-group>
