@@ -2,5 +2,5 @@
     "host": "127.0.0.1",
     "user": "remote_thesis",
     "password": "workbench_mysql123",
-    "database": "thesis"
+    "database": "sample_thesis"
 }

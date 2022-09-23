@@ -4,7 +4,6 @@ export interface Account {
     last_name: string;
     email: string;
     department: string;
-    image: string;
     password: string;
     role?: string;
     approve?: number;

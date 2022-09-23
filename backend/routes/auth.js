@@ -31,8 +31,8 @@ router.post(
             }
         }).normalizeEmail(),
         body('department').trim().not().isEmpty(),
-        body('image').trim().not().isEmpty(),
         body('password').trim().not().isEmpty(),
+        body('role').trim().not().isEmpty(),
     ],
     authController.signup
 );

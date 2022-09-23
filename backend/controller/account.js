@@ -33,8 +33,8 @@ exports.updateAccountProfile = async(req, res, next) => {
         const last_name = req.body.last_name;
         const email = req.body.email;
         const department = req.body.department;
-        const image = req.body.image;
         const password = req.body.password;
+        const role = req.body.role;
 
         console.log('controller auth aft')
         try {
@@ -61,7 +61,7 @@ exports.updateAccountProfile = async(req, res, next) => {
                 last_name: last_name,
                 email: email,
                 department: department,
-                image: image,
+                roles: role,
             };
             console.log(AccountDetails);
 

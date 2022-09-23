@@ -1,7 +1,7 @@
 const db = require('../util/database');
 
 module.exports = class Account {
-    constructor(email, first_name, last_name, department, school_id, image, password) {
+    constructor(email, first_name, last_name, department, school_id, password, role) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -9,7 +9,7 @@ module.exports = class Account {
         this.school_id = school_id;
         this.image = image;
         this.password = password;
-        this.role = null;
+        this.role = role;
         this.approve = null;
     }
 
@@ -20,9 +20,10 @@ module.exports = class Account {
     // create new account with school_id, first_name, last_name, email, department, image, password
     static createAccount(account) {
         return db.execute(
-            'INSERT INTO account (school_id, first_name, last_name, email, department, image, password) VALUES (?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.first_name, account.last_name, account.email, account.department, account.image, account.password]
+            'INSERT INTO account (school_id, first_name, last_name, email, department, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.first_name, account.last_name, account.email, account.department, account.password, account.role]
         );
     }
+
 
     static findBySchoolID(school_id) {
         return db.execute(
@@ -45,7 +46,7 @@ module.exports = class Account {
     // update account profile
     static updateAccountProfile(account) {
         return db.execute(
-            'UPDATE account SET first_name = ?, last_name = ?, email = ?, department = ?, image = ? WHERE school_id = ?', [account.first_name, account.last_name, account.email, account.department, account.image, account.school_id]
+            'UPDATE account SET first_name = ?, last_name = ?, email = ?, department = ?, role = ? WHERE school_id = ?', [account.first_name, account.last_name, account.email, account.department, account.school_id, account.role]
         );
     }
 
@@ -122,7 +123,7 @@ module.exports = class Account {
     // get user using school_id except password
     static getUserInfoExceptPassword(school_id) {
         return db.execute(
-            'SELECT school_id, first_name, last_name, email, department, image, role, approve FROM account WHERE school_id = ?', [school_id]
+            'SELECT school_id, first_name, last_name, email, department, role, approve FROM account WHERE school_id = ?', [school_id]
         );
     }
 

@@ -56,9 +56,4 @@ export class UserDashboardComponent implements OnInit {
       }
     ));
   }
-
-  // OpenDialog() {
-  //   this.dialog.open(UploadResearchComponent);
-  // }
-
 }

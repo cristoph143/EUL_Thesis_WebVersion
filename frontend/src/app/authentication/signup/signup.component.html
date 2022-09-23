@@ -5,6 +5,7 @@
     <mat-card-title>Login</mat-card-title>
     <p>{{firstFormGroup.value | json}} </p>
     <p>{{secondFormGroup.value | json}} </p>
+    <p>{{url}} </p>
     <div class="wholepage">
         <mat-stepper [linear]="isLinear" #stepper>
             <mat-step [stepControl]="firstFormGroup" errorMessage="Fill Up the Form">
@@ -28,7 +29,9 @@
                                 <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
                                     <mat-select formControlName="department" required>
                                         <mat-option>-- None --</mat-option>
-                                        <mat-option value="option">Option</mat-option>
+                                        <mat-option *ngFor="let department of departments" [value]="department">
+                                            {{department}}
+                                        </mat-option>
                                     </mat-select>
                                     <mat-label>Department</mat-label>
                                 </mat-form-field>
@@ -40,9 +43,11 @@
                         </form>
                     </div>
                     <div class="block right">
-                        <mat-icon class="upIcon" *ngIf="!validImage">add_photo_alternate</mat-icon>
-                        <img *ngFor='let preview of previews' [src]="preview" class="preview">
-                        <input type="file" class="upload" id="profileImage" placeholder="Upload Image" accept="image/*" (change)="selectFiles($event)" required>
+                        <label for="file-input">
+                            <mat-icon class="upIcon" *ngIf="!validImage">add_photo_alternate</mat-icon>
+                            <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                        </label>
+                        <input id="file-input" type="file" accept="image/*" (change)="selectFiles($event)" />
                     </div>
                 </div>
             </mat-step>
@@ -53,6 +58,15 @@
                     <mat-form-field appearance="fill">
                         <mat-label>School ID</mat-label>
                         <input matInput placeholder="2018021001" formControlName="school_id" required />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
+                        <mat-select formControlName="role" required>
+                            <mat-option>-- None --</mat-option>
+                            <mat-option *ngFor="let role of roles" [value]="role">
+                                {{role}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-label>Department</mat-label>
                     </mat-form-field>
                     <p>
                         <mat-form-field appearance="fill">

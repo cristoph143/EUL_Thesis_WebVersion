@@ -25,14 +25,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
-import { FileSelectDirective } from 'ng2-file-upload';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HomepageComponent } from './users/homepage/homepage.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
-import {MatStepperModule} from '@angular/material/stepper';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
+
 @NgModule({
   declarations: [
     AppComponent,
