@@ -23,7 +23,7 @@ exports.signup = async(req, res, next) => {
     const department = req.body.department;
     const password = req.body.password;
     const role = req.body.role;
-    console.log(role)
+
 
     console.log('controller auth aft')
     try {

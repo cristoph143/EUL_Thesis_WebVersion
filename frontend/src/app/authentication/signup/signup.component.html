@@ -2,9 +2,10 @@
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
 <div class="body">
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>Registration Page</mat-card-title>
     <p>{{firstFormGroup.value | json}} </p>
     <p>{{secondFormGroup.value | json}} </p>
+    <p>{{this.formData | json}} </p>
     <p>{{url}} </p>
     <div class="wholepage">
         <mat-stepper [linear]="isLinear" #stepper>
@@ -25,6 +26,10 @@
                                 <mat-form-field appearance="fill">
                                     <mat-label>Email</mat-label>
                                     <input matInput placeholder="patz@usjr.edu.ph" formControlName="email" required />
+                                    <!-- <mat-hint align="end">{{firstFormGroup.value.email.length || 0}}/30</mat-hint> -->
+                                    <!-- <mat-error *ngIf="isFieldInvalid('school_id', 'firstFormGroup')">
+                                        Enter correct <strong>usjr email</strong>
+                                    </mat-error> -->
                                 </mat-form-field>
                                 <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
                                     <mat-select formControlName="department" required>
@@ -66,7 +71,7 @@
                                 {{role}}
                             </mat-option>
                         </mat-select>
-                        <mat-label>Department</mat-label>
+                        <mat-label>Role</mat-label>
                     </mat-form-field>
                     <p>
                         <mat-form-field appearance="fill">

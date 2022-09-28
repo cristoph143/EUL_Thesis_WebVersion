@@ -15,7 +15,12 @@ export class NavigateComponent implements OnInit{
   isAuthenticated = false;
   // isLoggedIn$ = false;
   isLoggedIn$!: Observable<boolean>;
-  search : String ="";
+  search: String = "";
+  
+  userId: Pick<Account, "school_id"> | undefined;
+  school_id: any;
+  account$: any;
+  full_name: any;
 
   constructor(
     private authService: AuthService,
@@ -30,7 +35,10 @@ export class NavigateComponent implements OnInit{
     }))
     // this.isAuthenticated = this.authService.isUserLoggedIn$;
     console.log('hello', this.isAuthenticated);
-    console.log(this.account$.first_name, "?=?", this.account$.last_name);
+    
+    // this.school_id = this.authService.school_id;
+    // console.log('school_id', this.school_id)
+    // this.getInfoUsingSchoolId(this.school_id);
   }
 
   logout(): void {
@@ -46,25 +54,32 @@ export class NavigateComponent implements OnInit{
     this.router.navigate([dest]);
   }
 
-  userId: Pick<Account, "school_id"> | undefined;
-  school_id: any;
-  account$: any;
+  // getInfoUsingSchoolId(school_id: any) {
+  //   console.log(school_id, 'school_id');
+  //   let res: never[] = [];
+  //   // return this.accService.fetchAccount(school_id);
+  //   console.log(this.accService
+  //     .fetchAccountUsingId(
+  //       school_id
+  //   )
+  //     .subscribe((data:any) => {
+  //       console.log(data[0][0]);
+  //       res = data[0][0];
+  //       this.getAcc(res);
+  //       return data[0][0];
+  //     }
+  //   ));
+  // }
 
-  // http request for getting the user details using school_id
-  getInfoUsingSchoolId(school_id: any){
-    // return this.accService.fetchAccount(school_id);
-    console.log(this.accService
-      .fetchAccountUsingId(
-        school_id
-    )
-      .subscribe((data:any) => {
-        console.log(data[0][0]);
-        this.account$ = data[0][0];
-        
-        return this.account$;
-      }
-    ));
-  }
+  // getAcc(res:any) {
+  //   console.log(res)
+  //   const curr_acc = res;
+  //   console.log(curr_acc, 'curr_acc');
+  //   this.account$ = curr_acc;
+  //   console.log(this.account$, 'account$');
+  //   this.full_name = this.account$.first_name + " " + this.account$.last_name;
+  //   console.log(this.full_name, 'full_name');
+  // }
 
 
 }

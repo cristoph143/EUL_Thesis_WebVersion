@@ -6,5 +6,5 @@ export interface Account {
     department: string;
     password: string;
     role?: string;
-    approve?: number;
+    approve?: number;    
 }

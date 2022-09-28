@@ -5,7 +5,7 @@ import { AccountService } from '../../../app/authentication/services/account.ser
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
-
+import { ResearchService } from 'src/app/authentication/services/research.service';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -16,6 +16,7 @@ export class HomepageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private accService: AccountService,
+    private researchService: ResearchService,
     // public dialog: MatDialog
   ) { }
 
@@ -23,27 +24,24 @@ export class HomepageComponent implements OnInit {
   isAuthenticated = false;
   isLoggedIn$!: Observable<boolean>;
   full_name$: any;
+  research$: any;
+
+
   ngOnInit(): void {
-    // console.log('userlog==>',this.authService.isUserLoggedIn$.subscribe((isLoggedIn) => {
-    //   this.isAuthenticated = isLoggedIn;
-    //   console.log(this.isAuthenticated.toString)
-    // }))
-    this.userId = this.authService.userId;
-    console.log(this.userId);
+    this.fetchAllResearch();
     this.school_id = this.authService.school_id;
-    this.getInfoUsingSchoolId(this.school_id);
-    console.log('acc--;',(this.account$));
-    this.authService.isUserAuthenticated;
-    this.full_name$ = this.account$.first_name + ' ' + this.account$.last_name;
-    console.log(this.account$.first_name);
-    console.log(this.full_name$);
+    this.getInfoUsingSchoolId(this.school_id)
+    console.log('this,auth', this.authService.isUserAuthenticated);
   }
+
+
 
   userId: Pick<Account, "school_id"> | undefined;
   school_id: any;
 
   // http request for getting the user details using school_id
   getInfoUsingSchoolId(school_id: any){
+    let res: never[] = [];
     // return this.accService.fetchAccount(school_id);
     console.log(this.accService
       .fetchAccountUsingId(
@@ -51,16 +49,41 @@ export class HomepageComponent implements OnInit {
     )
       .subscribe((data:any) => {
         console.log(data[0][0]);
-        this.account$ = data[0][0];
-        
-        return this.account$;
+        res = data[0][0];
+        this.getAcc(res);
+        return data[0][0];
       }
     ));
+  }
+
+  getAcc(res:any) {
+    console.log(res)
+    const curr_acc = res;
+    this.account$ = curr_acc;
+    console.log(this.account$.first_name, 'account$');
+  }
+
+  
+  fetchAllResearch() {
+    let res: never[] = [];
+    this.researchService.fetchAllResearch().subscribe((data: any) => {
+      console.log(data[0]);
+      res = data[0];
+      this.getVal(res);
+      return data[0];
+    });
+    console.log(res, 'res');
+  }
+
+  getVal(res:any){
+    const research_list = res;
+    this.research$ = research_list;
+    console.log(this.research$, 'research$');
+    // loop this.research$ and get the values
   }
 
   // OpenDialog() {
   //   this.dialog.open(UploadResearchComponent);
   // }
-
 
 }

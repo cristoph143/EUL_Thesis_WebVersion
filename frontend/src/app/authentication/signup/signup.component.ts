@@ -63,12 +63,19 @@ export class SignupComponent implements OnInit {
           Validators.required,
     ),
     email: new FormControl(
-          '',
-          Validators.required
+      '',
+      Validators.required,
+      // pattern validation using regexp and the org email pattern
+      // Validators.pattern(
+      //   '^[a-z0-9._%+-]+@usjr.edu.com$'
+      // ),
     ),
     department: new FormControl(
           '',
           Validators.required
+    ),
+    image: new FormControl(
+      [null],
     ),
   });
   
@@ -115,34 +122,43 @@ export class SignupComponent implements OnInit {
       return this.floatLabelControl.value || 'auto';
     }
 
-  
+    private formSubmitAttempt: boolean = false;
+  isFieldInvalid(field: string, form: string) {
+    form = form + 'FormGroup';
+    if (form == 'firstFormGroup') {
+      return (
+        (!this.firstFormGroup.get(field)?.valid && this.firstFormGroup.get(field)?.touched) ||
+        (this.firstFormGroup.get(field)?.untouched && this.formSubmitAttempt)
+      );
+    }
+      return (
+        (!this.secondFormGroup.get(field)?.valid && this.secondFormGroup.get(field)?.touched) ||
+        (this.secondFormGroup.get(field)?.untouched && this.formSubmitAttempt)
+      );
+
+  }
 
   ngOnInit(): void {
     this.isLinear = true;
-    this.imageInfos = this.uploadService.getFiles();
   }
 
 
   con = {};
   img!: File;
 
-  onSubmitRegister() {
+  formData = new FormData();
+
+  onSubmitRegister(): void {
     console.log(this.secondFormGroup.value)
     if (!this.secondFormGroup.valid) {
       this.toast.error("Invalid Registration");
       return;
     }
 
-    // const acc = {
-    //   school_id: this.registerForm.value.school_idRegister,
-    //   first_name: this.registerForm.value.first_nameRegister,
-    //   last_name: this.registerForm.value.last_nameRegister,
-    //   email: this.registerForm.value.emailRegister,
-    //   department: this.registerForm.value.departmentRegister,
-    //   image: this.registerForm.value.imageRegister,
-    //   password: this.registerForm.value.passwordRegister
-    // }
-
+    if (this.secondFormGroup.value.password !== this.secondFormGroup.value.confirm_password) {
+      this.toast.error("Password does not match");
+      return;
+    }
 
     const acc = {
       school_id: this.secondFormGroup.value.school_id,
@@ -153,14 +169,23 @@ export class SignupComponent implements OnInit {
       password: this.secondFormGroup.value.password,
       role: this.secondFormGroup.value.role,
     }
+    
+    this.formData.append('school_id', this.secondFormGroup.get('school_id')?.value);
+    this.formData.append('image', this.firstFormGroup.get('image')?.value);
+    console.log('{{{{{{{{', this.formData);
+    
+    this.http
+      .post('http://localhost:3000/api/add-profile', this.formData)
+      .subscribe({
+        next: (response) => console.log(response),
+        error: (error) => console.log(error),
+      });
 
     console.log(acc)
     this.con = acc;
     
     this.authService
-      .signup(
-        acc
-      )
+      .signup(acc)
       .pipe(
         this.toast.observe({
           success: 'Registered Sucessfully',
@@ -168,8 +193,7 @@ export class SignupComponent implements OnInit {
           error: (msg) => msg
         })
       )
-      .subscribe(
-        (msg) =>
+      .subscribe((msg) =>
           console.log(msg)
       );
   }
@@ -179,9 +203,6 @@ export class SignupComponent implements OnInit {
   }
 
   selectFiles(event: any): void {
-    // this.message = [];
-    // this.progressInfos = [];
-    // this.selectedFileNames = [];
     this.selectedFiles = event.target.files;
     this.previews = [];
 
@@ -189,7 +210,11 @@ export class SignupComponent implements OnInit {
       const reader = new FileReader();
       console.log(this.selectedFiles[0]);
       this.img = this.selectedFiles[0];
-    console.log(this.img, typeof(this.img));
+      console.log(this.img, typeof (this.img));
+      this.firstFormGroup.patchValue({
+        image: this.img
+      })
+      this.firstFormGroup.get('image')?.updateValueAndValidity()
 
         reader.onload = (e: any) => {
           console.log(e.target.result);

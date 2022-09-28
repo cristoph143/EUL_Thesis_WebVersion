@@ -93,7 +93,7 @@ export class AuthService {
     ) 
     this.currUser = user;
     console.log(this.currUser,"djsjsdj");
-    return user;
+    return this.currUser;
   }
 
   logout(): void {

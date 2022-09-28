@@ -23,37 +23,36 @@ export class UserDashboardComponent implements OnInit {
   isLoggedIn$!: Observable<boolean>;
   full_name$: any;
   ngOnInit(): void {
-    // console.log('userlog==>',this.authService.isUserLoggedIn$.subscribe((isLoggedIn) => {
-    //   this.isAuthenticated = isLoggedIn;
-    //   console.log(this.isAuthenticated.toString)
-    // }))
-    this.userId = this.authService.userId;
-    console.log(this.userId);
+    // this.userId = this.authService.userId;
     this.school_id = this.authService.school_id;
     this.getInfoUsingSchoolId(this.school_id);
-    console.log('acc--;',(this.account$));
-    this.authService.isUserAuthenticated;
-    this.full_name$ = this.account$.first_name + ' ' + this.account$.last_name;
-    console.log(this.account$.first_name);
-    console.log(this.full_name$);
   }
 
   userId: Pick<Account, "school_id"> | undefined;
   school_id: any;
 
-  // http request for getting the user details using school_id
-  getInfoUsingSchoolId(school_id: any){
+  getInfoUsingSchoolId(school_id: any) {
+    console.log(school_id, 'school_id');
+    let res: never[] = [];
     // return this.accService.fetchAccount(school_id);
-    console.log(this.accService
+    this.accService
       .fetchAccountUsingId(
         school_id
     )
       .subscribe((data:any) => {
         console.log(data[0][0]);
-        this.account$ = data[0][0];
-        
-        return this.account$;
+        res = data[0][0];
+        this.getAcc(res);
+        return data[0][0];
       }
-    ));
+    );
+  }
+
+  getAcc(res:any) {
+    console.log(res)
+    const curr_acc = res;
+    console.log(curr_acc, 'curr_acc');
+    this.account$ = curr_acc;
+    console.log(this.account$, 'account$');
   }
 }

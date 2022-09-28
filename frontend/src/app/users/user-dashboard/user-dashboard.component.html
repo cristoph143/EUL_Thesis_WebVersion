@@ -9,8 +9,8 @@
     </mat-tab>
     <mat-tab label="Library">
         Library
-        <p>{{this.account$?.first_name}}</p>
-        <p>{{this.account$.last_name}}</p>
+        <!-- loop the account -->
+        <p>{{account$ | json}}</p>
     </mat-tab>
     <mat-tab label="Authored Books">
         Authored Books

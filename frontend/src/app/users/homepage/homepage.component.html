@@ -1,1 +1,48 @@
-<h1>home works</h1>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Home</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            Welcome to the home page!
+        </p>
+    </mat-card-content>
+    <!--  -->
+    {{research$ | json}} {{account$ | json}}
+    <!-- <button mat-raised-button color="primary" (click)="fetchAllResearch()">Get Research</button> -->
+    <!-- loop research and display it to table -->
+    <table>
+        <!-- research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views, -->
+        <tr>
+            <th>Research ID</th>
+            <th>Topic Category</th>
+            <th>SDG Category</th>
+            <th>Date Published</th>
+            <th>Adviser</th>
+            <th>Department</th>
+            <th>Keywords</th>
+            <th>Title</th>
+            <th>Abstract</th>
+            <th>QR</th>
+            <th>Number of Views</th>
+        </tr>
+        <tr *ngFor="let research of research$">
+            <td>{{research.research_id}}</td>
+            <td>{{research.topic_category}}</td>
+            <td>{{research.sdg_category}}</td>
+            <td>{{research.date_published}}</td>
+            <td>{{research.adviser}}</td>
+            <td>{{research.department}}</td>
+            <td>{{research.keywords}}</td>
+            <td>{{research.title}}</td>
+            <td>{{research.abstract}}</td>
+            <td>{{research.qr}}</td>
+            <td>{{research.number_of_views}}</td>
+        </tr>
+
+    </table>
+
+
+</mat-card>
