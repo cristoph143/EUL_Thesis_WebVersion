@@ -5,14 +5,35 @@ import { SignupComponent} from './authentication/signup/signup.component';
 import { AuthGuard } from './authentication/services/auth-guard.service';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
+import { NavigateComponent } from './navigate/navigate.component';
 
 const routes: Routes = [
   // default route
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {
-    path: '', 
-    component: LoginComponent,
-  },
+  // {
+  //   path: '', 
+  //   component: NavigateComponent,
+  //   children: [
+  //     { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //     { path: 'login', component: LoginComponent },
+  //     { path: 'signup', component: SignupComponent },
+  //     {
+  //       path: 'home', 
+  //       component: UserDashboardComponent,
+  //       canActivate: [AuthGuard],
+  //       children: [
+  //         {
+  //           path: 'home',
+  //           component: UserDashboardComponent,
+  //         },
+  //         {
+  //           path: 'upload',
+  //           component: UploadResearchComponent,
+  //         }
+  //       ]
+  //     },
+  //   ]
+  // },
   {
     path: 'login', 
     component: LoginComponent

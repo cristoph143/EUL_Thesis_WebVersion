@@ -10,7 +10,7 @@ import { Account } from '../authentication/model/account';
   templateUrl: './navigate.component.html',
   styleUrls: ['./navigate.component.css']
 })
-export class NavigateComponent implements OnInit{
+export class NavigateComponent implements OnInit {
 
   isAuthenticated = false;
   // isLoggedIn$ = false;
@@ -22,11 +22,12 @@ export class NavigateComponent implements OnInit{
   account$: any;
   full_name: any;
 
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private accService: AccountService,
-  ) { }
+  ) {}
   
   ngOnInit(): void {
     console.log(this.authService.isUserLoggedIn$.subscribe((isLoggedIn) => {
@@ -81,5 +82,5 @@ export class NavigateComponent implements OnInit{
   //   console.log(this.full_name, 'full_name');
   // }
 
-
+ 
 }

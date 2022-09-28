@@ -30,7 +30,8 @@ import { HomepageComponent } from './users/homepage/homepage.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatTabsModule,
     CdkStepperModule, 
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSidenavModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent],

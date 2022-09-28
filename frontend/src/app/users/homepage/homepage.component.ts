@@ -6,6 +6,12 @@ import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
 import { ResearchService } from 'src/app/authentication/services/research.service';
+export interface Tile {
+  src: string;
+  cols: number;
+  rows: number;
+  // text: string;
+}
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -19,6 +25,27 @@ export class HomepageComponent implements OnInit {
     private researchService: ResearchService,
     // public dialog: MatDialog
   ) { }
+
+  tiles: Tile[] = [
+    {cols: 1, rows: 1, src: 'E_SDG_logo_UN_emblem_square_trans_PRINT-2048x1757.png'},
+    {cols: 1, rows: 1, src: '1.png'},
+    {cols: 1, rows: 1, src: '2.png'},
+    {cols: 1, rows: 1, src: '3.png'},
+    {cols: 1, rows: 1, src: '4.png'},
+    {cols: 1, rows: 1, src: '5.png'},
+    {cols: 1, rows: 1, src: '6.png'},
+    {cols: 1, rows: 1, src: '7.png'},
+    {cols: 1, rows: 1, src: '8.png'},
+    {cols: 1, rows: 1, src: '9.png'},
+    {cols: 1, rows: 1, src: '10.png'},
+    {cols: 1, rows: 1, src: '11.png'},
+    {cols: 1, rows: 1, src: '12.png'},
+    {cols: 1, rows: 1, src: '13.png'},
+    {cols: 1, rows: 1, src: '14.png'},
+    {cols: 1, rows: 1, src: '15.png'},
+    {cols: 1, rows: 1, src: '16.png'},
+    {cols: 1, rows: 1, src: '17.png'},
+  ];
 
   account$: any;
   isAuthenticated = false;
