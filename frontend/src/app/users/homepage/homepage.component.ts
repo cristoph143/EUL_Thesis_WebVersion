@@ -7,7 +7,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
 import { ResearchService } from 'src/app/authentication/services/research.service';
 import { Router } from '@angular/router';
-import { OneComponent } from '../sdg_pages/one/one/one.component';
+import { OneComponent } from '../sdg_pages/one.component';
 
 export interface Tile {
   src: string;

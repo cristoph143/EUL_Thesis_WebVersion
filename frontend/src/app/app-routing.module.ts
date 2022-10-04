@@ -6,7 +6,7 @@ import { AuthGuard } from './authentication/services/auth-guard.service';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
 import { NavigateComponent } from './navigate/navigate.component';
-import { OneComponent } from './users/sdg_pages/one/one/one.component';
+import { OneComponent } from './users/sdg_pages/one.component';
 
 const routes: Routes = [
   // default route
