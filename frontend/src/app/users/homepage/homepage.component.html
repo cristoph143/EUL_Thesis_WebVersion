@@ -1,42 +1,14 @@
 <mat-card>
-    <!--  -->
-    <!-- {{research$ | json}} {{account$ | json}} -->
-    <!-- <button mat-raised-button color="primary" (click)="fetchAllResearch()">Get Research</button> -->
-    <!-- loop research and display it to table -->
-    <!-- <table> -->
-    <!-- research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views, -->
-    <!-- <tr> -->
-    <!-- <th>Research ID</th>
-            <th>Topic Category</th>
-            <th>SDG Category</th>
-            <th>Date Published</th>
-            <th>Adviser</th>
-            <th>Department</th>
-            <th>Keywords</th>
-            <th>Title</th>
-            <th>Abstract</th>
-            <th>QR</th>
-            <th>Number of Views</th>
-        </tr>
-        <tr *ngFor="let research of research$">
-            <td>{{research.research_id}}</td>
-            <td>{{research.topic_category}}</td>
-            <td>{{research.sdg_category}}</td>
-            <td>{{research.date_published}}</td>
-            <td>{{research.adviser}}</td>
-            <td>{{research.department}}</td>
-            <td>{{research.keywords}}</td>
-            <td>{{research.title}}</td>
-            <td>{{research.abstract}}</td>
-            <td>{{research.qr}}</td>
-            <td>{{research.number_of_views}}</td>
-        </tr>
-    </table> -->
-
     <!-- create a image gallery using mat-card-->
+    <mat-card-title>Search and Explore the Repository</mat-card-title>
     <mat-grid-list cols="6">
         <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows">
-            <img class="image" src="../../../assets/{{tile.src}}" alt="image" />
+            <a *ngIf="tile.disabled">
+                <img class="image" src="../../../assets/{{tile.src}}" alt="image" />
+            </a>
+            <a *ngIf="!tile.disabled" (click)="openDialog(tile.redirect, tile.src, tile.title, tile.sub_title, tile.background)">
+                <img class="image " src="../../../assets/{{tile.src}} " alt="image " />
+            </a>
         </mat-grid-tile>
     </mat-grid-list>
 </mat-card>

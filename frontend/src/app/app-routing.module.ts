@@ -6,6 +6,7 @@ import { AuthGuard } from './authentication/services/auth-guard.service';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
 import { NavigateComponent } from './navigate/navigate.component';
+import { OneComponent } from './users/sdg_pages/one/one/one.component';
 
 const routes: Routes = [
   // default route
@@ -35,6 +36,10 @@ const routes: Routes = [
   //   ]
   // },
   {
+    path: '', 
+    component: LoginComponent
+  },
+  {
     path: 'login', 
     component: LoginComponent
   },
@@ -54,6 +59,10 @@ const routes: Routes = [
       {
         path: 'upload',
         component: UploadResearchComponent,
+      },
+      {
+        path: 'one',
+        component: OneComponent,
       }
     ]
   },

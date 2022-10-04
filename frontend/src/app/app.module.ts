@@ -32,6 +32,9 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { OneComponent } from './users/sdg_pages/one/one/one.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     UploadResearchComponent,
     HomepageComponent,
     ProfileComponent,
+    OneComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,10 +73,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatStepperModule,
     MatSelectModule,
     MatSidenavModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
-  // entryComponents: [UploadResearchComponent]
+  entryComponents: [OneComponent]
 })
 export class AppModule { }
