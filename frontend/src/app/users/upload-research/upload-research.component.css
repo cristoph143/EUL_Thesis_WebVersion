@@ -20,3 +20,40 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.res_cent {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btnss {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.pas {
+    margin: 10px;
+}

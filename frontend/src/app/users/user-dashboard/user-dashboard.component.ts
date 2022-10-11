@@ -5,6 +5,13 @@ import { AccountService } from '../../../app/authentication/services/account.ser
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
+
+export interface Tabs {
+  label: string;
+  icon: string;
+  dir: string;
+}
+
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
@@ -22,6 +29,14 @@ export class UserDashboardComponent implements OnInit {
   isAuthenticated = false;
   isLoggedIn$!: Observable<boolean>;
   full_name$: any;
+  tabs: Tabs[] = [
+    { label: 'Home', icon: 'home', dir: 'app-homepage' },
+    { label: 'Search', icon: 'search', dir: 'app-search' },
+    { label: 'Upload', icon: 'cloud_upload', dir: 'app-upload-research' },
+    { label: 'Library', icon: 'library_books', dir: 'app-library' },
+    { label: 'Profile', icon: 'portrait', dir: 'app-profile' },
+  ];
+
   ngOnInit(): void {
     // this.userId = this.authService.userId;
     this.school_id = this.authService.school_id;
@@ -55,4 +70,5 @@ export class UserDashboardComponent implements OnInit {
     this.account$ = curr_acc;
     console.log(this.account$, 'account$');
   }
+  
 }

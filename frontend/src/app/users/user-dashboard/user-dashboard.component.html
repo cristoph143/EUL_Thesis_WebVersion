@@ -1,42 +1,23 @@
 <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Home">
+    <mat-tab label={{tab.label}} *ngFor="let tab of tabs">
         <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">home</mat-icon>
-            &nbsp;&nbsp;&nbsp; Home
+            <mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon>
+            &nbsp;&nbsp;&nbsp; {{tab.label}}
         </ng-template>
-        <app-homepage></app-homepage>
-    </mat-tab>
-    <mat-tab label="Search">
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">search</mat-icon>
-            &nbsp;&nbsp;&nbsp; Search
-        </ng-template>
-        <!-- object to json -->
-        <p>{{account$ | json}}</p>
-    </mat-tab>
-    <mat-tab label="Library">
-
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">cloud_upload</mat-icon>
-            &nbsp;&nbsp;&nbsp; Upload Research
-        </ng-template>
-        <!-- loop the account -->
-        <p>{{account$ | json}}</p>
-    </mat-tab>
-    <mat-tab label="Authored Books">
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">library_books</mat-icon>
-            &nbsp;&nbsp;&nbsp; Library
-        </ng-template>
-        <p>user-dashboard works!</p>
-        <app-upload-research></app-upload-research>
-        <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
-    </mat-tab>
-    <mat-tab label="Profile">
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">portrait</mat-icon>
-            &nbsp;&nbsp;&nbsp; Profile
-        </ng-template>
-        <app-profile></app-profile>
+        <div class="page" *ngIf="tab.label == 'Home'">
+            <app-homepage></app-homepage>
+        </div>
+        <div class="page" *ngIf="tab.label == 'Search'">
+            <app-homepage></app-homepage>
+        </div>
+        <div class="page" *ngIf="tab.label == 'Upload'">
+            <app-upload-research></app-upload-research>
+        </div>
+        <div class="page" *ngIf="tab.label == 'Library'">
+            <app-homepage></app-homepage>
+        </div>
+        <div class="page" *ngIf="tab.label == 'Profile'">
+            <app-profile></app-profile>
+        </div>
     </mat-tab>
 </mat-tab-group>

@@ -9,27 +9,29 @@ var store = multer.diskStorage({
         cb(null, './uploads');
     },
     filename: function(req, file, cb) {
-        cb(null, Date.now() + '.' + file.originalname);
+        cb(null, file.originalname);
     }
 });
 
 
 var upload = multer({ storage: store }).single('file');
 
-_router.post('/upload-avatar', function(req, res, next) {
+/*
+req: file
+res: originalname, uploadname
+*/
+_router.post('/upload-file/:id', function(req, res, next) {
+    // get the research_id
+    // const research_id = req.body.research_id;
+    // console.log(req.file.research_id);
+    // print the destination of the research
+    // console.log(req.file.destination);
     upload(req, res, function(err) {
         if (err) {
             return res.status(501).json({ error: err });
         }
         //do all database record saving activity
-        return res.json({ originalname: req.file.originalname, uploadname: req.file.filename });
+        return res.json({ originalname: req.file.originalname, uploadname: req.file.filename, research_id: req.params.id });
     });
 });
-
-
-_router.post('/download', function(req, res, next) {
-    filepath = path.join(__dirname, '../uploads') + '/' + req.body.filename;
-    res.sendFile(filepath);
-});
-
 module.exports = _router;

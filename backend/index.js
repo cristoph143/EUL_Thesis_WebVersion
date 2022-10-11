@@ -52,7 +52,7 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use('/api/account', accountRoutes);
 app.use('/api/research', researchRoutes);
-// app.use('/file', fileRoutes);
+app.use('/file', fileRoutes);
 
 
 app.use(errorController.get404);

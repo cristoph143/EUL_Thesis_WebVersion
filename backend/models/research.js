@@ -70,4 +70,6 @@ module.exports = class Research {
             'SELECT * FROM research_details'
         );
     }
+
+
 }
