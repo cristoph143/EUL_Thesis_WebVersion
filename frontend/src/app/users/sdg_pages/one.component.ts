@@ -54,6 +54,7 @@ export class OneComponent implements OnInit {
     console.log(this.url)
     // set background image to id = backs
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
+    console.log(this.research$, 'research$');
   }
   url: any;
 
@@ -108,6 +109,8 @@ export class OneComponent implements OnInit {
     const research_list = res;
     this.research$ = research_list;
     console.log(this.research$, 'research$');
+    console.log(this.research$[0], 'research$');
+
     // loop this.research$ and get the values
   }
 

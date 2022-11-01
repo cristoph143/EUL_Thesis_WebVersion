@@ -40,24 +40,25 @@
                             <!-- <mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon> -->
                             &nbsp;&nbsp;&nbsp; {{tab.label}}
                         </ng-template>
+                        <!-- loop the research$ and display it by block -->
+                        <div class="content-research" *ngFor="let res of research$">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>{{res.title}}</mat-card-title>
+                                    <mat-card-subtitle>{{res.abstract}}</mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus neque nam obcaecati nemo fuga ratione delectus aperiam? Nihil, mollitia? Illo alias quae fugiat corrupti et iusto dignissimos tempora quasi similique.
+                                    </p>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button mat-button>LIKE</button>
+                                    <button mat-button>SHARE</button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
                     </mat-tab>
                 </mat-tab-group>
-                <!-- loop the research$ and display it by block -->
-                <div class="content-research" *ngFor="let res of research$">
-                    <mat-card>
-                        <mat-card-header>
-                            <mat-card-title>{{ res.title }}</mat-card-title>
-                            <mat-card-subtitle>{{ res.author }}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <p>{{ res.description }}</p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                            <button mat-button>LIKE</button>
-                            <button mat-button>SHARE</button>
-                        </mat-card-actions>
-                    </mat-card>
-                </div>
             </mat-card-content>
         </div>
     </div>

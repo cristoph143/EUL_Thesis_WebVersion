@@ -15,7 +15,7 @@
                     <!-- if attachment-list is not equal to zero -->
                     <div class="columns btnss" *ngIf="attachmentList.length != 0">
                         <button class="pas" mat-raised-button color="warn" (click)="removeFile(attachmentList[0])">Remove File</button>
-                        <button class="pas" mat-raised-button color="primary" (click)="uploadFiles()">Upload</button>
+                        <!-- <button class="pas" mat-raised-button color="primary" (click)="uploadFiles()">Upload</button> -->
                     </div>
                 </div>
 
@@ -29,8 +29,48 @@
             <div class="page">
                 <ng-template matStepLabel>Research Details</ng-template>
             </div>
+            <!-- form page for research_details [research_id, topic category, sdg category,date_published, adviser, department, keywords, title, abstract, qr, number_of_view ]-->
+            <div class="row top-row">
+                <div class="tops">
+                    <mat-card-title class="res_cent">Research Details</mat-card-title>
+                </div>
+                <div class="down">
+                    <div class="left">
+                        <!-- label for research_id with default value -->
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Research ID" value="{{research_details.research_id}}" disabled>
+                        </mat-form-field>
+                        <!-- label for research_title with default value -->
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Research Title" value="{{research_details.title}}" disabled>
+                        </mat-form-field>
+                        <!-- label for research_abstract with default value -->
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Research Abstract" value="{{research_details.abstract}}" disabled>
+                        </mat-form-field>
+                        <!-- mat-chip-list of research_details.topic_category -->
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let topic of research_details.topic_category">{{topic}}</mat-chip>
+                            <!-- add button for adding new category in topic_category -->
+                            <mat-chip color="primary" (click)="addTopic()">Add</mat-chip>
+                        </mat-chip-list>
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let sdg of research_details.sdg_category">{{sdg}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <div class="right">
+                        <p>{{research_details.qr}}</p>
+                        <p>{{research_details.adviser}}</p>
+                        <p>{{research_details.date_published}}</p>
+                        <p>{{research_details.department}}</p>
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let key of research_details.keywords">{{key}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+            </div>
             <div>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperNext (click)="addResearch();">Next</button>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button>Back to Login</button>
             </div>

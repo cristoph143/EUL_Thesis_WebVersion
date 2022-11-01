@@ -1,11 +1,16 @@
 var express = require('express');
 var router = express.Router();
-const { body } = require('express-validator');
+
+const {
+    body
+} = require('express-validator');
 var researchController = require('../controller/research');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('index', {
+        title: 'Express'
+    });
 });
 
 router.post('/addResearchDetails', [
@@ -33,13 +38,6 @@ router.post('/addResearchList', [
     body('school_id').trim().not().isEmpty(),
 ], researchController.addResearchList);
 
-router.delete('/removeResearch/:research_id', [
-    body('school_id').trim().not().isEmpty(),
-], researchController.removeResearch);
-
 router.get('/fetchAllResearchList', researchController.getAllResearch);
-
-
-
 
 module.exports = router;

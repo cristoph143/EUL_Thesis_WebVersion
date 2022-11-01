@@ -43,17 +43,6 @@ module.exports = class Research {
         );
     }
 
-    // get all rows in research_list
-    static fetchAllResearchListRedundant(research_id, school_id, table) {
-        const sql = 'SELECT * FROM ' + table + ' WHERE research_id = ? AND school_id = ?';
-        const exec = db.execute(
-            sql, [research_id, school_id]
-        );
-        console.log(exec);
-        return exec;
-    }
-
-
     // Update
     // Get
     // Delete
@@ -71,5 +60,12 @@ module.exports = class Research {
         );
     }
 
-
+    // check if research_id exists in the db
+    static checkResearchId(research_id) {
+        console.log(research_id);
+        // use count
+        return db.execute(
+            'SELECT COUNT(*) FROM research_details WHERE research_id = ?', [research_id]
+        );
+    }
 }

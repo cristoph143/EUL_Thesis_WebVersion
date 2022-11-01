@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, finalize } from 'rxjs';
-import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
+import { FileUploader} from 'ng2-file-upload';
 import { FileService } from '../../authentication/services/file.service';
 import { saveAs } from 'file-saver';
 import { Injector } from '@nestjs/core/injector/injector';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ResearchService } from 'src/app/authentication/services/research.service';
 
 const uri = 'http://localhost:3000/file/upload-file';
 @Component({
@@ -15,12 +16,11 @@ const uri = 'http://localhost:3000/file/upload-file';
 
 export class UploadResearchComponent implements OnInit{
 
-
   uploader: FileUploader = new FileUploader({ url: uri });
   research_id: string = '';
   
   attachmentList:any = [];
-  constructor(private fileService:FileService){
+  constructor(private fileService:FileService, private researchService: ResearchService){
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
         this.attachmentList.push(JSON.parse(response));
     }
@@ -29,6 +29,79 @@ export class UploadResearchComponent implements OnInit{
   ngOnInit(): void {
     
   }
+
+  research_ids: string = this.random_uiD();
+
+
+  researchForm = new FormGroup({
+    // [research_id, topic category, sdg category,date_published, adviser, department, keywords, title, abstract, qr, number_of_view ]
+    research_id: new FormControl('', Validators.required),
+    topic_category: new FormControl('', Validators.required),
+    sdg_category: new FormControl('', Validators.required),
+    date_published: new FormControl('', Validators.required),
+    adviser: new FormControl('', Validators.required),
+    department: new FormControl('', Validators.required),
+    keywords: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    abstract: new FormControl('', Validators.required),
+    qr: new FormControl('', Validators.required),
+    number_of_view: new FormControl('', Validators.required),
+  });
+
+
+  research_details = {
+    research_id: this.research_ids,
+    title: 'Hide message',
+    abstract: 'Lorem Ipsum is simply dummy text of versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
+    topic_category: ['topic1', 'topic2', 'topic3'],
+    sdg_category: ['sdg1', 'sdg2', 'sdg3'],
+    qr: 'hshdhdshsd',
+    adviser: 'adviser',
+    date_published: '2021-01-01',
+    department: 'School of Management',
+    keywords: ['keyword1', 'keyword2', 'keyword3'],
+    number_of_view: 0,
+  }
+
+  addTopic() {
+    // alert what topic to add
+    var topic = prompt("Please enter topic", "topic");
+    if (topic != null) {
+      this.research_details.topic_category.push(topic);
+    }
+  }
+
+  addResearch() {
+    // convert research_details.topic_category, research_details.sdg_category, research_details.keywords to string  
+    let topic_category = this.research_details.topic_category.toString();
+    let sdg_category = this.research_details.sdg_category.toString();
+    let keywords = this.research_details.keywords.toString();
+    // create new object
+    let new_research_details = {
+      research_id: this.research_details.research_id,
+      title: this.research_details.title,
+      abstract: this.research_details.abstract,
+      topic_category: topic_category,
+      sdg_category: sdg_category,
+      qr: this.research_details.qr,
+      adviser: this.research_details.adviser,
+      date_published: this.research_details.date_published,
+      department: this.research_details.department,
+      keywords: keywords,
+      number_of_view: this.research_details.number_of_view,
+    }
+    this.researchService.addResearch(new_research_details).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.uploadFiles();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+  }
+    
 
   isLinear = false;
   download(index: string | number){
@@ -63,7 +136,6 @@ export class UploadResearchComponent implements OnInit{
     // clear the input file
     var fileInput = document.getElementById('file-input') as HTMLInputElement;
     fileInput.value = '';
-
   }
 
   uploadFiles() {
@@ -72,15 +144,17 @@ export class UploadResearchComponent implements OnInit{
     }
   }
 
-  uploading: boolean = true;
+  uploading: boolean = false;
   formData = new FormData();
+  progress: any;
   
   upload(file: any) {
     this.formData.append('file', file);
-    const research_id = this.random_uiD();
+    const research_id = this.research_ids;
     this.research_id = research_id;
     this.formData.append('research_id', research_id);
     console.log(research_id, 'upload');
+
     this.fileService.uploadFile(this.formData).subscribe(
       (data: any) => {
         console.log(data);
@@ -104,6 +178,11 @@ export class UploadResearchComponent implements OnInit{
   upNext(){
     console.log(this.formData.get('file'), 'upNext');
     console.log(this.formData.get('research_id'), 'upNext');
+  }
+
+  onSubmitDetails() {
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.researchForm.value, null, 4));
+    console.log(this.researchForm.value, 'onSubmitDetails');
   }
     
 }

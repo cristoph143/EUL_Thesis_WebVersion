@@ -9,5 +9,5 @@ export interface ResearchDetails {
     title: String;
     abstract: String;
     qr: String;
-    number_of_views: number;
+    number_of_view: number;
 }

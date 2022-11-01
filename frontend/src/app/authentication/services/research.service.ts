@@ -33,6 +33,17 @@ export class ResearchService {
                 )
             );
     } 
+
+    addResearch(research: ResearchDetails): Observable<ResearchDetails> {
+        return this.http
+            .post<ResearchDetails>(`${this.url}/research/addResearchDetails`, research, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("addResearch")
+                )
+            );
+    }
     
     // // fetchAccount using school_id
     // fetchAllResearch(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
