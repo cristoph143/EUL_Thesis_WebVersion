@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Account } from 'src/app/authentication/model/account';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { ResearchService } from 'src/app/authentication/services/research.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface Tile {
@@ -29,10 +28,8 @@ export class OneComponent implements OnInit {
 
   @Output() submitClicked = new EventEmitter<any>();
   constructor(
-    private router: Router,
     private authService: AuthService,
     private accService: AccountService,
-    private researchService: ResearchService,
     public dialogRef: MatDialogRef<OneComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -44,8 +41,9 @@ export class OneComponent implements OnInit {
   research$: any;
   src: any;
 
+  research_data: any;
+
   ngOnInit(): void {
-    this.fetchAllResearch();
     this.school_id = this.authService.school_id;
     this.getInfoUsingSchoolId(this.school_id)
     console.log('this,auth', this.authService.isUserAuthenticated);
@@ -55,6 +53,7 @@ export class OneComponent implements OnInit {
     // set background image to id = backs
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
     console.log(this.research$, 'research$');
+
   }
   url: any;
 
@@ -92,29 +91,4 @@ export class OneComponent implements OnInit {
     this.account$ = curr_acc;
     console.log(this.account$.first_name, 'account$');
   }
-
-  
-  fetchAllResearch() {
-    let res: never[] = [];
-    this.researchService.fetchAllResearch().subscribe((data: any) => {
-      console.log(data[0]);
-      res = data[0];
-      this.getVal(res);
-      return data[0];
-    });
-    console.log(res, 'res');
-  }
-
-  getVal(res:any){
-    const research_list = res;
-    this.research$ = research_list;
-    console.log(this.research$, 'research$');
-    console.log(this.research$[0], 'research$');
-
-    // loop this.research$ and get the values
-  }
-
-  // tiles: Tile[] = [
-  //   {cols: 1, rows: 1, src: , redirect:},
-
 }

@@ -131,7 +131,12 @@ export class HomepageComponent implements OnInit {
   
 
   openDialog(dialogReference: any, src: any, title: any, sub_title: any, background: any) {
-    
+    console.log(this.research$)
+    // filter research$ by sdg_category
+    this.curr = this.research$.filter((item: any) => //string exist in sdg_category
+      item.sdg_category.includes(title)
+    );
+    console.log(this.curr, 'curr')
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -140,7 +145,8 @@ export class HomepageComponent implements OnInit {
       src,
       title,
       sub_title,
-      background
+      background,
+      curr: this.curr
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     
