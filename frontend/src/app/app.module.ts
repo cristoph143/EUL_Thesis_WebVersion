@@ -35,6 +35,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { OneComponent } from './users/sdg_pages/one.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import { SearchComponent } from './users/search/search.component';
+import { ResearchLibraryComponent } from './users/research-library/research-library.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +50,8 @@ import { MatChipsModule } from '@angular/material/chips';
     HomepageComponent,
     ProfileComponent,
     OneComponent,
+    SearchComponent,
+    ResearchLibraryComponent,
   ],
   imports: [
     BrowserModule,

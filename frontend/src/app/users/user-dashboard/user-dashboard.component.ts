@@ -5,6 +5,7 @@ import { AccountService } from '../../../app/authentication/services/account.ser
 import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
+import { Router } from '@angular/router';
 
 export interface Tabs {
   label: string;
@@ -22,6 +23,7 @@ export class UserDashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private accService: AccountService,
+    private router: Router,
     // public dialog: MatDialog
   ) { }
 
@@ -33,7 +35,7 @@ export class UserDashboardComponent implements OnInit {
     { label: 'Home', icon: 'home', dir: 'app-homepage' },
     { label: 'Search', icon: 'search', dir: 'app-search' },
     { label: 'Upload', icon: 'cloud_upload', dir: 'app-upload-research' },
-    { label: 'Library', icon: 'library_books', dir: 'app-library' },
+    { label: 'Library', icon: 'library_books', dir: 'app-research-library' },
     { label: 'Profile', icon: 'portrait', dir: 'app-profile' },
   ];
 
@@ -70,5 +72,12 @@ export class UserDashboardComponent implements OnInit {
     this.account$ = curr_acc;
     console.log(this.account$, 'account$');
   }
-  
+  onTabClick(event: { tab: { textLabel: any; }; }) {
+    console.log(event);
+    console.log(event.tab.textLabel);
+    // check the event.tab.textLabel to tabs
+    if (event.tab.textLabel === 'Upload') {
+      console.log('upload');
+    }
+  }
 }

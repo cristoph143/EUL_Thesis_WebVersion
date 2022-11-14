@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center">
+<mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabClick($event)">
     <mat-tab label={{tab.label}} *ngFor="let tab of tabs">
         <ng-template mat-tab-label>
             <mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon>
@@ -8,13 +8,13 @@
             <app-homepage></app-homepage>
         </div>
         <div class="page" *ngIf="tab.label == 'Search'">
-            <app-homepage></app-homepage>
+            <app-search></app-search>
         </div>
         <div class="page" *ngIf="tab.label == 'Upload'">
             <app-upload-research></app-upload-research>
         </div>
         <div class="page" *ngIf="tab.label == 'Library'">
-            <app-homepage></app-homepage>
+            <app-research-library></app-research-library>
         </div>
         <div class="page" *ngIf="tab.label == 'Profile'">
             <app-profile></app-profile>

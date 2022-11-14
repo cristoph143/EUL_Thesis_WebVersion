@@ -74,9 +74,9 @@ export class UploadResearchComponent implements OnInit{
 
   addResearch() {
     // convert research_details.topic_category, research_details.sdg_category, research_details.keywords to string  
-    let topic_category = this.research_details.topic_category.toString();
-    let sdg_category = this.research_details.sdg_category.toString();
-    let keywords = this.research_details.keywords.toString();
+    let topic_category = this.research_details.topic_category;
+    let sdg_category = this.research_details.sdg_category;
+    let keywords = this.research_details.keywords;
     // create new object
     let new_research_details = {
       research_id: this.research_details.research_id,

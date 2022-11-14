@@ -85,4 +85,13 @@ module.exports = class Research {
             'select * from y'
         );
     }
+
+    static fetchLibrary(school_id) {
+        return db.execute(
+            'SELECT * FROM research_list LEFT JOIN research_details ' +
+            'ON research_details.research_id = research_list.research_id ' +
+            'LEFT JOIN account ON research_list.school_id = account.school_id ' +
+            'WHERE research_list.school_id = ?', [school_id]
+        );
+    }
 }

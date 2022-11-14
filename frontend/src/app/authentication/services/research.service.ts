@@ -6,6 +6,7 @@ import { catchError, first } from "rxjs/operators";
 
 import { ResearchDetails } from "../model/research_details";
 import { ErrorHandlerService } from "./error-handler.service";
+import { Account } from "../model/account";
 
 @Injectable({
     providedIn: "root",
@@ -26,6 +27,18 @@ export class ResearchService {
     fetchAllResearch(): Observable<ResearchDetails> {
         return this.http
             .get<ResearchDetails>(`${this.url}/research/fetchAllResearchList`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("fetchAccount")
+                )
+            );
+    } 
+
+    // fetchResearch
+    fetchAllLibrary(school_id: Pick<Account, "school_id">): Observable<ResearchDetails> {
+        return this.http
+            .get<ResearchDetails>(`${this.url}/research/fetchLibrary/${school_id}`, this.httpOptions)
             .pipe(
                 first(),
                 catchError(

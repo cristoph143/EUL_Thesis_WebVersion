@@ -134,3 +134,21 @@ exports.getcat = async(req, res, next) => {
         next(err);
     }
 }
+
+exports.fetchLibrary = async(req, res, next) => {
+    const school_id = req.params.school_id;
+    try {
+        const library = await research.fetchLibrary(school_id).then(token => {
+            console.log(token);
+            return token;
+        });
+        const result = res.status(200).json(library);
+        console.log(library);
+        return result;
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

@@ -46,4 +46,6 @@ router.get('/getcat', researchController.getcat);
 
 router.get('/fetchAllResearchList', researchController.getAllResearch);
 
+router.get('/fetchLibrary/:school_id', researchController.fetchLibrary);
+
 module.exports = router;

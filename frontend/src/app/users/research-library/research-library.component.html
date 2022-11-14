@@ -1,0 +1,31 @@
+<div class="lower">
+    <!-- search div -->
+    <div class="search">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Search" />
+            <!-- maticon search for button search -->
+            <button mat-icon-button matSuffix>
+                        <mat-icon>search</mat-icon>
+                    </button>
+            <!-- maticon filter for button filter -->
+            <button mat-icon-button matSuffix click="openDialog()">
+                        <mat-icon>filter_list</mat-icon>
+                    </button>
+        </mat-form-field>
+    </div>
+    <mat-card-content>
+        <div class="content-research" *ngFor="let res of research$">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{res.title}}</mat-card-title>
+                    <mat-card-subtitle>{{res.abstract}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                    <button mat-button>READ MORE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </mat-card-content>
+</div>
