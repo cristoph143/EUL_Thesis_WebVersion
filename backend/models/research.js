@@ -56,7 +56,9 @@ module.exports = class Research {
     // get all research details from the db
     static fetchAllResearch() {
         return db.execute(
-            'SELECT * FROM research_details'
+            'SELECT * FROM authored LEFT JOIN research_details ' +
+            'ON research_details.research_id = authored.research_id ' +
+            'LEFT JOIN account ON authored.school_id = account.school_id',
         );
     }
 
@@ -66,6 +68,21 @@ module.exports = class Research {
         // use count
         return db.execute(
             'SELECT COUNT(*) FROM research_details WHERE research_id = ?', [research_id]
+        );
+    }
+
+    static addcat(cat) {
+        console.log(cat)
+            // convert cat double quotes to single quotes
+            // cat = cat.replace(/"/g, "'");
+        return db.execute(
+            'insert into y values (?)', [cat]
+        );
+    }
+
+    static getcat() {
+        return db.execute(
+            'select * from y'
         );
     }
 }

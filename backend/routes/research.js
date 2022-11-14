@@ -16,12 +16,12 @@ router.get('/', function(req, res, next) {
 router.post('/addResearchDetails', [
     // research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views
     body('research_id').trim().not().isEmpty(),
-    body('topic_category').trim().not().isEmpty(),
-    body('sdg_category').trim().not().isEmpty(),
+    body('topic_category'),
+    body('sdg_category'),
     body('date_published').trim().not().isEmpty(),
     body('adviser').trim().not().isEmpty(),
     body('department').trim().not().isEmpty(),
-    body('keywords').trim().not().isEmpty(),
+    body('keywords'),
     body('title').trim().not().isEmpty(),
     body('abstract').trim().not().isEmpty(),
     body('qr').trim().not().isEmpty(),
@@ -37,6 +37,12 @@ router.post('/addResearchList', [
     body('research_id').trim().not().isEmpty(),
     body('school_id').trim().not().isEmpty(),
 ], researchController.addResearchList);
+
+router.post('/addcat', [
+    body('x')
+], researchController.addcat);
+
+router.get('/getcat', researchController.getcat);
 
 router.get('/fetchAllResearchList', researchController.getAllResearch);
 

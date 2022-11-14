@@ -96,3 +96,41 @@ exports.addResearchList = async(req, res, next) => {
         next(err);
     }
 }
+
+exports.addcat = async(req, res, next) => {
+    const cat = req.body.x;
+    console.log(cat + 'j');
+    try {
+        const addcat = await research.addcat(cat).then(token => {
+            console.log(token);
+            return token;
+        });
+        console.log(addcat);
+        res.status(200).json({
+            message: 'Category added successfully',
+        });
+
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}
+
+exports.getcat = async(req, res, next) => {
+    try {
+        const cat = await research.getcat().then(token => {
+            console.log(token);
+            return token;
+        });
+        const result = res.status(200).json(cat);
+        console.log(cat[0]);
+        return result;
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

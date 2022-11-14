@@ -67,7 +67,8 @@ export class UploadResearchComponent implements OnInit{
     // alert what topic to add
     var topic = prompt("Please enter topic", "topic");
     if (topic != null) {
-      this.research_details.topic_category.push(topic);
+      this.research_details.sdg_category.push(topic);
+      // this.research_details.topic_category.push(topic);
     }
   }
 

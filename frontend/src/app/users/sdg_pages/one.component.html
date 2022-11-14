@@ -28,20 +28,19 @@
                         <mat-icon>search</mat-icon>
                     </button>
                     <!-- maticon filter for button filter -->
-                    <button mat-icon-button matSuffix>
+                    <button mat-icon-button matSuffix click="openDialog()">
                         <mat-icon>filter_list</mat-icon>
                     </button>
                 </mat-form-field>
             </div>
             <mat-card-content>
-                <mat-tab-group mat-align-tabs="center">
+                <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabClick($event)">
                     <mat-tab label={{tab.label}} *ngFor="let tab of tabs">
                         <ng-template mat-tab-label>
                             <!-- <mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon> -->
                             &nbsp;&nbsp;&nbsp; {{tab.label}}
                         </ng-template>
-                        <!-- loop the research$ and display it by block -->
-                        <div class="content-research" *ngFor="let res of data.curr">
+                        <div class="content-research" *ngFor="let res of research_data">
                             <mat-card>
                                 <mat-card-header>
                                     <mat-card-title>{{res.title}}</mat-card-title>
@@ -50,6 +49,7 @@
                                 <mat-card-actions>
                                     <button mat-button>LIKE</button>
                                     <button mat-button>SHARE</button>
+                                    <button mat-button>READ MORE</button>
                                 </mat-card-actions>
                             </mat-card>
                         </div>

@@ -104,6 +104,7 @@ export class HomepageComponent implements OnInit {
     let res: never[] = [];
     this.researchService.fetchAllResearch().subscribe((data: any) => {
       console.log(data[0]);
+      console.log(data);
       res = data[0];
       this.getVal(res);
       return data[0];
