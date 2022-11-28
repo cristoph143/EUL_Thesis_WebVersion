@@ -13,6 +13,26 @@
                     </button>
         </mat-form-field>
     </div>
+    <mat-card-content *ngIf="showList">
+        <div class="filter-list">
+            a
+        </div>
+        <!-- <div class="content-research" *ngFor="let res of research$"> -->
+        <div class="content-research">
+            s
+            <!-- <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{res.title}}</mat-card-title>
+                    <mat-card-subtitle>{{res.abstract}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                    <button mat-button>READ MORE</button>
+                </mat-card-actions>
+            </mat-card> -->
+        </div>
+    </mat-card-content>
     <!-- <mat-card-content>
         <div class="content-research" *ngFor="let res of research$">
             <mat-card>

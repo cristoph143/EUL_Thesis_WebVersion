@@ -99,6 +99,8 @@ export class HomepageComponent implements OnInit {
     console.log(this.account$.first_name, 'account$');
   }
 
+  authors: any;
+
   
   fetchAllResearch() {
     let res: never[] = [];
@@ -137,6 +139,10 @@ export class HomepageComponent implements OnInit {
     this.curr = this.research$.filter((item: any) => //string exist in sdg_category
       item.sdg_category.includes(title)
     );
+    // removes duplicate research_id in this.curr and remain one copy of each research_id
+    this.curr = this.curr.filter((item: any, index: any) =>
+      this.curr.findIndex((item2: any) => item2.research_id === item.research_id) === index
+    );
     console.log(this.curr, 'curr')
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -159,6 +165,8 @@ export class HomepageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });
+
+
     
   }
 }

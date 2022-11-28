@@ -58,15 +58,27 @@ export class ResearchService {
             );
     }
     
-    // // fetchAccount using school_id
-    // fetchAllResearch(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
-    //     return this.http
-    //         .get<ResearchDetails>(`${this.url}/${research_id}`, this.httpOptions)
-    //         .pipe(
-    //             first(),
-    //             catchError(
-    //                 this.errorHandlerService.handleError<ResearchDetails>("fetchAccount")
-    //             )
-    //         );
-    // } 
+    // update research
+    updateResearch(research: ResearchDetails): Observable<ResearchDetails> {
+        return this.http
+            .put<ResearchDetails>(`${this.url}/research/updateResearchDetails`, research, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("updateResearch")
+                )
+            );
+    }
+
+    // get all similars authors using research_id
+    getSimilarsAuthors(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
+        return this.http
+            .get<ResearchDetails>(`${this.url}/research/getSimilarAuthor/${research_id}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("getSimilarsAuthors")
+                )
+            );
+    }
 }

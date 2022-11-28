@@ -37,6 +37,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { SearchComponent } from './users/search/search.component';
 import { ResearchLibraryComponent } from './users/research-library/research-library.component';
+import { UpdateDialogComponent } from './users/update-dialog/update-dialog.component';
+import { ReadMoreComponent } from './users/read-more/read-more.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +54,8 @@ import { ResearchLibraryComponent } from './users/research-library/research-libr
     OneComponent,
     SearchComponent,
     ResearchLibraryComponent,
+    UpdateDialogComponent,
+    ReadMoreComponent,
   ],
   imports: [
     BrowserModule,

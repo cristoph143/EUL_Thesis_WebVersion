@@ -1,0 +1,74 @@
+<mat-dialog-actions align="end">
+    <button class="cent" mat-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-dialog-actions>
+<mat-dialog-content class="mat-typography">
+    <div class="container">
+        <div class="upper" id="backs">
+            <div class="col">
+                <div class="row">
+                    <div class="desc">
+                        <mat-card-title-group>
+                            <mat-card-title>{{data.res.title}}</mat-card-title>
+                        </mat-card-title-group>
+                        <div class="row space">
+                            <p *ngFor="let author of authors">
+                                <mat-card-subtitle *ngIf="author != authors[authors.length - 1]">{{author.first_name}}{{author.last_name}},</mat-card-subtitle>
+                                <!-- if it is the last author then change the format -->
+                                <mat-card-subtitle *ngIf="author == authors[authors.length - 1]">{{author.first_name}}{{author.last_name}}</mat-card-subtitle>
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="end">
+                    <div class="box">
+                        <!-- data views from data.res -->
+                        <div class="views">
+                            <mat-icon>visibility</mat-icon>
+                            <span>{{data.res.number_of_views}}</span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <!-- download icon -->
+                        <div class="download">
+                            <mat-icon>file_download</mat-icon>
+                            <span>Download</span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <!-- delete icon -->
+                        <div class="delete">
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lower">
+            <mat-card-content>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>{{data.title}}</mat-card-title>
+                        <mat-card-subtitle>{{data.abstract}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{data.year}}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button>LIKE</button>
+                        <button mat-button>SHARE</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-card-content>
+        </div>
+    </div>
+</mat-dialog-content>
+<!-- <p>{{data.res | json}} </p>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>No Thanks</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</mat-dialog-actions> -->

@@ -71,27 +71,28 @@ module.exports = class Research {
         );
     }
 
-    static addcat(cat) {
-        console.log(cat)
-            // convert cat double quotes to single quotes
-            // cat = cat.replace(/"/g, "'");
-        return db.execute(
-            'insert into y values (?)', [cat]
-        );
-    }
-
-    static getcat() {
-        return db.execute(
-            'select * from y'
-        );
-    }
-
     static fetchLibrary(school_id) {
         return db.execute(
             'SELECT * FROM research_list LEFT JOIN research_details ' +
             'ON research_details.research_id = research_list.research_id ' +
             'LEFT JOIN account ON research_list.school_id = account.school_id ' +
             'WHERE research_list.school_id = ?', [school_id]
+        );
+    }
+
+    // check ownership of research
+    static checkOwnership(school_id, research_id) {
+        return db.execute(
+            'SELECT COUNT(*) FROM authored WHERE school_id = ? AND research_id = ?', [school_id, research_id]
+        );
+    }
+
+    // get similar authors using research_id from table authors
+    static getSimilarAuthors(research_id) {
+        return db.execute(
+            'SELECT * FROM authored LEFT JOIN account ' +
+            'ON authored.school_id = account.school_id ' +
+            'WHERE authored.research_id = ?', [research_id]
         );
     }
 }

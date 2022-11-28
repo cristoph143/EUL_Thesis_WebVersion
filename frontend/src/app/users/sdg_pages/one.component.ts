@@ -1,10 +1,13 @@
+import { ResearchService } from 'src/app/authentication/services/research.service';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Account } from 'src/app/authentication/model/account';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { ReadMoreComponent } from '../read-more/read-more.component';
 
 export interface Tile {
   cols: number;
@@ -30,7 +33,7 @@ export class OneComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private accService: AccountService,
-    public dialogRef: MatDialogRef<OneComponent>,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -54,6 +57,7 @@ export class OneComponent implements OnInit {
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
     console.log(this.research$, 'research$');
     this.research_data = this.data.curr;
+    // this.showEditButton();
   }
   url: any;
 
@@ -137,5 +141,71 @@ export class OneComponent implements OnInit {
     console.log(event);
     console.log(event.tab.textLabel);
     this.filterByTabs(event.tab.textLabel);
+  }
+
+  ownership: any;
+
+  // show edit button when the user is the owner of the research
+  showEditButton(res: any): void {
+    // check if the research id is the same as the current user id
+    if (res.school_id == this.authService.school_id) {
+      this.ownership = true;
+    }
+    else {
+      this.ownership = false;
+    }
+    return this.ownership;
+  }
+
+  // show delete button when the user is the owner of the research
+  showDeleteButton(res: any): void {
+    // check if the research id is the same as the current user id
+    if (res.school_id == this.authService.school_id) {
+      this.ownership = true;
+    }
+    else {
+      this.ownership = false;
+    }
+    return this.ownership;
+  }
+
+  updateRes(res: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
+    dialogConfig.data = {
+      res
+    };
+    console.log(dialogConfig.data, 'dialogConfig.data');
+    
+    // this.dialog.open(dialogReference);
+    const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
+    console.log(UpdateDialogComponent)
+    //   const dialogRef = this.dialog.open(dialogReference);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  readMore(res: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
+    dialogConfig.data = {
+      res
+    };
+    console.log(dialogConfig.data, 'dialogConfig.data');
+    
+    // this.dialog.open(dialogReference);
+    const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
+    console.log(ReadMoreComponent)
+    //   const dialogRef = this.dialog.open(dialogReference);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

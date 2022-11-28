@@ -1,0 +1,17 @@
+<!-- form for receive data from data.res where data is already display to be editable -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title" />
+    </mat-form-field>
+    <mat-form-field>
+        <!-- display value of abstract from data.res -->
+        <textarea matInput placeholder="Abstract" formControlName="abstract"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Year" formControlName="year" />
+    </mat-form-field>
+</form>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>No Thanks</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

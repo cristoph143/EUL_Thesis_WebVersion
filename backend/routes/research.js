@@ -38,14 +38,38 @@ router.post('/addResearchList', [
     body('school_id').trim().not().isEmpty(),
 ], researchController.addResearchList);
 
-router.post('/addcat', [
-    body('x')
-], researchController.addcat);
-
-router.get('/getcat', researchController.getcat);
-
 router.get('/fetchAllResearchList', researchController.getAllResearch);
 
 router.get('/fetchLibrary/:school_id', researchController.fetchLibrary);
+
+// check ownership of research
+router.get('/checkOwnership/:research_id/:school_id', researchController.checkOwnership);
+
+// get similar author using research_id
+router.get('/getSimilarAuthor/:research_id', researchController.getSimilarAuthor);
+
+
+// // update research details
+// router.post('/updateResearchDetails', [
+//     body('research_id').trim().not().isEmpty(),
+//     body('topic_category'),
+//     body('sdg_category'),
+//     body('date_published').trim().not().isEmpty(),
+//     body('adviser').trim().not().isEmpty(),
+//     body('department').trim().not().isEmpty(),
+//     body('keywords'),
+//     body('title').trim().not().isEmpty(),
+//     body('abstract').trim().not().isEmpty(),
+//     body('qr').trim().not().isEmpty(),
+//     body('number_of_views').trim().not().isEmpty(),
+// ], researchController.updateResearchDetails);
+
+// // delete research details
+// router.post('/deleteResearchDetails', [
+//     body('research_id').trim().not().isEmpty(),
+//     body('school_id').trim().not().isEmpty(),
+//     body('password').trim().not().isEmpty()
+// ], researchController.deleteResearchDetails);
+
 
 module.exports = router;
