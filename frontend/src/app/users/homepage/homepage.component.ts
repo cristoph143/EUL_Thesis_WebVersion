@@ -143,6 +143,9 @@ export class HomepageComponent implements OnInit {
     this.curr = this.curr.filter((item: any, index: any) =>
       this.curr.findIndex((item2: any) => item2.research_id === item.research_id) === index
     );
+    this.research$ = this.research$.filter((item: any, index: any) => 
+      this.research$.findIndex((item2: any) => item2.research_id === item.research_id) === index
+    );
     console.log(this.curr, 'curr')
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -153,7 +156,8 @@ export class HomepageComponent implements OnInit {
       title,
       sub_title,
       background,
-      curr: this.curr
+      curr: this.curr,
+      all_research: this.research$
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     

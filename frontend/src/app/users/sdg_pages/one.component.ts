@@ -57,9 +57,13 @@ export class OneComponent implements OnInit {
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
     console.log(this.research$, 'research$');
     this.research_data = this.data.curr;
+    console.log(this.data.all_research, 'all_research');
+    this.research_all$ = this.data.all_research;
+    console.log(this.research_all$, 'research_data');
     // this.showEditButton();
   }
   url: any;
+  research_all$: any;
 
   tabs: Tabs[] = [
     { label: 'All' },
@@ -175,7 +179,7 @@ export class OneComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "100%";
     dialogConfig.data = {
-      res
+      res,
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     
@@ -194,8 +198,12 @@ export class OneComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "100%";
+    
+    const all_res = this.research_all$;
+    console.log(all_res, 'all_res');
     dialogConfig.data = {
-      res
+      res,
+      all_res,
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     

@@ -4,6 +4,10 @@ import { AccountService } from 'src/app/authentication/services/account.service'
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
 
+
+export interface Tabs {
+  label: string;
+}
 @Component({
   selector: 'app-read-more',
   templateUrl: './read-more.component.html',
@@ -24,6 +28,8 @@ export class ReadMoreComponent implements OnInit {
       console.log(this.data.res + "data");
       console.log(this.getSimilarAuthors()); 
       console.log(this.authors, 'authors');
+      this.formatDate();
+      console.log(this.data.all_res + "data");
   }
 
   authors: any;
@@ -35,6 +41,31 @@ export class ReadMoreComponent implements OnInit {
       console.log(this.authors, 'authors');
     })
     console.log(this.authors, 'authors');
+  }
+
+  date: any;
+  // format the date
+  formatDate() {
+    // format to Month Day, Year
+    this.date = new Date(this.data.res.date_published).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  // tabs: Overview, Research Details, Authors, Cite this Research, Related Articles
+  tabs: Tabs[] = [
+    { label: 'Overview' },
+    { label: 'Research Details' },
+    { label: 'Authors' },
+    { label: 'Cite this Research' },
+    { label: 'Related Articles' },
+  ];
+
+  onTabClick(event: { tab: { textLabel: any; }; }) {
+    console.log(event);
+    console.log(event.tab.textLabel);
   }
 
 }
