@@ -57,6 +57,7 @@ export class OneComponent implements OnInit {
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
     console.log(this.research$, 'research$');
     this.research_data = this.data.curr;
+    console.log(this.research_data);
     console.log(this.data.all_research, 'all_research');
     this.research_all$ = this.data.all_research;
     console.log(this.research_all$, 'research_data');
