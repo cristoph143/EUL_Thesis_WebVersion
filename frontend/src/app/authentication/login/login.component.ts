@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Account } from '../model/account';
 import { AuthService } from '../services/auth.service';
+import { TokenStorageService } from '../services/token-storage.service';
 // import { AccountCrudService } from '../services/account-crud.service';
 // import { LibraryConfig } from '../../authentication/model/config';
 
@@ -21,11 +22,18 @@ export class LoginComponent implements OnInit{
     // private AccountCrudService: AccountCrudService,
     private router: Router,
     private toast: HotToastService,
+    private tokenStorage: TokenStorageService
   ) { }
 
+  data: any;
+  isLoggedIn = false;
 
   ngOnInit(): void {
     this.rememberMe = false;
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      // this.roles = this.tokenStorage.getUser().roles;
+    }
     // this.AutoLogin();
   }
 
@@ -98,13 +106,23 @@ export class LoginComponent implements OnInit{
       )
       .subscribe(data => {
         console.log('Data', data);
-        
+        this.data = data;
+        this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.saveUser(data);
+
+        // this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        // this.roles = this.tokenStorage.getUser().roles;
         // this.router.navigate(['/home']);
       }
       )
     );
     console.log(this.authService.currUser)
     console.log(this.authService.isUserAuthenticated)
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
   getErrorMessage() {
     if (this.loginForm.hasError('required')) {

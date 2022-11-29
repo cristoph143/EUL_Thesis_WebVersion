@@ -1,5 +1,8 @@
 const db = require('../util/database');
 const account = require('../models/account');
+const {
+    deleteResearch
+} = require('../controller/research');
 module.exports = class Research {
     constructor(
         research_id, topic_category, sdg_category, date_published, adviser,
@@ -93,6 +96,13 @@ module.exports = class Research {
             'SELECT * FROM authored LEFT JOIN account ' +
             'ON authored.school_id = account.school_id ' +
             'WHERE authored.research_id = ?', [research_id]
+        );
+    }
+
+    // delete research
+    static deleteResearch(research_id) {
+        return db.execute(
+            'DELETE FROM research_details WHERE research_id = ?', [research_id]
         );
     }
 }

@@ -1,3 +1,4 @@
+import { AuthInterceptorService } from './auth-interceptor.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -21,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
+    private authInt: AuthInterceptorService
     // @Inject('config') private config: LibraryConfig) {}
   ) {}
 
@@ -54,6 +56,7 @@ export class AuthService {
   }
 
   currUser: any;
+  token: any;
 
   login(
     school_id: Pick<Account, "school_id">,
@@ -76,7 +79,14 @@ export class AuthService {
         first(),
         tap((tokenObject: any) => {
           this.userId = tokenObject.userid;
-          localStorage.setItem("token", tokenObject.token);
+          this.token = tokenObject.token;
+          localStorage.setItem("token", this.token);
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem("token", this.token);
+          // store user details and jwt token in session storage to keep user logged in between page refreshes
+          sessionStorage.setItem("token", this.token);
+          // print the expiration
+          console.log(tokenObject.expiresIn + "hhhh");
           this.isUserLoggedIn$.next(true);
           // this.isUserLoggedIn$ = true;
           this.school_id = school_id;

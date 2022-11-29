@@ -48,6 +48,9 @@ router.get('/checkOwnership/:research_id/:school_id', researchController.checkOw
 // get similar author using research_id
 router.get('/getSimilarAuthor/:research_id', researchController.getSimilarAuthor);
 
+// delete research using research_id
+router.delete('/deleteResearch/:research_id', researchController.deleteResearch);
+
 
 // // update research details
 // router.post('/updateResearchDetails', [

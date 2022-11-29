@@ -44,6 +44,7 @@ export class NavigateComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     // const remove = this.authService.isUserLoggedIn$.next(false);
     const remove: any = this.authService.isUserLoggedIn$.next(false);
     // this.authService.isUserLoggedIn$ = false;

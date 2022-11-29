@@ -34,6 +34,7 @@ export class OneComponent implements OnInit {
     private authService: AuthService,
     private accService: AccountService,
     public dialog: MatDialog,
+    public researchService: ResearchService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -172,6 +173,14 @@ export class OneComponent implements OnInit {
       this.ownership = false;
     }
     return this.ownership;
+  }
+
+  deleteRes(res: any) {
+    console.log(res);
+    this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
+      console.log(data);
+    });
+    // window.location.reload();
   }
 
   updateRes(res: any) {

@@ -1,4 +1,6 @@
-const { validationResult } = require('express-validator');
+const {
+    validationResult
+} = require('express-validator');
 
 const account = require('../models/account');
 const bcrypt = require('bcryptjs');
@@ -6,7 +8,7 @@ const bcrypt = require('bcryptjs');
 exports.fetchAll = async(req, res, next) => {
     try {
         const result = await account.fetchAll();
-        console.log('result' + result)
+        // console.log('result' + result)
         res.status(200).json(result);
     } catch (err) {
         if (!err.statusCode) {
@@ -25,7 +27,10 @@ exports.updateAccountProfile = async(req, res, next) => {
         console.log('controller auth')
 
         if (!errors.isEmpty()) {
-            return res.status(500).json({ tokens: null, error: errors.array() });
+            return res.status(500).json({
+                tokens: null,
+                error: errors.array()
+            });
         }
 
         const school_id = req.body.school_id;
@@ -69,7 +74,9 @@ exports.updateAccountProfile = async(req, res, next) => {
             console.log(result)
 
             console.log(result.values());
-            res.status(201).json({ message: 'Account Updated!' });
+            res.status(201).json({
+                message: 'Account Updated!'
+            });
         } catch (err) {
             if (!err.statusCode) {
                 err.statusCode = 500;
@@ -88,7 +95,7 @@ exports.fetchAllByDepartment = async(req, res, next) => {
     console.log(department)
     try {
         const result = await account.fetchAllByDepartment(department);
-        console.log('result' + result)
+        // console.log('result' + result)
         res.status(200).json(result);
     } catch (err) {
         if (!err.statusCode) {

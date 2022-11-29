@@ -17,11 +17,11 @@
         <a class="links" routerLink="/contact" routerLinkActive="active">Contact</a>
     </div> -->
     <div class="dropdown nav-list">
-        <button class="dropbtn">Account
+        <!-- <button class="dropbtn">Account -->
         <!-- <button class="dropbtn" *ngIf="!isAuthenticated">Account -->
-            <!-- <i class="fa fa-caret-down"></i>
+        <!-- <i class="fa fa-caret-down"></i>
             <mat-icon>arrow_drop_down_circle</mat-icon> -->
-        </button>
+        <!-- </button> -->
         <!-- <button class="dropbtn" *ngIf="isAuthenticated">{{full_name}} -->
         <!-- <i class="fa fa-caret-down"></i>
             <mat-icon>arrow_drop_down_circle</mat-icon> -->
@@ -32,13 +32,13 @@
         <!-- <ng-template #templateName>
             {{this.account$.first_name}} {{this.account$.last_name}}
         </ng-template> -->
-        <div class="dropdown-content">
-            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="!isAuthenticated">Login</a>
+        <!-- <div class="dropdown-content"> -->
+        <!-- <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="!isAuthenticated">Login</a>
             <a routerLink="/register" routerLinkActive="active" (click)="nav('signup')" *ngIf="!isAuthenticated">Register</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('upload')" *ngIf="isAuthenticated">Profile</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">My Favorites</a>
-            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Setting</a>
-            <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated">Logout</a>
-        </div>
+            <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Setting</a> -->
+        <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated">Logout</a>
+        <!-- </div> -->
     </div>
 </mat-toolbar>

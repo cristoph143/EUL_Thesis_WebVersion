@@ -81,4 +81,16 @@ export class ResearchService {
                 )
             );
     }
+
+    // delete research
+    deleteResearch(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
+        return this.http
+            .delete<ResearchDetails>(`${this.url}/research/deleteResearch/${research_id}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("deleteResearch")
+                )
+            );
+    }
 }

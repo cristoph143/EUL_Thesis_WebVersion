@@ -50,7 +50,7 @@
                                     <button mat-button>LIKE</button>
                                     <button mat-button>SHARE</button>
                                     <button mat-button *ngIf="showEditButton(res)" (click)="updateRes(res)">EDIT</button>
-                                    <button mat-button *ngIf="showDeleteButton(res)">Delete</button>
+                                    <button mat-button *ngIf="showDeleteButton(res)" (click)="deleteRes(res)">Delete</button>
                                     <button mat-button (click)="readMore(res)">READ MORE</button>
                                 </mat-card-actions>
                             </mat-card>

@@ -1,4 +1,6 @@
-const { validationResult } = require('express-validator');
+const {
+    validationResult
+} = require('express-validator');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -13,7 +15,10 @@ exports.signup = async(req, res, next) => {
     console.log('controller auth')
 
     if (!errors.isEmpty()) {
-        return res.status(500).json({ tokens: null, error: errors.array() });
+        return res.status(500).json({
+            tokens: null,
+            error: errors.array()
+        });
     }
 
     const school_id = req.body.school_id;
@@ -44,11 +49,15 @@ exports.signup = async(req, res, next) => {
         const result = await Account.createAccount(AccountDetails);
 
         console.log(result.values());
-        res.status(201).json({ message: 'Account registered!' });
+        res.status(201).json({
+            message: 'Account registered!'
+        });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
-            res.status(500).json({ err });
+            res.status(500).json({
+                err
+            });
         }
         next(err);
     }
@@ -87,15 +96,24 @@ exports.login = async(req, res, next) => {
 
         const token = jwt.sign({
                 email: storedUser.email,
-                school_id: storedUser.school_id
+                school_id: storedUser.school_id,
+                // expiresIn in minutes format
+                expiresIn: '1h'
             },
-            'secretfortoken', { expiresIn: '1h' }
+            'secretfortoken', {
+                expiresIn: '1h'
+            }
         );
-        res.status(200).json({ token: token, userId: storedUser.school_id });
+        res.status(200).json({
+            token: token,
+            userId: storedUser.school_id
+        });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
-            res.status(500).json({ err });
+            res.status(500).json({
+                err
+            });
         }
         next(err);
     }
