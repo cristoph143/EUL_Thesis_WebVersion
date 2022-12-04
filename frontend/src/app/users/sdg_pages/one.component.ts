@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { ReadMoreComponent } from '../read-more/read-more.component';
 import { FormControl } from '@angular/forms';
+import Fuse from 'fuse.js';
 
 export interface Tile {
   cols: number;
@@ -160,13 +161,40 @@ export class OneComponent implements OnInit {
 
   // filter this.research_data by the keywords
   filterSearch(tab: any, ret: any) {
-    console.log("It works at " + tab + " :" + ret + this.research_data);
+    console.log("It works at " + tab + " : '" + ret + "' " + this.research_data);
     // covert object to list of json
     let list: any = [];
     for (let i = 0; i < this.research_data.length; i++) {
-      list.push(ret[i]);
+      list.push(this.research_data[i]);
     }
     console.log(list);
+    // filter list using fuzzy search
+    let options = {
+      shouldSort: true,
+      maxPatternLength: 32,
+      minMatchCharLength: 2,
+      sortFn: function (a: any, b: any) {
+        return a.score - b.score;
+      },
+      // includeMatches: true,
+      findAllMatches: true,
+      includeScore: true,
+      isCaseSensitive: false,
+      keys: [
+        "title"]
+    };
+    let result_list = [];
+    if(ret != ''){
+      let fuse = new Fuse(list, options);
+      let result = fuse.search(ret);
+      for (let i = 0; i < result.length; i++) {
+        console.log(result[i])
+        console.log(result[i].item)
+        result_list.push(result[i].item);
+      }
+      console.log(result_list);
+      this.research_data = result_list;
+    }
     /*TODO - filter by keywords
       1. Use the input from ret
       2. filter by title

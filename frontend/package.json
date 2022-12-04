@@ -26,6 +26,7 @@
     "alife-file-to-base64": "^0.0.4",
     "express-bearer-token": "2.4.0",
     "file-saver": "^2.0.5",
+    "fuse.js": "^6.6.2",
     "mysql-wrapper": "^0.1.1",
     "mysql2": "^2.3.3",
     "ng2-file-upload": "^1.4.0",
