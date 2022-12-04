@@ -103,18 +103,25 @@ export class OneComponent implements OnInit {
     console.log(this.account$.first_name, 'account$');
   }
 
-  filterByTabs(tab: any, input: any) {
-    console.log(input + "input")
+  filterByTabs(tab: any) {
     // filter data.curr using tab
     // filter using tab
     let ret: any;
+    console.log(this.search + " --- " + this.search.length)
     if (tab == 'All') {
       this.research_data = this.data.curr;
       console.log(this.data.curr)
       console.log(ret + "ret");
       this.research_data = this.data.curr;
       console.log(this.research_data, 'research_data');
-      this.filterSearch(tab, input);
+      if (this.search.length != 0) {
+        console.log(this.search + " !und")
+        this.filterSearch(tab);
+      }
+      else{
+        console.log(this.search + " und")
+        this.research_data = this.data.curr;
+      }
     }
     if (tab == "Department's Research") {
       // get account
@@ -124,7 +131,13 @@ export class OneComponent implements OnInit {
       ret = this.data.curr.filter((item: any) => item.department == this.account$.department);
       console.log(ret, 'ret');
       this.research_data = ret;
-      this.filterSearch(tab, ret);
+      if (this.search.length != 0) {
+        console.log(this.search + " !und")
+        this.filterSearch(tab);
+      }
+      else {
+        this.research_data = ret;
+      }
     }
     if (tab == "Teacher's Research") {
       console.log(this.data.curr)
@@ -133,7 +146,13 @@ export class OneComponent implements OnInit {
       console.log(ret + "ret");
       this.research_data = ret;
       console.log(this.research_data, 'research_data');
-      this.filterSearch(tab, ret);
+      if (this.search.length != 0) {
+        console.log(this.search + " !und")
+        this.filterSearch(tab);
+      }
+      else{
+        this.research_data = ret;
+      }
     }
     if (tab == "Student's Research") {
       console.log(this.data.curr)
@@ -141,7 +160,13 @@ export class OneComponent implements OnInit {
       ret = this.data.curr.filter((item: any) => item.role == "Student");
       console.log(ret + "ret");
       this.research_data = ret;
-      this.filterSearch(tab, ret);
+      if (this.search.length != 0) {
+        console.log(this.search + " !und")
+        this.filterSearch(tab);
+      }
+      else{
+        this.research_data = ret;
+      }
     }
     /* 
       TODO: filter data.curr using tab
@@ -160,8 +185,8 @@ export class OneComponent implements OnInit {
   }
 
   // filter this.research_data by the keywords
-  filterSearch(tab: any, ret: any) {
-    console.log("It works at " + tab + " : '" + ret + "' " + this.research_data);
+  filterSearch(tab: any) {
+    console.log("It works at " + tab + " : '" + this.search + "' " + this.research_data);
     // covert object to list of json
     let list: any = [];
     for (let i = 0; i < this.research_data.length; i++) {
@@ -180,21 +205,23 @@ export class OneComponent implements OnInit {
       findAllMatches: true,
       includeScore: true,
       isCaseSensitive: false,
-      keys: [
-        "title"]
+      keys: ["title"]
     };
     let result_list = [];
-    if(ret != ''){
-      let fuse = new Fuse(list, options);
-      let result = fuse.search(ret);
-      for (let i = 0; i < result.length; i++) {
-        console.log(result[i])
-        console.log(result[i].item)
-        result_list.push(result[i].item);
-      }
-      console.log(result_list);
-      this.research_data = result_list;
+    console.log(this.search + " s")
+    let fuse = new Fuse(list, options);
+    let result = fuse.search(this.search);
+    console.log(typeof result + " " + result) 
+    // iterate the object result
+    for (let i = 0; i < result.length; i++) {
+      console.log(result[i])
+      console.log(result[i].item)
+      result_list.push(result[i].item);
     }
+    console.log(result_list);
+    this.research_data = result_list;
+    
+    
     /*TODO - filter by keywords
       1. Use the input from ret
       2. filter by title
@@ -208,7 +235,7 @@ export class OneComponent implements OnInit {
     console.log(event.tab.textLabel);
     // this.filterByTabs(event.tab.textLabel);
     this.current_tab = event.tab.textLabel;
-    this.filterByTabs(this.current_tab, this.research_data)
+    this.filterByTabs(this.current_tab)
   }
 
   ownership: any;
@@ -315,7 +342,7 @@ export class OneComponent implements OnInit {
     this.research_data.forEach((item: any) => {
       console.log(item);
     });
-    this.filterByTabs(this.current_tab, this.search);
+    this.filterByTabs(this.current_tab);
   }
   
   
