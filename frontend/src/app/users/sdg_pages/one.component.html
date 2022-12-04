@@ -22,14 +22,10 @@
             <!-- search div -->
             <div class="search">
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Search" />
+                    <input matInput [ngModel]='search' (ngModelChange)='onChange($event)' [formControl]="searchForm" id="search" class="search" placeholder="Search" />
                     <!-- maticon search for button search -->
                     <button mat-icon-button matSuffix>
                         <mat-icon>search</mat-icon>
-                    </button>
-                    <!-- maticon filter for button filter -->
-                    <button mat-icon-button matSuffix click="openDialog()">
-                        <mat-icon>filter_list</mat-icon>
                     </button>
                 </mat-form-field>
             </div>

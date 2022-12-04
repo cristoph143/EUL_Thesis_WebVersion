@@ -51,6 +51,8 @@ router.get('/getSimilarAuthor/:research_id', researchController.getSimilarAuthor
 // delete research using research_id
 router.delete('/deleteResearch/:research_id', researchController.deleteResearch);
 
+// increment by one in number_of_views using research_id
+router.get('/incrementViews/:research_id/:number_of_views', researchController.incrementViews);
 
 // // update research details
 // router.post('/updateResearchDetails', [

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/authentication/services/auth.service';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { ReadMoreComponent } from '../read-more/read-more.component';
+import { FormControl } from '@angular/forms';
 
 export interface Tile {
   cols: number;
@@ -27,7 +28,6 @@ export interface Tabs {
   styleUrls: ['./one.component.css']
 })
 export class OneComponent implements OnInit {
-
 
   @Output() submitClicked = new EventEmitter<any>();
   constructor(
@@ -102,31 +102,45 @@ export class OneComponent implements OnInit {
     console.log(this.account$.first_name, 'account$');
   }
 
-  filterByTabs(tab: any) {
+  filterByTabs(tab: any, input: any) {
+    console.log(input + "input")
     // filter data.curr using tab
     // filter using tab
     let ret: any;
     if (tab == 'All') {
       this.research_data = this.data.curr;
+      console.log(this.data.curr)
+      console.log(ret + "ret");
+      this.research_data = this.data.curr;
       console.log(this.research_data, 'research_data');
+      this.filterSearch(tab, input);
     }
     if (tab == "Department's Research") {
       // get account
+      console.log(this.data.curr)
       console.log(this.account$.department);
+      console.log(ret + "ret");
       ret = this.data.curr.filter((item: any) => item.department == this.account$.department);
       console.log(ret, 'ret');
       this.research_data = ret;
+      this.filterSearch(tab, ret);
     }
     if (tab == "Teacher's Research") {
+      console.log(this.data.curr)
       console.log(this.account$.department);
       ret = this.data.curr.filter((item: any) => item.role == "Teacher");
+      console.log(ret + "ret");
       this.research_data = ret;
       console.log(this.research_data, 'research_data');
+      this.filterSearch(tab, ret);
     }
     if (tab == "Student's Research") {
+      console.log(this.data.curr)
       console.log(this.account$.department);
       ret = this.data.curr.filter((item: any) => item.role == "Student");
+      console.log(ret + "ret");
       this.research_data = ret;
+      this.filterSearch(tab, ret);
     }
     /* 
       TODO: filter data.curr using tab
@@ -143,10 +157,30 @@ export class OneComponent implements OnInit {
     */
 
   }
+
+  // filter this.research_data by the keywords
+  filterSearch(tab: any, ret: any) {
+    console.log("It works at " + tab + " :" + ret + this.research_data);
+    // covert object to list of json
+    let list: any = [];
+    for (let i = 0; i < this.research_data.length; i++) {
+      list.push(ret[i]);
+    }
+    console.log(list);
+    /*TODO - filter by keywords
+      1. Use the input from ret
+      2. filter by title
+      Future: filter by other fields if it will work
+    */
+    
+  } //ret receive from input search
+
   onTabClick(event: { tab: { textLabel: any; }; }) {
     console.log(event);
     console.log(event.tab.textLabel);
-    this.filterByTabs(event.tab.textLabel);
+    // this.filterByTabs(event.tab.textLabel);
+    this.current_tab = event.tab.textLabel;
+    this.filterByTabs(this.current_tab, this.research_data)
   }
 
   ownership: any;
@@ -204,6 +238,11 @@ export class OneComponent implements OnInit {
   }
 
   readMore(res: any) {
+    // add 1 to res.number_of_views
+    let number: number = res.number_of_views + 1;
+    this.researchService.addNumberOfViews(res.research_id, number).subscribe((res: any) => {
+      console.log(res);
+    })
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -226,4 +265,31 @@ export class OneComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  // formcontrol for search
+  searchForm = new FormControl('');
+
+  // search() {
+  //   // get the id from the search bar
+  //   let id = this.searchForm.value;
+  //   console.log(id, 'id');
+  // }
+
+  search: string = "";
+  current_tab = "All";
+
+  onChange($event: any) {
+    this.search = $event;
+    console.log(this.search, 'search');
+    // 
+    console.log(this.current_tab);
+    // iterate this.research_data and print the values inside the array
+    this.research_data.forEach((item: any) => {
+      console.log(item);
+    });
+    this.filterByTabs(this.current_tab, this.search);
+  }
+  
+  
+  
 }

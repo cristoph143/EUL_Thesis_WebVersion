@@ -105,4 +105,10 @@ module.exports = class Research {
             'DELETE FROM research_details WHERE research_id = ?', [research_id]
         );
     }
+
+    static incrementViews(research_id, number_of_views) {
+        return db.execute(
+            'UPDATE research_details SET number_of_views = ? WHERE research_id = ?', [number_of_views, research_id]
+        );
+    }
 }

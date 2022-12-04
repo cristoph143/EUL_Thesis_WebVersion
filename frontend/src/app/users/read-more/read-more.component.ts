@@ -68,4 +68,6 @@ export class ReadMoreComponent implements OnInit {
     console.log(event.tab.textLabel);
   }
 
+
+
 }
