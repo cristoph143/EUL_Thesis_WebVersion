@@ -63,7 +63,7 @@ export class AuthService {
     password: Pick<Account, "password">
   ): Observable<{
     token: string,
-    userid: Pick<Account, "school_id">
+    school_id: Pick<Account, "school_id">
   }> {
     console.log('login');
     const user = this.http
@@ -80,11 +80,14 @@ export class AuthService {
         tap((tokenObject: any) => {
           this.userId = tokenObject.userid;
           this.token = tokenObject.token;
-          localStorage.setItem("token", this.token);
+          const token = tokenObject.token;
+          // concat school_id and token into string
+          const tokenString = JSON.stringify({school_id, token});
+          localStorage.setItem("token", tokenString);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("token", this.token);
+          localStorage.setItem("token", tokenString);
           // store user details and jwt token in session storage to keep user logged in between page refreshes
-          sessionStorage.setItem("token", this.token);
+          sessionStorage.setItem("token", tokenString);
           // print the expiration
           console.log(tokenObject.expiresIn + "hhhh");
           this.isUserLoggedIn$.next(true);
@@ -97,7 +100,7 @@ export class AuthService {
         catchError(
           this.errorHandlerService.handleError<{
             token: string,
-            userid: Pick<Account, "school_id">
+            school_id: Pick<Account, "school_id">
           }>()
         ),
     ) 

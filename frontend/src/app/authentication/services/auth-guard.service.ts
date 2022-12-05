@@ -4,24 +4,19 @@ import { CanActivate, Router } from "@angular/router";
 
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private token: TokenStorageService) {}
 
-  // canActivate(): boolean {
-  //     if (this.authService.isUserLoggedIn$ == false) {
-  //       this.router.navigate(["/signup"]);
-  //       return false;
-  //   }
-  //   return true;
-  // }
-  canActivate(): Observable<boolean> {
-    if (!this.authService.isUserLoggedIn$.value) {
+  canActivate(): boolean {
+    if (!localStorage.getItem("token")) {
     this.router.navigate(["/login"]);
-  }
-  return this.authService.isUserLoggedIn$;
+    }
+    console.log(this.token.getTokens()+ 'not')
+  return this.token.getTokens();
 }
 }

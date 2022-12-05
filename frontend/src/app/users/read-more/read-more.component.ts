@@ -24,7 +24,8 @@ export class ReadMoreComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
     
-    ngOnInit(): void {
+  ngOnInit(): void {
+    console.log(this.data.account.school_id + 'account');
       console.log(this.data.res + "data");
       console.log(this.getSimilarAuthors()); 
       console.log(this.authors, 'authors');

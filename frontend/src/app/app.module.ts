@@ -38,6 +38,7 @@ import { SearchComponent } from './users/search/search.component';
 import { ResearchLibraryComponent } from './users/research-library/research-library.component';
 import { UpdateDialogComponent } from './users/update-dialog/update-dialog.component';
 import { ReadMoreComponent } from './users/read-more/read-more.component';
+import { AuthGuard } from './authentication/services/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +85,9 @@ import { ReadMoreComponent } from './users/read-more/read-more.component';
     MatDialogModule,
     MatChipsModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent],
   entryComponents: [OneComponent]
 })

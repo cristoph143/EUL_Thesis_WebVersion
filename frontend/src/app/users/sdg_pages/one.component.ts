@@ -49,8 +49,9 @@ export class OneComponent implements OnInit {
   research_data: any;
 
   ngOnInit(): void {
-    this.school_id = this.authService.school_id;
-    this.getInfoUsingSchoolId(this.school_id)
+    console.log(this.data.account);
+    this.school_id = this.data.account.school_id;
+    // this.getInfoUsingSchoolId(this.school_id)
     console.log('this,auth', this.authService.isUserAuthenticated);
     console.log(this.data.background, 'data');
     this.url = "'../../../../../assets/" + this.data.background + "'";
@@ -77,31 +78,7 @@ export class OneComponent implements OnInit {
 
 
   userId: Pick<Account, "school_id"> | undefined;
-  school_id: any;
-
-  // http request for getting the user details using school_id
-  getInfoUsingSchoolId(school_id: any){
-    let res: never[] = [];
-    // return this.accService.fetchAccount(school_id);
-    console.log(this.accService
-      .fetchAccountUsingId(
-        school_id
-    )
-      .subscribe((data:any) => {
-        console.log(data[0][0]);
-        res = data[0][0];
-        this.getAcc(res);
-        return data[0][0];
-      }
-    ));
-  }
-
-  getAcc(res:any) {
-    console.log(res)
-    const curr_acc = res;
-    this.account$ = curr_acc;
-    console.log(this.account$.first_name, 'account$');
-  }
+  school_id = this.data.account.school_id;
 
   filterByTabs(tab: any) {
     // filter data.curr using tab
@@ -123,12 +100,13 @@ export class OneComponent implements OnInit {
         this.research_data = this.data.curr;
       }
     }
+    const department = this.data.account.department;
     if (tab == "Department's Research") {
       // get account
       console.log(this.data.curr)
       console.log(this.account$.department);
       console.log(ret + "ret");
-      ret = this.data.curr.filter((item: any) => item.department == this.account$.department);
+      ret = this.data.curr.filter((item: any) => item.department == department);
       console.log(ret, 'ret');
       this.research_data = ret;
       if (this.search.length != 0) {
@@ -241,21 +219,21 @@ export class OneComponent implements OnInit {
   ownership: any;
 
   // show edit button when the user is the owner of the research
-  showEditButton(res: any): void {
-    // check if the research id is the same as the current user id
-    if (res.school_id == this.authService.school_id) {
-      this.ownership = true;
-    }
-    else {
-      this.ownership = false;
-    }
-    return this.ownership;
-  }
+  // showEditButton(res: any): void {
+  //   // check if the research id is the same as the current user id
+  //   if (res.school_id == this.school_id) {
+  //     this.ownership = true;
+  //   }
+  //   else {
+  //     this.ownership = false;
+  //   }
+  //   return this.ownership;
+  // }
 
   // show delete button when the user is the owner of the research
   showDeleteButton(res: any): void {
     // check if the research id is the same as the current user id
-    if (res.school_id == this.authService.school_id) {
+    if (res.school_id == this.school_id) {
       this.ownership = true;
     }
     else {
@@ -272,27 +250,28 @@ export class OneComponent implements OnInit {
     // window.location.reload();
   }
 
-  updateRes(res: any) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
-    dialogConfig.data = {
-      res,
-    };
-    console.log(dialogConfig.data, 'dialogConfig.data');
+  // updateRes(res: any) {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = "100%";
+  //   dialogConfig.data = {
+  //     res,
+  //   };
+  //   console.log(dialogConfig.data, 'dialogConfig.data');
     
-    // this.dialog.open(dialogReference);
-    const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
-    console.log(UpdateDialogComponent)
-    //   const dialogRef = this.dialog.open(dialogReference);
+  //   // this.dialog.open(dialogReference);
+  //   const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
+  //   console.log(UpdateDialogComponent)
+  //   //   const dialogRef = this.dialog.open(dialogReference);
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     console.log(`Dialog result: ${result}`);
+  //   });
+  // }
 
   readMore(res: any) {
+    console.log(this.data.account);
     // add 1 to res.number_of_views
     let number: number = res.number_of_views + 1;
     this.researchService.addNumberOfViews(res.research_id, number).subscribe((res: any) => {
@@ -308,6 +287,7 @@ export class OneComponent implements OnInit {
     dialogConfig.data = {
       res,
       all_res,
+      account: this.data.account
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     
@@ -320,15 +300,6 @@ export class OneComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
-  // formcontrol for search
-  searchForm = new FormControl('');
-
-  // search() {
-  //   // get the id from the search bar
-  //   let id = this.searchForm.value;
-  //   console.log(id, 'id');
-  // }
 
   search: string = "";
   current_tab = "All";

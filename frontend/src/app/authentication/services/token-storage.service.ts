@@ -27,6 +27,10 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN, JSON.stringify(user));
   }
 
+  public getTokens(): any {
+    return !!localStorage.getItem("token"); 
+  }
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(TOKEN);
     if (user) {

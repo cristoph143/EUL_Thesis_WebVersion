@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AccountService } from '../authentication/services/account.service';
 import { AuthService } from '../authentication/services/auth.service';
 import { Account } from '../authentication/model/account';
+import { TokenStorageService } from '../authentication/services/token-storage.service';
 
 @Component({
   selector: 'app-navigate',
@@ -27,20 +28,61 @@ export class NavigateComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private accService: AccountService,
+    private tokenStorage: TokenStorageService
   ) {}
   
   ngOnInit(): void {
-    console.log(this.authService.isUserLoggedIn$.subscribe((isLoggedIn) => {
-      this.isAuthenticated = isLoggedIn;
-      console.log('?????',this.isAuthenticated)
-    }))
-    // this.isAuthenticated = this.authService.isUserLoggedIn$;
-    console.log('hello', this.isAuthenticated);
+    console.log(this.tokenStorage.getTokens() + "------------------------------------------")
+    const islogin = this.tokenStorage.getTokens();
+    if (islogin) {
+      console.log(localStorage.getItem('token') + "------------------------------------------");
+      localStorage.setItem('token', sessionStorage.getItem('token')!);
+      this.isAuthenticated = islogin;
+      this.isLoggedIn$ = islogin;
+      this.tokenStorage.getUser();
+      const token = localStorage.getItem('token');
+      console.log(token, 'token');
+      // extract school_id from token
+      const school_id = token?.split(',')[1];
+      console.log(school_id, 'school_id');
+      // split school_id to get the school_id
+      const school_id2 = school_id?.split(':')[1];
+      console.log(school_id2, 'school_id2');
+      // remove special characters
+      const school_id3 = school_id2?.replace(/['"}]+/g, '');
+      console.log(school_id3, 'school_id3');
+      // this.school_id = 
+      this.getInfoUsingSchoolId(school_id3);
     
-    // this.school_id = this.authService.school_id;
-    // console.log('school_id', this.school_id)
-    // this.getInfoUsingSchoolId(this.school_id);
+      // this.roles = this.tokenStorage.getUser().roles;
+    }
   }
+
+  // http request for getting the user details using school_id
+  getInfoUsingSchoolId(school_id: any) {
+    console.log(school_id, 'school_id');
+    let res: never[] = [];
+    // return this.accService.fetchAccount(school_id);
+    console.log(this.accService
+      .fetchAccountUsingId(
+        school_id
+    )
+      .subscribe((data:any) => {
+        console.log(data[0][0]);
+        res = data[0][0];
+        this.getAcc(res);
+        return data[0][0];
+      }
+    ));
+  }
+
+  getAcc(res:any) {
+    console.log(res)
+    const curr_acc = res;
+    this.account$ = curr_acc;
+    console.log(this.account$.first_name, 'account$');
+  }
+
 
   logout(): void {
     localStorage.removeItem("token");

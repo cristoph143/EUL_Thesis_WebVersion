@@ -47,14 +47,24 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllResearch();
-    this.school_id = this.authService.school_id;
-    this.getInfoUsingSchoolId(this.school_id)
+    const token = localStorage.getItem('token');
+    console.log(token, 'token');
+    // extract school_id from token
+    const school_id = token?.split(',')[1];
+    console.log(school_id, 'school_id');
+    // split school_id to get the school_id
+    const school_id2 = school_id?.split(':')[1];
+    console.log(school_id2, 'school_id2');
+    // remove special characters
+    const school_id3 = school_id2?.replace(/['"}]+/g, '');
+    console.log(school_id3, 'school_id3');
+    // this.school_id = 
+    this.getInfoUsingSchoolId(school_id3);
     console.log('this,auth', this.authService.isUserAuthenticated);
     // iterate values of sdg and saved it iterately in Tiles
     for(let i = 0; i < sdg.length; i++){
       this.tiles.push({"cols": 1, "rows": 1, "src": sdg[i].src, "redirect": OneComponent, "disabled":false, "title": sdg[i].title, "sub_title": sdg[i].sub_title, "background": sdg[i].background});
     }
-    // console.log()
   }
 
 
@@ -63,7 +73,8 @@ export class HomepageComponent implements OnInit {
   school_id: any;
 
   // http request for getting the user details using school_id
-  getInfoUsingSchoolId(school_id: any){
+  getInfoUsingSchoolId(school_id: any) {
+    console.log(school_id, 'school_id');
     let res: never[] = [];
     // return this.accService.fetchAccount(school_id);
     console.log(this.accService
@@ -122,6 +133,7 @@ export class HomepageComponent implements OnInit {
 
   openDialog(dialogReference: any, src: any, title: any, sub_title: any, background: any) {
     console.log(this.research$)
+    console.log(this.account$, 'account$');
     // filter research$ by sdg_category
     this.curr = this.research$.filter((item: any) => //string exist in sdg_category
       item.sdg_category.includes(title)
@@ -144,6 +156,7 @@ export class HomepageComponent implements OnInit {
       sub_title,
       background,
       curr: this.curr,
+      account: this.account$,
       all_research: this.research$
     };
     console.log(dialogConfig.data, 'dialogConfig.data');

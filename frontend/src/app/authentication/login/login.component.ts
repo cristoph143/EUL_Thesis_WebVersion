@@ -30,7 +30,12 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.rememberMe = false;
-    if (this.tokenStorage.getToken()) {
+    console.log(this.tokenStorage.getTokens() + "------------------------------------------")
+    if (this.tokenStorage.getTokens()) {
+      console.log(
+        (this.tokenStorage.saveToken(sessionStorage.getItem('token')!))
+      );
+      localStorage.setItem('token', sessionStorage.getItem('token')!);
       this.isLoggedIn = true;
       // this.roles = this.tokenStorage.getUser().roles;
     }
@@ -97,7 +102,7 @@ export class LoginComponent implements OnInit{
         this.toast.observe({
           success: 'Successfully logged in',
           loading: 'loading',
-          error: (msg) => {
+          error: (msg: any) => {
             console.log(msg)
             alert(msg)
             return msg;

@@ -32,7 +32,19 @@ export class ResearchLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.school_id = this.authService.school_id;
-    this.getInfoUsingSchoolId(this.school_id)
+    const token = localStorage.getItem('token');
+    console.log(token, 'token');
+    // extract school_id from token
+    const school_id = token?.split(',')[1];
+    console.log(school_id, 'school_id');
+    // split school_id to get the school_id
+    const school_id2 = school_id?.split(':')[1];
+    console.log(school_id2, 'school_id2');
+    // remove special characters
+    const school_id3 = school_id2?.replace(/['"}]+/g, '');
+    console.log(school_id3, 'school_id3');
+    // this.school_id = 
+    this.getInfoUsingSchoolId(school_id3);
     console.log('this,auth', this.authService.isUserAuthenticated);
     console.log(this.research$, 'research$');
     this.fetchAllResearch();

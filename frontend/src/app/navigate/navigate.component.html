@@ -38,7 +38,7 @@
             <a routerLink="/login" routerLinkActive="active" (click)="nav('upload')" *ngIf="isAuthenticated">Profile</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">My Favorites</a>
             <a routerLink="/login" routerLinkActive="active" (click)="nav('login')" *ngIf="isAuthenticated">Setting</a> -->
-        <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated">Logout</a>
+        <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isAuthenticated">Logout {{account$.first_name}}</a>
         <!-- </div> -->
     </div>
 </mat-toolbar>
