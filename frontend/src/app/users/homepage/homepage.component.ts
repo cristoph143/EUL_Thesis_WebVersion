@@ -49,17 +49,15 @@ export class HomepageComponent implements OnInit {
     this.fetchAllResearch();
     const token = localStorage.getItem('token');
     console.log(token, 'token');
-    // extract school_id from token
-    const school_id = token?.split(',')[1];
-    console.log(school_id, 'school_id');
-    // split school_id to get the school_id
-    const school_id2 = school_id?.split(':')[1];
-    console.log(school_id2, 'school_id2');
-    // remove special characters
-    const school_id3 = school_id2?.replace(/['"}]+/g, '');
-    console.log(school_id3, 'school_id3');
+    console.log(typeof token)
+    // convert string to [{}]
+    const token_arr = JSON.parse(token!);
+    console.log(token_arr, 'token_arr');
+    const type = 
+      // if token_arr has key of "userId" then use it otherwise use "school_id"
+      token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     // this.school_id = 
-    this.getInfoUsingSchoolId(school_id3);
+    this.getInfoUsingSchoolId(type);
     console.log('this,auth', this.authService.isUserAuthenticated);
     // iterate values of sdg and saved it iterately in Tiles
     for(let i = 0; i < sdg.length; i++){

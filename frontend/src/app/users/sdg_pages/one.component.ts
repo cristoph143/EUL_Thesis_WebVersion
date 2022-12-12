@@ -51,8 +51,6 @@ export class OneComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data.account);
     this.school_id = this.data.account.school_id;
-    // this.getInfoUsingSchoolId(this.school_id)
-    console.log('this,auth', this.authService.isUserAuthenticated);
     console.log(this.data.background, 'data');
     this.url = "'../../../../../assets/" + this.data.background + "'";
     console.log(this.url)
@@ -64,7 +62,6 @@ export class OneComponent implements OnInit {
     console.log(this.data.all_research, 'all_research');
     this.research_all$ = this.data.all_research;
     console.log(this.research_all$, 'research_data');
-    // this.showEditButton();
   }
   url: any;
   research_all$: any;
@@ -104,7 +101,7 @@ export class OneComponent implements OnInit {
     if (tab == "Department's Research") {
       // get account
       console.log(this.data.curr)
-      console.log(this.account$.department);
+      // console.log(this.account$.department);
       console.log(ret + "ret");
       ret = this.data.curr.filter((item: any) => item.department == department);
       console.log(ret, 'ret');
@@ -118,14 +115,9 @@ export class OneComponent implements OnInit {
       }
     }
     if (tab == "Teacher's Research") {
-      console.log(this.data.curr)
-      console.log(this.account$.department);
       ret = this.data.curr.filter((item: any) => item.role == "Teacher");
-      console.log(ret + "ret");
       this.research_data = ret;
-      console.log(this.research_data, 'research_data');
       if (this.search.length != 0) {
-        console.log(this.search + " !und")
         this.filterSearch(tab);
       }
       else{
@@ -134,7 +126,7 @@ export class OneComponent implements OnInit {
     }
     if (tab == "Student's Research") {
       console.log(this.data.curr)
-      console.log(this.account$.department);
+      // console.log(this.account$.department);
       ret = this.data.curr.filter((item: any) => item.role == "Student");
       console.log(ret + "ret");
       this.research_data = ret;

@@ -30,11 +30,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.rememberMe = false;
-    console.log(this.tokenStorage.getTokens() + "------------------------------------------")
     if (this.tokenStorage.getTokens()) {
-      console.log(
-        (this.tokenStorage.saveToken(sessionStorage.getItem('token')!))
-      );
       localStorage.setItem('token', sessionStorage.getItem('token')!);
       this.isLoggedIn = true;
       // this.roles = this.tokenStorage.getUser().roles;
