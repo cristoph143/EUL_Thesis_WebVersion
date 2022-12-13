@@ -69,7 +69,12 @@ module.exports = class Account {
     // get user using school_id except password
     static getUserInfoExceptPassword(school_id) {
         return db.execute(
-            'SELECT * FROM account WHERE school_id = ?', [school_id]
+            "SELECT * FROM account " +
+            "Left Join " +
+            "role on role.roleID = account.role_roleID " +
+            "Left Join " +
+            "department on department.departmentID = account.departmentID " +
+            "where school_id = ?", [school_id]
         );
     }
 

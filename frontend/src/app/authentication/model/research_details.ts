@@ -4,7 +4,7 @@ export interface ResearchDetails {
     sdg_category: String[];
     date_published: String;
     adviser: String;
-    department: String;
+    departmentID: number;
     keywords: String[];
     title: String;
     abstract: String;

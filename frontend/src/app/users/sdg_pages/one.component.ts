@@ -97,13 +97,15 @@ export class OneComponent implements OnInit {
         this.research_data = this.data.curr;
       }
     }
-    const department = this.data.account.department;
+    const department = this.data.account.departmentName;
+    console.log(department + "dep")
     if (tab == "Department's Research") {
       // get account
-      console.log(this.data.curr)
+      console.log(this.data.curr.departmentName)
       // console.log(this.account$.department);
       console.log(ret + "ret");
-      ret = this.data.curr.filter((item: any) => item.department == department);
+      // check if department is equal to this.data.curr.DepartmentName
+      ret = this.data.curr.filter((item: any) => item.DepartmentName == department);
       console.log(ret, 'ret');
       this.research_data = ret;
       if (this.search.length != 0) {
@@ -115,7 +117,7 @@ export class OneComponent implements OnInit {
       }
     }
     if (tab == "Teacher's Research") {
-      ret = this.data.curr.filter((item: any) => item.role == "Teacher");
+      ret = this.data.curr.filter((item: any) => item.roleName == "Teacher");
       this.research_data = ret;
       if (this.search.length != 0) {
         this.filterSearch(tab);
@@ -127,7 +129,7 @@ export class OneComponent implements OnInit {
     if (tab == "Student's Research") {
       console.log(this.data.curr)
       // console.log(this.account$.department);
-      ret = this.data.curr.filter((item: any) => item.role == "Student");
+      ret = this.data.curr.filter((item: any) => item.roleName == "Student");
       console.log(ret + "ret");
       this.research_data = ret;
       if (this.search.length != 0) {

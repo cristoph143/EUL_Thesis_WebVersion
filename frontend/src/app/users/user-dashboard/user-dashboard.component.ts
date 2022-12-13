@@ -42,6 +42,7 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit(): void {
     // this.userId = this.authService.userId;
     this.school_id = this.authService.school_id;
+    console.log(this.school_id)
     this.getInfoUsingSchoolId(this.school_id);
   }
 

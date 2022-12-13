@@ -47,4 +47,9 @@ router.delete('/deleteResearch/:research_id', researchController.deleteResearch)
 
 // increment by one in number_of_views using research_id
 router.get('/incrementViews/:research_id/:number_of_views', researchController.incrementViews);
+
+// update sdg_category using research_id
+router.post('/updateSDG/:research_id/',
+    body('sdg_category').trim().not().isEmpty(),
+    researchController.updateSDG);
 module.exports = router;

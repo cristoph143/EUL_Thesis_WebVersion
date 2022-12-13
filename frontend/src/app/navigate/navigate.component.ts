@@ -45,10 +45,13 @@ export class NavigateComponent implements OnInit {
       // convert string to [{}]
       const token_arr = JSON.parse(token!);
       console.log(token_arr, 'token_arr');
+      console.log(token_arr, 'token_arr');
       const type = 
       // if token_arr has key of "userId" then use it otherwise use "school_id"
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
       // this.school_id = 
+
+      console.log(type)
       const a = this.getInfoUsingSchoolId(type);
       console.log("a + " + a);
       console.log('this,auth', this.authService.isUserAuthenticated);

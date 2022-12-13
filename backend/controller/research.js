@@ -170,3 +170,20 @@ exports.incrementViews = async(req, res, next) => {
         next(err);
     }
 }
+
+// update sdg_category using research_id
+exports.updateSDG = async(req, res, next) => {
+    const research_id = req.params.research_id;
+    const sdg_category = req.body.sdg_category;
+    try {
+        await research.updateSdgCategory(research_id, sdg_category);
+        res.status(200).json({
+            message: 'Sdg category updated successfully'
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

@@ -58,7 +58,7 @@ export class UploadResearchComponent implements OnInit{
     qr: 'hshdhdshsd',
     adviser: 'adviser',
     date_published: '2021-01-01',
-    department: 'School of Management',
+    departmentID: 1,
     keywords: ['keyword1', 'keyword2', 'keyword3'],
     number_of_view: 0,
   }
@@ -87,7 +87,7 @@ export class UploadResearchComponent implements OnInit{
       qr: this.research_details.qr,
       adviser: this.research_details.adviser,
       date_published: this.research_details.date_published,
-      department: this.research_details.department,
+      departmentID: this.research_details.departmentID,
       keywords: keywords,
       number_of_view: this.research_details.number_of_view,
     }

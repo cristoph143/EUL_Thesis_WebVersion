@@ -6,14 +6,14 @@ const {
 module.exports = class Research {
     constructor(
         research_id, topic_category, sdg_category, date_published, adviser,
-        department, keywords, title, abstract, qr, number_of_views
+        departmentID, keywords, title, abstract, qr, number_of_views
     ) {
         this.research_id = research_id;
         this.topic_category = topic_category;
         this.sdg_category = sdg_category;
         this.date_published = date_published;
         this.adviser = adviser;
-        this.department = department;
+        this.departmentID = departmentID;
         this.keywords = keywords;
         this.title = title;
         this.abstract = abstract;
@@ -49,9 +49,15 @@ module.exports = class Research {
     // get all research details from the db
     static fetchAllResearch() {
         return db.execute(
-            'SELECT * FROM authored LEFT JOIN research_details ' +
-            'ON research_details.research_id = authored.research_id ' +
-            'LEFT JOIN account ON authored.school_id = account.school_id',
+            "SELECT research_details.*, account.*, department.DepartmentName, role.roleName FROM authored " +
+            "LEFT JOIN " +
+            "research_details ON research_details.research_id = authored.research_id " +
+            "LEFT JOIN " +
+            "department ON research_details.departmentID = department.departmentID " +
+            "LEFT JOIN " +
+            "account ON authored.school_id = account.school_id " +
+            "LEFT JOIN " +
+            "role on account.role_roleID = role.roleID;"
         );
     }
 
@@ -83,6 +89,13 @@ module.exports = class Research {
     static incrementViews(research_id, number_of_views) {
         return db.execute(
             'UPDATE research_details SET number_of_views = ? WHERE research_id = ?', [number_of_views, research_id]
+        );
+    }
+
+    // update sdg
+    static updateSdgCategory(research_id, sdg_category) {
+        return db.execute(
+            'UPDATE research_details SET sdg_category = ? WHERE research_id = ?', [sdg_category, research_id]
         );
     }
 }
