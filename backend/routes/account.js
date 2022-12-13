@@ -1,6 +1,8 @@
 const express = require('express');
 
-const { body } = require('express-validator');
+const {
+    body
+} = require('express-validator');
 
 const accountController = require('../controller/account');
 
@@ -25,7 +27,5 @@ router.post(
     ],
     accountController.updateAccountProfile
 )
-
-router.get('/department/:department', accountController.fetchAllByDepartment);
 router.get('/:school_id', accountController.fetchAccountBySchoolID);
 module.exports = router;

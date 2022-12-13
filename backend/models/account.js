@@ -1,29 +1,23 @@
 const db = require('../util/database');
 
 module.exports = class Account {
-    constructor(email, first_name, last_name, department, school_id, password, role) {
-        this.email = email;
+    constructor(school_id, role, department, first_name, last_name, email, password) {
+        this.school_id = school_id;
+        this.role_roleID = role;
+        this.departmentID = department;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.department = department;
-        this.school_id = school_id;
-        this.image = image;
+        this.email = email;
         this.password = password;
-        this.role = role;
-        this.approve = null;
+        this.approve = 0;
     }
 
-    // sequence school_id, first_name, last_name, email, department, image, password, role
-
-    // Post
-
-    // create new account with school_id, first_name, last_name, email, department, image, password
+    // createAccount
     static createAccount(account) {
         return db.execute(
-            'INSERT INTO account (school_id, first_name, last_name, email, department, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.first_name, account.last_name, account.email, account.department, account.password, account.role]
+            'INSERT INTO account (school_id, role_roleID, departmentID, first_name, last_name, email, password, approve) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [account.school_id, account.role_roleID, account.departmentID, account.first_name, account.last_name, account.email, account.password, account.approve]
         );
     }
-
 
     static findBySchoolID(school_id) {
         return db.execute(
@@ -31,7 +25,8 @@ module.exports = class Account {
         );
     }
 
-    static findByEmail(email) {
+    // findAccountByEmail
+    static findAccountByEmail(email) {
         return db.execute(
             'SELECT * FROM account WHERE email = ?', [email]
         );
@@ -57,55 +52,6 @@ module.exports = class Account {
         );
     }
 
-    // get all accounts using specific department
-    static fetchAllByDepartment(department) {
-        return db.execute(
-            'SELECT * FROM account WHERE department = ?', [department]
-        );
-    }
-
-    // get all accounts using specific role
-    static fetchAllByRole(role) {
-        return db.execute(
-            'SELECT * FROM account WHERE role = ?', [role]
-        );
-    }
-
-    // get all accounts using specific approve
-    static fetchAllByApprove(approve) {
-        return db.execute(
-            'SELECT * FROM account WHERE approve = ?', [approve]
-        );
-    }
-
-    // get all accounts using specific department and role
-    static fetchAllByDepartmentAndRole(department, role) {
-        return db.execute(
-            'SELECT * FROM account WHERE department = ? AND role = ?', [department, role]
-        );
-    }
-
-    // get all accounts using specific department and approve
-    static fetchAllByDepartmentAndApprove(department, approve) {
-        return db.execute(
-            'SELECT * FROM account WHERE department = ? AND approve = ?', [department, approve]
-        );
-    }
-
-    // get all accounts using specific role and approve
-    static fetchAllByRoleAndApprove(role, approve) {
-        return db.execute(
-            'SELECT * FROM account WHERE role = ? AND approve = ?', [role, approve]
-        );
-    }
-
-    // get all accounts using specific department, role and approve
-    static fetchAllByDepartmentAndRoleAndApprove(department, role, approve) {
-        return db.execute(
-            'SELECT * FROM account WHERE department = ? AND role = ? AND approve = ?', [department, role, approve]
-        );
-    }
-
     // update password
     static updatePassword(account) {
         return db.execute(
@@ -124,13 +70,6 @@ module.exports = class Account {
     static getUserInfoExceptPassword(school_id) {
         return db.execute(
             'SELECT school_id, first_name, last_name, email, department, role, approve FROM account WHERE school_id = ?', [school_id]
-        );
-    }
-
-    // get user using school_id or name and select the first_name, last_name, school_id, department and image  from account
-    static getUserInfo(input) {
-        return db.execute(
-            'SELECT first_name, last_name, school_id, department, image FROM account WHERE school_id = ? OR first_name = ? OR last_name = ?', [input, input, input]
         );
     }
 }

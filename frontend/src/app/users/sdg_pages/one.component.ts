@@ -210,18 +210,6 @@ export class OneComponent implements OnInit {
 
   ownership: any;
 
-  // show edit button when the user is the owner of the research
-  // showEditButton(res: any): void {
-  //   // check if the research id is the same as the current user id
-  //   if (res.school_id == this.school_id) {
-  //     this.ownership = true;
-  //   }
-  //   else {
-  //     this.ownership = false;
-  //   }
-  //   return this.ownership;
-  // }
-
   // show delete button when the user is the owner of the research
   showDeleteButton(res: any): void {
     // check if the research id is the same as the current user id

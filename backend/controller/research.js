@@ -137,26 +137,6 @@ exports.fetchLibrary = async(req, res, next) => {
     }
 }
 
-// check ownership of the research
-exports.checkOwnership = async(req, res, next) => {
-    const research_id = req.params.research_id;
-    const school_id = req.params.school_id;
-    // console.log(school_id + ' is owned by + ' + research_id);
-    try {
-        const check = await research.checkOwnership(school_id, research_id).then(token => {
-            // console.log(token);
-            return token;
-        });
-        const result = res.status(200).json(check);
-        return result;
-    } catch (err) {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }
-}
-
 // delete research
 exports.deleteResearch = async(req, res, next) => {
     const research_id = req.params.research_id;

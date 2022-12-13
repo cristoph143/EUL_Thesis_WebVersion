@@ -46,16 +46,6 @@ module.exports = class Research {
         );
     }
 
-    // Update
-    // Get
-    // Delete
-    // remove specific research using research_id
-    static removeResearch(research_id) {
-        return db.execute(
-            'DELETE FROM research_details WHERE research_id = ?', [research_id]
-        );
-    }
-
     // get all research details from the db
     static fetchAllResearch() {
         return db.execute(
@@ -80,22 +70,6 @@ module.exports = class Research {
             'ON research_details.research_id = research_list.research_id ' +
             'LEFT JOIN account ON research_list.school_id = account.school_id ' +
             'WHERE research_list.school_id = ?', [school_id]
-        );
-    }
-
-    // check ownership of research
-    static checkOwnership(school_id, research_id) {
-        return db.execute(
-            'SELECT COUNT(*) FROM authored WHERE school_id = ? AND research_id = ?', [school_id, research_id]
-        );
-    }
-
-    // get similar authors using research_id from table authors
-    static getSimilarAuthors(research_id) {
-        return db.execute(
-            'SELECT * FROM authored LEFT JOIN account ' +
-            'ON authored.school_id = account.school_id ' +
-            'WHERE authored.research_id = ?', [research_id]
         );
     }
 

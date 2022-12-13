@@ -21,14 +21,15 @@ exports.signup = async(req, res, next) => {
         });
     }
 
+    // school_id,role_roleID,departmentID,first_name,last_name,email,password,approved
     const school_id = req.body.school_id;
+    const role_roleID = req.body.role_roleID;
+    const departmentID = req.body.departmentID;
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
-    const department = req.body.department;
     const password = req.body.password;
-    const role = req.body.role;
-
+    const approve = req.body.approve;
 
     console.log('controller auth aft')
     try {
@@ -38,12 +39,13 @@ exports.signup = async(req, res, next) => {
 
         const AccountDetails = {
             school_id: school_id,
+            role_roleID: role_roleID,
+            departmentID: departmentID,
             first_name: first_name,
             last_name: last_name,
             email: email,
-            department: department,
             password: hashedPassword,
-            role: role
+            approve: approve
         };
 
         const result = await Account.createAccount(AccountDetails);
