@@ -1,15 +1,15 @@
 const db = require('../util/database');
 
 module.exports = class Account {
-    constructor(school_id, role, department, first_name, last_name, email, password) {
+    constructor(school_id, role_roleID, departmentID, first_name, last_name, email, password, approve) {
         this.school_id = school_id;
-        this.role_roleID = role;
-        this.departmentID = department;
+        this.role_roleID = role_roleID;
+        this.departmentID = departmentID;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-        this.approve = 0;
+        this.approve = approve;
     }
 
     // createAccount
@@ -69,7 +69,21 @@ module.exports = class Account {
     // get user using school_id except password
     static getUserInfoExceptPassword(school_id) {
         return db.execute(
-            'SELECT school_id, first_name, last_name, email, department, role, approve FROM account WHERE school_id = ?', [school_id]
+            'SELECT * FROM account WHERE school_id = ?', [school_id]
+        );
+    }
+
+    // get all roles
+    static getRoles() {
+        return db.execute(
+            'SELECT * FROM role'
+        );
+    }
+
+    // get all departments
+    static getDepartments() {
+        return db.execute(
+            'SELECT * FROM department'
         );
     }
 }

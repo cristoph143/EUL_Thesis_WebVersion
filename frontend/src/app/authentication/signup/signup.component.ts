@@ -9,6 +9,7 @@ import { FloatLabelType } from '@angular/material/form-field';
 import { FileUploadService } from '../services/file-upload.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { AccountService } from '../services/account.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -29,13 +30,20 @@ export class SignupComponent implements OnInit {
     private toast: HotToastService,
     private _formBuilder: FormBuilder,
     private uploadService: FileUploadService,
-    private http: HttpClient
+    private http: HttpClient,
+    private account_service: AccountService,
   ) { }
-  
+
+  ngOnInit(): void {
+    this.isLinear = true;
+    this.getRole();
+    this.getDepartment();
+  }
+
     baseUrl = 'http://localhost:3000';
   
     fileName = '';
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     imagePath = "";
     url: any;
     // message: String = "";
@@ -100,15 +108,8 @@ export class SignupComponent implements OnInit {
     ),
   });
 
-  departments = [
-    'Senior High School', 'School of Allied Medical Sciences',
-    'School of Arts and Sciences', 'School of Business and Management',
-    'School of Computer Studies', 'School of Education', 'School of Engineering'
-  ];
-
-  roles = [
-    'Student', 'Faculty'
-  ];
+  departments: any;
+  roles: any;
   
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto' as FloatLabelType);
@@ -118,6 +119,19 @@ export class SignupComponent implements OnInit {
       floatLabel: this.floatLabelControl,
     });
   
+  private getRole() {
+    this.account_service.fetchAllRoles().subscribe((data: any) => {
+      this.roles = data[0];
+    });
+  }
+
+  private getDepartment() {
+    this.account_service.fetchAllDepartments().subscribe((data: any) => {
+      this.departments = data[0];
+    });
+  }
+
+
     getFloatLabelValue(): FloatLabelType {
       return this.floatLabelControl.value || 'auto';
     }
@@ -138,11 +152,6 @@ export class SignupComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.isLinear = true;
-  }
-
-
   con = {};
   img!: File;
 
@@ -159,43 +168,40 @@ export class SignupComponent implements OnInit {
       this.toast.error("Password does not match");
       return;
     }
-
     const acc = {
       school_id: this.secondFormGroup.value.school_id,
+      role_roleID: this.secondFormGroup.value.role.roleID,
+      departmentID: this.firstFormGroup.value.department.departmentID,
       first_name: this.firstFormGroup.value.first_name,
       last_name: this.firstFormGroup.value.last_name,
       email: this.firstFormGroup.value.email,
-      department: this.firstFormGroup.value.department,
       password: this.secondFormGroup.value.password,
-      role: this.secondFormGroup.value.role,
+      approve: 0
     }
+    console.log(this.secondFormGroup.value.department)
     
     this.formData.append('school_id', this.secondFormGroup.get('school_id')?.value);
     this.formData.append('image', this.firstFormGroup.get('image')?.value);
     console.log('{{{{{{{{', this.formData);
     
-    this.http
-      .post('http://localhost:3000/api/add-profile', this.formData)
-      .subscribe({
-        next: (response) => console.log(response),
-        error: (error) => console.log(error),
-      });
+    // this.http
+    //   .post('http://localhost:3000/api/add-profile', this.formData)
+    //   .subscribe({
+    //     next: (response) => console.log(response),
+    //     error: (error) => console.log(error),
+    //   });
 
     console.log(acc)
     this.con = acc;
     
     this.authService
       .signup(acc)
-      .pipe(
-        this.toast.observe({
-          success: 'Registered Sucessfully',
-          loading: 'Loading',
-          error: (msg) => msg
-        })
-      )
-      .subscribe((msg) =>
-          console.log(msg)
-      );
+      .subscribe(
+        (data) => {
+          this.toast.success('Registration Successful');
+          console.log(data)
+        }
+    );
   }
 
   nav(dest: string) {

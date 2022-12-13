@@ -32,5 +32,32 @@ export class AccountService {
                     this.errorHandlerService.handleError<Account>("fetchAccount")
                 )
             );
-    } 
+    }
+    
+    // fetchALlRoles
+    fetchAllRoles() {
+        return this.http
+            .get(`${this.url}/roles`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account[]>("fetchAllRoles")
+                )
+            );
+    }
+
+    // fetchAllDepartments
+    fetchAllDepartments(): Observable<Account[]> {
+        return this.http
+            .get<Account[]>(`${this.url}/departments`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account[]>(
+                        "fetchAllDepartments"
+                    )
+                )
+            );
+    }
+
 }

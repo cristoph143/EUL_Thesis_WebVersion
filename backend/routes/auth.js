@@ -21,7 +21,7 @@ router.post(
                 return Promise.reject('SchoolId already exist!');
             }
         }),
-        body('role_roleId'),
+        body('role_roleID'),
         body('departmentID'),
         body('first_name').trim().not().isEmpty(),
         body('last_name').trim().not().isEmpty(),
