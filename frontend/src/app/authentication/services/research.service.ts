@@ -70,18 +70,6 @@ export class ResearchService {
             );
     }
 
-    // get all similars authors using research_id
-    getSimilarsAuthors(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
-        return this.http
-            .get<ResearchDetails>(`${this.url}/research/getSimilarAuthor/${research_id}`, this.httpOptions)
-            .pipe(
-                first(),
-                catchError(
-                    this.errorHandlerService.handleError<ResearchDetails>("getSimilarsAuthors")
-                )
-            );
-    }
-
     // delete research
     deleteResearch(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
         return this.http

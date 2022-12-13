@@ -30,18 +30,18 @@ export class ReadMoreComponent implements OnInit {
       console.log(this.getSimilarAuthors()); 
       console.log(this.authors, 'authors');
       this.formatDate();
-      console.log(this.data.all_res + "data");
+    console.log(this.data.all_res + "data");
   }
 
   authors: any;
 
+  rel_res: any;
   getSimilarAuthors() {
-    this.researchService.getSimilarsAuthors(this.data.res.research_id).subscribe((res: any) => {
-      console.log(res[0]);
-      this.authors = res[0];
-      console.log(this.authors, 'authors');
-    })
     console.log(this.authors, 'authors');
+    console.log(this.data.res.sdg_category)
+    // get all researches with the same sdg_category with this.data.all_res
+    this.rel_res = this.data.all_res.filter((res: { sdg_category: any; }) => res.sdg_category === this.data.res.sdg_category);
+    console.log(this.rel_res, 'rel_res');
   }
 
   date: any;

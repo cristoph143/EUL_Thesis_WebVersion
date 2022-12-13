@@ -64,7 +64,7 @@
                                         <p class="spax">Date Published: {{date}}</p>
                                         <p class="spax">Adviser: {{data.res.adviser}}</p>
                                         <!-- department -->
-                                        <p class="spax">Department: {{data.res.department}}</p>
+                                        <p class="spax">Department: {{data.res.DepartmentName}}</p>
                                     </div>
                                     <!-- chips for topic_category in data.res.topic_category -->
                                     <div class="row">
@@ -107,6 +107,20 @@
                                 <mat-card-content *ngIf="tab.label == 'Related Articles'">
                                     <div class="row">
                                         <p class="spax auths">Related Articles: </p>
+                                    </div>
+                                    <div class="content-research" *ngFor="let res of rel_res index">
+                                        <mat-card>
+                                            <mat-card-header>
+                                                <mat-card-title class="fo">{{res.title}}</mat-card-title>
+                                                <mat-card-subtitle>{{res.abstract}}</mat-card-subtitle>
+                                            </mat-card-header>
+                                            <mat-card-actions>
+                                                <button mat-button>LIKE</button>
+                                                <button mat-button>SHARE</button>
+                                                <!-- <button mat-button *ngIf="showDeleteButton(res)" (click)="deleteRes(res)">Delete</button>
+                                                <button mat-button (click)="readMore(res)">READ MORE</button> -->
+                                            </mat-card-actions>
+                                        </mat-card>
                                     </div>
                                 </mat-card-content>
                             </mat-card>
