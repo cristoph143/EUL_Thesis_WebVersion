@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
@@ -24,6 +24,7 @@ export class ReadMoreComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
     
+  school_id: any;
   ngOnInit(): void {
     console.log(this.data.account.school_id + 'account');
       console.log(this.data.res + "data");
@@ -31,6 +32,7 @@ export class ReadMoreComponent implements OnInit {
       console.log(this.authors, 'authors');
       this.formatDate();
     console.log(this.data.all_res + "data");
+    this.school_id = this.data.account.school_id;
   }
 
   authors: any;
@@ -39,11 +41,48 @@ export class ReadMoreComponent implements OnInit {
   getSimilarAuthors() {
     console.log(this.authors, 'authors');
     console.log(this.data.res.sdg_category)
-    // get all researches with the same sdg_category with this.data.all_res
-    this.rel_res = this.data.all_res.filter((res: { sdg_category: any; }) => res.sdg_category === this.data.res.sdg_category);
+    // iterate this.data.res.sdg_category
+    for (let i = 0; i < this.data.res.sdg_category.length; i++) { //sdg_category from current res
+      // loop this.all_res
+      for (let j = 0; j < this.data.all_res.length; j++) {
+        // loop this.all_res.sdg_category
+        for (let k = 0; k < this.data.all_res[j].sdg_category.length; k++) {
+          // check if the current index of this.all_res.sdg_category is the same as this.res.sdg_category
+          if (this.data.res.sdg_category[i] == this.data.all_res[j].sdg_category[k]) {
+            // check if this.data.res.title is not the same as this.all_res[j].title
+            if (this.data.res.title != this.data.all_res[j].title) {
+              // append the research to array rel_res that has the same sdg_category
+              this.rel_res += this.data.all_res[j];
+              console.log(this.rel_res, 'rel_res--------------------------');
+            }
+          }
+        }
+      }
+    }
     console.log(this.rel_res, 'rel_res');
   }
 
+  ownership: any;
+
+  // show delete button when the user is the owner of the research
+  showDeleteButton(res: any): void {
+    // check if the research id is the same as the current user id
+    if (res.school_id == this.school_id) {
+      this.ownership = true;
+    }
+    else {
+      this.ownership = false;
+    }
+    return this.ownership;
+  }
+
+  deleteRes(res: any) {
+    console.log(res);
+    this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
+      console.log(data);
+    });
+    // window.location.reload();
+  }
   date: any;
   // format the date
   formatDate() {
@@ -67,6 +106,37 @@ export class ReadMoreComponent implements OnInit {
   onTabClick(event: { tab: { textLabel: any; }; }) {
     console.log(event);
     console.log(event.tab.textLabel);
+  }
+
+  readMore(res: any) {
+    console.log(this.data.account);
+    // add 1 to res.number_of_views
+    let number: number = res.number_of_views + 1;
+    this.researchService.addNumberOfViews(res.research_id, number).subscribe((res: any) => {
+      console.log(res);
+    })
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
+    
+    const all_res = this.data.all_res;
+    console.log(all_res, 'all_res');
+    dialogConfig.data = {
+      res,
+      all_res,
+      account: this.data.account
+    };
+    console.log(dialogConfig.data, 'dialogConfig.data');
+    
+    // this.dialog.open(dialogReference);
+    const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
+    console.log(ReadMoreComponent)
+    //   const dialogRef = this.dialog.open(dialogReference);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 

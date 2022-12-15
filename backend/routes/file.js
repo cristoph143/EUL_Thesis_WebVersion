@@ -27,21 +27,8 @@ var upload = multer({
     storage: store
 }).single('file');
 
-/*
-req: file
-res: originalname
-*/
-
-// download
-// _router.get('/download/:file(*)', function(req, res) {
-//     var file = req.params.file;
-//     var fileLocation = path.join('./uploads', file);
-//     console.log(fileLocation);
-//     res.download(fileLocation, file);
-// });
-
-_router.post('/download', function(req, res, next) {
-    filepath = path.join(__dirname, '../uploads') + '/' + req.body.filename;
+_router.post('/download/:filename', function(req, res, next) {
+    filepath = path.join(__dirname, '../uploads') + '/' + req.params.filename;
     res.download(filepath);
     console.log(filepath);
     res.sendFile(filepath);
@@ -78,7 +65,7 @@ _router.post('/upload-file/:id',
 
                 const FileDetails = {
                     research_id: research_id,
-                    originalname: originalname
+                    originalname: originalname,
                 };
 
                 // call checkDuplicate method
@@ -109,24 +96,4 @@ _router.post('/upload-file/:id',
         })
     }
 );
-
-
-
-// _router.post('/upload-file/:id', function(req, res, next) {
-//     upload(req, res, function(err) {
-//         if (err) {
-//             return res.status(501).json({
-//                 error: err
-//             });
-//         }
-//         File.addResearchFile(req.file.originalname, req.params.id);
-//         //do all database record saving activity
-//         return res.json({
-//             originalname: req.file.originalname,
-//             research_id: req.params.id
-//         });
-//     });
-// });
-
-
 module.exports = _router;

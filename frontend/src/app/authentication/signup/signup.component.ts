@@ -128,6 +128,7 @@ export class SignupComponent implements OnInit {
   private getDepartment() {
     this.account_service.fetchAllDepartments().subscribe((data: any) => {
       this.departments = data[0];
+      console.log(data[0])
     });
   }
 

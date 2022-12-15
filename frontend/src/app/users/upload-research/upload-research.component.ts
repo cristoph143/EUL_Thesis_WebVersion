@@ -59,6 +59,7 @@ export class UploadResearchComponent implements OnInit{
     adviser: 'adviser',
     date_published: '2021-01-01',
     departmentID: 1,
+    departmentName: "School of Computer Studies",
     keywords: ['keyword1', 'keyword2', 'keyword3'],
     number_of_view: 0,
   }

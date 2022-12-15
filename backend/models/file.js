@@ -1,9 +1,10 @@
 const db = require('../util/database');
 
 module.exports = class File {
-    constructor(original_name, research_id) {
+    constructor(original_name, research_id, url) {
         this.original_name = original_name;
         this.research_id = research_id;
+        this.url = url;
     }
 
     // add research_file details

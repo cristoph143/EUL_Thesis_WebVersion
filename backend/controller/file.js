@@ -18,7 +18,7 @@ exports.addResearchFile = async(req, res, next) => {
     const research_id = req.params.id;
     const originalname = req.file.originalname;
 
-    console.log(research_id + ' --' + originalname)
+    console.log(research_id + ' --' + originalname + " --" + url);
 
     console.log('controller auth aft')
 
