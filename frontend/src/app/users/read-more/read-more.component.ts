@@ -35,6 +35,22 @@ export class ReadMoreComponent implements OnInit {
     console.log(this.data.all_res + "data");
     this.school_id = this.data.account.school_id;
     console.log(this.data.num_views);
+    this.getNumberOfViews();
+
+  }
+
+  num_views: any;
+  getNumberOfViews() {
+    this.researchService.addNumberOfViews(this.data.res.research_id).subscribe((res: any) => {
+      // extract the object result of res into String
+      this.num_views = JSON.stringify(res.number_of_views[0]);
+      // extract value of number of views from this.num_views
+      this.num_views = this.num_views.split(":")[1];
+      // remove special characters
+      this.num_views = this.num_views.replace(/[^0-9]/g, "");
+      console.log(this.num_views, 'num_views')
+      console.log(this.num_views, 'num_views')
+    })
   }
 
   authors: any;

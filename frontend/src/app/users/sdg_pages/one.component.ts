@@ -252,43 +252,29 @@ export class OneComponent implements OnInit {
   //   });
   // }
 
-  num_views: any;
   readMore(res: any) {
-    console.log(this.data.account);
-    this.researchService.addNumberOfViews(res.research_id).subscribe((res: any) => {
-      // extract the object result of res into String
-      this.num_views = JSON.stringify(res.number_of_views[0]);
-      // extract value of number of views from this.num_views
-      this.num_views = this.num_views.split(":")[1];
-      // remove special characters
-      this.num_views = this.num_views.replace(/[^0-9]/g, "");
-      console.log(this.num_views, 'num_views')
-      console.log(this.num_views, 'num_views')
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = "100%";
-      
-      const all_res = this.research_all$;
-      console.log(all_res, 'all_res');
-      dialogConfig.data = {
-        res, //current or specific research
-        all_res,
-        account: this.data.account,
-        num_views: this.num_views,
-      };
-      console.log(dialogConfig.data, 'dialogConfig.data');
-      
-      // this.dialog.open(dialogReference);
-      const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
-      console.log(ReadMoreComponent)
-      //   const dialogRef = this.dialog.open(dialogReference);
-
-      dialogRef.afterClosed().subscribe((result: any) => {
-        console.log(`Dialog result: ${result}`);
-      });
-    })
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
     
+    const all_res = this.research_all$;
+    console.log(all_res, 'all_res');
+    dialogConfig.data = {
+      res, //current or specific research
+      all_res,
+      account: this.data.account,
+    };
+    console.log(dialogConfig.data, 'dialogConfig.data');
+    
+    // this.dialog.open(dialogReference);
+    const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
+    console.log(ReadMoreComponent)
+    //   const dialogRef = this.dialog.open(dialogReference);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   search: string = "";
