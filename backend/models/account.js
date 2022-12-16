@@ -91,4 +91,11 @@ module.exports = class Account {
             'SELECT * FROM department'
         );
     }
+
+    // getPassword
+    static getPassword(school_id) {
+        return db.execute(
+            'SELECT password FROM account WHERE school_id = ?', [school_id]
+        );
+    }
 }

@@ -46,11 +46,7 @@ _router.get('/download/:research_id', async function(req, res, next) {
             // res.status(200).json(result);
             // console.log(__dirname)
         filepath = path.join(__dirname, '../uploads') + '\\' + fileValue;
-        // return res.download(filepath);
-        // response is "http://localhost:" + process.env.PORT + "/api/file/download/" + fileValue;
-        res.status(200).json({
-            message: "http://localhost:3000" + "/file/download/" + fileValue
-        });
+        res.download(filepath);
         // console.log(filepath);
         // res.sendFile(filepath);
     } catch (err) {

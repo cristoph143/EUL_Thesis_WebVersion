@@ -226,31 +226,31 @@ export class OneComponent implements OnInit {
 
   deleteRes(res: any) {
     console.log(res);
-    this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
-      console.log(data);
-    });
-    // window.location.reload();
+    /*FIXME - 
+      When user wants to delete the research using wrong password,
+      it creates an error in the console.
+    */
+    // confirm if the user wants to delete the research
+    if (confirm("Are you sure you want to delete this research?")) {
+      // ask user for input password
+      let password = prompt("Please enter your password to confirm");
+      // check if the password is correct
+      this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
+        console.log(data.message);
+        // if data.message is equal to "Password is correct"
+        if (data.message == "Password is correct") {
+          // delete the research
+          this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
+            console.log(data);
+          });
+          window.location.reload();
+        }
+        else {
+          alert(data.message);
+        }
+      });
+    }
   }
-
-  // updateRes(res: any) {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.width = "100%";
-  //   dialogConfig.data = {
-  //     res,
-  //   };
-  //   console.log(dialogConfig.data, 'dialogConfig.data');
-    
-  //   // this.dialog.open(dialogReference);
-  //   const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
-  //   console.log(UpdateDialogComponent)
-  //   //   const dialogRef = this.dialog.open(dialogReference);
-
-  //   dialogRef.afterClosed().subscribe((result: any) => {
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
 
   readMore(res: any) {
     const dialogConfig = new MatDialogConfig();

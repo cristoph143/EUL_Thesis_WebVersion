@@ -60,4 +60,22 @@ export class AccountService {
             );
     }
 
+    // confirm password using school_id and password
+    confirmPasswordUsingId(school_id: string, password: any): Observable<Account> {
+        return this.http
+            .post<Account>(`${this.url}/confirm`,
+            {
+              school_id,
+              password
+            },
+                this.httpOptions
+        )
+        .pipe( 
+            first(),
+            catchError(
+                this.errorHandlerService.handleError<Account>("confirmPasswordUsingId")
+            )
+        );        
+    }
+
 }

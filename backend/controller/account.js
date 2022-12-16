@@ -81,3 +81,41 @@ exports.getDepartments = async(req, res, next) => {
         next(err);
     }
 }
+
+// confirm password using school_id and password
+exports.confirmPassword = async(req, res, next) => {
+    const school_id = req.body.school_id;
+    const password = req.body.password
+    console.log(school_id)
+    console.log(password)
+    try {
+        // get password from database using school_id
+        const result = await account.getPassword(school_id);
+        // extract result object into string
+        const passwordFromDB = JSON.stringify(result[0]);
+        console.log(passwordFromDB)
+            // extract passwordFromDB value
+        const passwordFromDBValue = passwordFromDB.split(":")[1];
+        // remove last two characters
+        const passwordFromDBValueTrimmed = passwordFromDBValue.substring(0, passwordFromDBValue.length - 2);
+        // remove quotation characters
+        const passwordFromDBValueTrimmedQuotation = passwordFromDBValueTrimmed.substring(1, passwordFromDBValueTrimmed.length - 1);
+        console.log(passwordFromDBValueTrimmedQuotation)
+            // compare password from database and password from request
+        const isEqual = await bcrypt.compare(password, passwordFromDBValueTrimmedQuotation);
+        if (!isEqual) {
+            const error = new Error('Wrong password!');
+            error.statusCode = 401;
+            throw error;
+        }
+        res.status(200).json({
+            message: 'Password is correct'
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            res.status(500).json(err);
+        }
+        next(err);
+    }
+}
