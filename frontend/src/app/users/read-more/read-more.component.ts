@@ -38,6 +38,7 @@ export class ReadMoreComponent implements OnInit {
     this.school_id = this.data.account.school_id;
     console.log(this.data.num_views);
     this.getNumberOfViews();
+    console.log(this.data.ownership)
 
   }
 
@@ -57,6 +58,33 @@ export class ReadMoreComponent implements OnInit {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
     })
+  }
+
+  deleteRes() {
+    /*FIXME - 
+      When user wants to delete the research using wrong password,
+      it creates an error in the console.
+    */
+    // confirm if the user wants to delete the research
+    if (confirm("Are you sure you want to delete this research?")) {
+      // ask user for input password
+      let password = prompt("Please enter your password to confirm");
+      // check if the password is correct
+      this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
+        console.log(data.message);
+        // if data.message is equal to "Password is correct"
+        if (data.message == "Password is correct") {
+          // delete the research
+          this.researchService.deleteResearch(this.data.res.research_id).subscribe((data: any) => {
+            console.log(data);
+          });
+          window.location.reload();
+        }
+        else {
+          alert(data.message);
+        }
+      });
+    }
   }
 
   num_views: any;
@@ -111,27 +139,6 @@ export class ReadMoreComponent implements OnInit {
     console.log(this.rel_res, 'rel_res');
   }
 
-  ownership: any;
-
-  // show delete button when the user is the owner of the research
-  showDeleteButton(res: any): void {
-    // check if the research id is the same as the current user id
-    if (res.school_id == this.school_id) {
-      this.ownership = true;
-    }
-    else {
-      this.ownership = false;
-    }
-    return this.ownership;
-  }
-
-  deleteRes(res: any) {
-    console.log(res);
-    this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
-      console.log(data);
-    });
-    // window.location.reload();
-  }
   date: any;
   // format the date
   formatDate() {

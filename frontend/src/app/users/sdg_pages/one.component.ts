@@ -264,6 +264,7 @@ export class OneComponent implements OnInit {
       res, //current or specific research
       all_res,
       account: this.data.account,
+      ownership: this.ownership
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     
