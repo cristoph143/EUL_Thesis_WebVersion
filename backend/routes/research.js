@@ -46,7 +46,7 @@ router.get('/fetchLibrary/:school_id', researchController.fetchLibrary);
 router.delete('/deleteResearch/:research_id', researchController.deleteResearch);
 
 // increment by one in number_of_views using research_id
-router.get('/incrementViews/:research_id/:number_of_views', researchController.incrementViews);
+router.get('/incrementViews/:research_id', researchController.incrementViews);
 
 // update sdg_category using research_id
 router.post('/updateSDG/:research_id/',

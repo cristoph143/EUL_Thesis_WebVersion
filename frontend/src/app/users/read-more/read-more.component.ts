@@ -27,18 +27,31 @@ export class ReadMoreComponent implements OnInit {
   school_id: any;
   ngOnInit(): void {
     console.log(this.data.account.school_id + 'account');
-      console.log(this.data.res + "data");
-      console.log(this.getSimilarAuthors()); 
-      console.log(this.authors, 'authors');
-      this.formatDate();
+    console.log(this.data.res + "data");
+    // console.log(this.getSimilarAuthors()); 
+    console.log(this.getSimilarAuthors()); 
+    console.log(this.authors, 'authors');
+    this.formatDate();
     console.log(this.data.all_res + "data");
     this.school_id = this.data.account.school_id;
+    console.log(this.data.num_views);
   }
 
   authors: any;
+  getSimilarAuthors() {
+    // get the research_id from data.res
+    let research_id = this.data.res.research_id;
+    console.log(research_id, 'research_id');
+    // extract all research in this.data.all_res using research_id
+    let all_research = this.data.all_res.filter((res: any) => res.research_id == research_id);
+    console.log(all_research, 'all_research');
+    // save first_name and last_name in authors from all_research
+    this.authors = all_research.map((res: any) => res.first_name + ' ' + res.last_name);
+    console.log(this.authors, 'authors');
+  }
 
   rel_res: any;
-  getSimilarAuthors() {
+  getSimilarArticles() {
     console.log(this.authors, 'authors');
     console.log(this.data.res.sdg_category)
     // iterate this.data.res.sdg_category
@@ -110,9 +123,7 @@ export class ReadMoreComponent implements OnInit {
 
   readMore(res: any) {
     console.log(this.data.account);
-    // add 1 to res.number_of_views
-    let number: number = res.number_of_views + 1;
-    this.researchService.addNumberOfViews(res.research_id, number).subscribe((res: any) => {
+    this.researchService.addNumberOfViews(res.research_id).subscribe((res: any) => {
       console.log(res);
     })
     const dialogConfig = new MatDialogConfig();
@@ -138,7 +149,4 @@ export class ReadMoreComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
-
-
 }

@@ -156,12 +156,16 @@ exports.deleteResearch = async(req, res, next) => {
 // increment by one in number_of_views using research_id
 exports.incrementViews = async(req, res, next) => {
     const research_id = req.params.research_id;
-    const number_of_views = req.params.number_of_views;
     console.log(research_id)
     try {
-        await research.incrementViews(research_id, number_of_views);
-        res.status(200).json({
-            message: 'Views incremented successfully'
+        let view = await research.incrementViews(research_id);
+        console.log(view)
+            // fetch_research using id
+        const number_of_views = await research.fetchResearchUsingResearch_ID(research_id);
+        console.log(number_of_views)
+        return res.status(200).json({
+            message: 'Views incremented successfully',
+            number_of_views: number_of_views
         });
     } catch (err) {
         if (!err.statusCode) {

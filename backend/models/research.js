@@ -86,9 +86,17 @@ module.exports = class Research {
         );
     }
 
-    static incrementViews(research_id, number_of_views) {
+    // fetch research details using research_id
+    static fetchResearchUsingResearch_ID(research_id) {
         return db.execute(
-            'UPDATE research_details SET number_of_views = ? WHERE research_id = ?', [number_of_views, research_id]
+            'SELECT number_of_views FROM research_details WHERE research_id = ?', [research_id]
+        );
+    }
+
+
+    static incrementViews(research_id) {
+        return db.execute(
+            'UPDATE research_details SET number_of_views = number_of_views + 1 where research_id = ?', [research_id]
         );
     }
 

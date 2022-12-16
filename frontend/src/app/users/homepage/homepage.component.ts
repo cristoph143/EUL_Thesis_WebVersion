@@ -136,14 +136,13 @@ export class HomepageComponent implements OnInit {
     this.curr = this.research$.filter((item: any) => //string exist in sdg_category
       item.sdg_category.includes(title)
     );
-    // removes duplicate research_id in this.curr and remain one copy of each research_id
+    let remove_dup: any;
+    // removes duplicate research_id in this.curr and remain one copy of each research_id based on the sdg
     this.curr = this.curr.filter((item: any, index: any) =>
       this.curr.findIndex((item2: any) => item2.research_id === item.research_id) === index
     );
-    this.research$ = this.research$.filter((item: any, index: any) => 
-      this.research$.findIndex((item2: any) => item2.research_id === item.research_id) === index
-    );
     console.log(this.curr, 'curr')
+    console.log(remove_dup, 'remove_dup')
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -159,16 +158,10 @@ export class HomepageComponent implements OnInit {
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
 
-    // this.dialog.open(dialogReference);
     const dialogRef = this.dialog.open(dialogReference, dialogConfig);
-    console.log(dialogReference)
-    //   const dialogRef = this.dialog.open(dialogReference);
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });
-
-
-    
   }
 }

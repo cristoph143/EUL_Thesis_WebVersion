@@ -83,9 +83,9 @@ export class ResearchService {
     }
 
     // add number_of_views using research_id
-    addNumberOfViews(research_id: Pick<ResearchDetails, "research_id">, number_of_views: number): Observable<ResearchDetails> {
+    addNumberOfViews(research_id: Pick<ResearchDetails, "research_id">): Observable<ResearchDetails> {
         return this.http
-            .get<ResearchDetails>(`${this.url}/research/incrementViews/${research_id}/${number_of_views}`, this.httpOptions)
+            .get<ResearchDetails>(`${this.url}/research/incrementViews/${research_id}`, this.httpOptions)
             .pipe(
                 first(),
                 catchError(

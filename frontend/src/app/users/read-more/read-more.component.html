@@ -19,7 +19,7 @@
                         <!-- data views from data.res -->
                         <div class="views">
                             <mat-icon>visibility</mat-icon>
-                            <span>{{data.res.number_of_views}}</span>
+                            <span>{{data.num_views}}</span>
                         </div>
                     </div>
                     <div class="box">
@@ -93,7 +93,7 @@
                                     <div class="row">
                                         <p class="spax auths">Authors: </p>
                                         <mat-chip-list>
-                                            <mat-chip *ngFor="let author of authors">{{author.first_name}}{{author.last_name}}</mat-chip>
+                                            <mat-chip *ngFor="let author of authors">{{author}}</mat-chip>
                                         </mat-chip-list>
                                     </div>
                                 </mat-card-content>
