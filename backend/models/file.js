@@ -14,4 +14,11 @@ module.exports = class File {
             'INSERT INTO research_file (file, research_id) VALUES (?, ?)', [file.originalname, file.research_id]
         );
     }
+
+    // getResearchFile
+    static getResearchFile(research_id) {
+        return db.execute(
+            'SELECT * FROM research_file WHERE research_id = ?', [research_id]
+        );
+    }
 }

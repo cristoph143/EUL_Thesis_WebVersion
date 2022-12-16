@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/d
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
+import { FileService } from './../../authentication/services/file.service';
 
 
 export interface Tabs {
@@ -19,6 +20,7 @@ export class ReadMoreComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private accService: AccountService,
+    private fileService: FileService, 
     private researchService: ResearchService,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -37,6 +39,24 @@ export class ReadMoreComponent implements OnInit {
     console.log(this.data.num_views);
     this.getNumberOfViews();
 
+  }
+
+  download() {
+    let research_id = this.data.res.research_id;
+    console.log("resID" + research_id)
+    // this.fileService.downloadFile(research_id).subscribe((res: any) => {
+      //   console.log(res);
+      //   const blob = new Blob([res], { type: 'application/pdf' });
+      //   const url = window.URL.createObjectURL(blob);
+      //   window.open(url);
+      // })
+    // call file service to download file
+    this.fileService.downloadFile(research_id).subscribe((res: any) => {
+      console.log(res);
+      const blob = new Blob([res], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    })
   }
 
   num_views: any;

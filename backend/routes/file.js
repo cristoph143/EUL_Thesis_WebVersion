@@ -27,12 +27,45 @@ var upload = multer({
     storage: store
 }).single('file');
 
-_router.post('/download/:filename', function(req, res, next) {
-    filepath = path.join(__dirname, '../uploads') + '/' + req.params.filename;
-    res.download(filepath);
-    console.log(filepath);
-    res.sendFile(filepath);
+_router.get('/getResearchFile/:research_id', FileController.getResearchFile);
+
+_router.get('/download/:research_id', async function(req, res, next) {
+    // get research file using research_id
+    const research_id = req.params.research_id;
+    console.log(research_id)
+    try {
+        const result = await File.getResearchFile(research_id);
+        console.log('result' + result)
+            // convert result object to string
+        const resultString = JSON.stringify(result);
+        console.log('resultString' + resultString)
+            // extract file value in resultString
+        const fileValue = resultString.match(/(?<=file":")[^"]*/);
+        console.log('fileValue' + fileValue)
+            // convert result string to json
+            // res.status(200).json(result);
+            // console.log(__dirname)
+        filepath = path.join(__dirname, '../uploads') + '\\' + fileValue;
+        // return res.download(filepath);
+        // response is "http://localhost:" + process.env.PORT + "/api/file/download/" + fileValue;
+        res.status(200).json({
+            message: "http://localhost:3000" + "/file/download/" + fileValue
+        });
+        // console.log(filepath);
+        // res.sendFile(filepath);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
 });
+// _router.post('/download/:filename', function(req, res, next) {
+//     filepath = path.join(__dirname, '../uploads') + '/' + req.params.filename;
+//     res.download(filepath);
+//     console.log(filepath);
+//     res.sendFile(filepath);
+// });
 
 /*
 req: file

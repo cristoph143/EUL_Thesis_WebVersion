@@ -1,16 +1,17 @@
-import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 
-
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 
 export class FileService {
-    
+
 
     constructor(private _http: HttpClient) { }
-    
-  private baseUrl = 'http://localhost:3000/file';
-    
+
+    private baseUrl = 'http://localhost:3000/file';
+
     // httpOtions for multipart/form-data
     httpOptions = {
         headers: new HttpHeaders({
@@ -18,13 +19,10 @@ export class FileService {
         })
     }
 
-    downloadFile(file:String){
-        var body = {filename:file};
-
-        return this._http.post('http://localhost:3000/file/download',body,{
-            responseType : 'blob',
-            headers:new HttpHeaders().append('Content-Type','application/json')
-        });
+    downloadFile(research_id: string) {
+        return this._http.get(`${this.baseUrl}/download/${research_id}`,
+            { responseType: 'blob' as 'json' }
+        );
     }
 
     uploadFile(formData: FormData) {
@@ -46,9 +44,7 @@ export class FileService {
         //     responseType: 'json',
         // });
         console.log(req);
-      
-          return this._http.request(req);
-    }
-    
 
+        return this._http.request(req);
+    }
 }
