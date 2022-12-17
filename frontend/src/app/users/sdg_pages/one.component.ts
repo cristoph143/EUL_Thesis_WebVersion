@@ -165,41 +165,15 @@ export class OneComponent implements OnInit {
       list.push(this.research_data[i]);
     }
     console.log(list);
-    // filter list using fuzzy search
-    let options = {
-      shouldSort: true,
-      maxPatternLength: 32,
-      minMatchCharLength: 2,
-      sortFn: function (a: any, b: any) {
-        return a.score - b.score;
-      },
-      // includeMatches: true,
-      findAllMatches: true,
-      includeScore: true,
-      isCaseSensitive: false,
-      keys: ["title"]
-    };
-    let result_list = [];
-    console.log(this.search + " s")
-    let fuse = new Fuse(list, options);
-    let result = fuse.search(this.search);
-    console.log(typeof result + " " + result) 
-    // iterate the object result
-    for (let i = 0; i < result.length; i++) {
-      console.log(result[i])
-      console.log(result[i].item)
-      result_list.push(result[i].item);
+    // filter list by normal method of search
+    let ret: any = [];
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].title.toLowerCase().includes(this.search.toLowerCase())) {
+        ret.push(list[i]);
+      }
     }
-    console.log(result_list);
-    this.research_data = result_list;
-    
-    
-    /*TODO - filter by keywords
-      1. Use the input from ret
-      2. filter by title
-      Future: filter by other fields if it will work
-    */
-    
+    console.log(ret);
+    this.research_data = ret;
   } //ret receive from input search
 
   onTabClick(event: { tab: { textLabel: any; }; }) {
@@ -257,6 +231,8 @@ export class OneComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "100%";
+    let ownership = this.showDeleteButton(res);
+    console.log(ownership, 'ownership');
     
     const all_res = this.research_all$;
     console.log(all_res, 'all_res');
@@ -264,7 +240,7 @@ export class OneComponent implements OnInit {
       res, //current or specific research
       all_res,
       account: this.data.account,
-      ownership: this.ownership
+      ownership: ownership
     };
     console.log(dialogConfig.data, 'dialogConfig.data');
     
