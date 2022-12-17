@@ -1,87 +1,83 @@
-    .image-back {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        display: flex important;
-    }
-    
-    .img {
-        width: 100%;
-        max-width: 100px;
-        height: 100px;
-    }
-    
-    .desc {
-        width: 100%;
-        height: auto;
-        display: flex;
-        margin-left: 30px;
-        flex-wrap: wrap;
-        flex-direction: row;
-    }
-    /* .desc {
+.image-back {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: flex important;
+}
+
+.img {
+    width: 100%;
+    max-width: 100px;
+    height: 100px;
+}
+
+.desc {
     width: 100%;
     height: auto;
     display: flex;
     margin-left: 30px;
     flex-wrap: wrap;
     flex-direction: row;
-    } */
-    
-    .row {
-        display: flex;
-        height: 350px;
-        flex-direction: row-reverse;
-        align-items: flex-end;
-    }
-    
-    .upper {
-        /* background-image: url('../../../../../assets/{goal 1.jpg}'); */
-        background-size: cover;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 1.2em;
-        margin: 20px;
-        border-radius: 10px;
-    }
-    
-    .desc {
-        width: 100%;
-        height: 200;
-        display: flex;
-        margin-left: 30px;
-        flex-direction: column;
-        flex-direction: column-reverse;
-    }
-    
-    .mat-card-title-group {
-        background-color: gray;
-        opacity: 85%;
-    }
-    
-    .lower {
-        border: 2px solid gray;
-        border-radius: 10px;
-    }
-    
-    .mat-chip-list {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 20px;
-    }
-    
-    .search {
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column-reverse;
-    }
-    
-    .content-research {
-        margin: 20px;
-        border: 2px solid gray;
-    }
-    
-    .btn_list {
-        display: flex;
-    }
+}
+
+.row {
+    display: flex;
+    height: 350px;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+}
+
+.upper {
+    background-size: cover;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.desc {
+    width: 100%;
+    height: 200;
+    display: flex;
+    margin-left: 30px;
+    flex-direction: column;
+    flex-direction: column-reverse;
+}
+
+.mat-card-title-group {
+    background-color: gray;
+    opacity: 85%;
+}
+
+.lower {
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+.mat-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.search {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+.content-research {
+    margin: 20px;
+    border: 2px solid gray;
+}
+
+.btn_list {
+    display: flex;
+}
+
+.mat-dialog-content {
+    /* max-size is none */
+    max-height: 100% !important;
+}

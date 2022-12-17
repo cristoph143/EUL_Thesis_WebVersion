@@ -143,10 +143,21 @@ export class HomepageComponent implements OnInit {
     );
     console.log(this.curr, 'curr')
     console.log(remove_dup, 'remove_dup')
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig = {
+      disableClose: true,
+      autoFocus: true,
+      // width: '100%',
+      // height: '100%',
+      position: {
+        left: '1px'
+      },
+      height: '100%',
+      width: '100vw',
+      maxWidth: '100vw',
+      panelClass: 'full-screen-modal'
+      // panelClass: ['full-screen-modal']
+    }
     dialogConfig.data = {
       src,
       title,
