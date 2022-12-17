@@ -48,20 +48,22 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllResearch();
     const token = localStorage.getItem('token');
-    console.log(token, 'token');
-    console.log(typeof token)
-    // convert string to [{}]
     const token_arr = JSON.parse(token!);
-    console.log(token_arr, 'token_arr');
     const type = 
-      // if token_arr has key of "userId" then use it otherwise use "school_id"
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
-    // this.school_id = 
     this.getInfoUsingSchoolId(type);
     console.log('this,auth', this.authService.isUserAuthenticated);
-    // iterate values of sdg and saved it iterately in Tiles
     for(let i = 0; i < sdg.length; i++){
-      this.tiles.push({"cols": 1, "rows": 1, "src": sdg[i].src, "redirect": OneComponent, "disabled":false, "title": sdg[i].title, "sub_title": sdg[i].sub_title, "background": sdg[i].background});
+      this.tiles.push({
+        "cols": 1,
+        "rows": 1,
+        "src": sdg[i].src,
+        "redirect": OneComponent,
+        "disabled": false,
+        "title": sdg[i].title,
+        "sub_title": sdg[i].sub_title,
+        "background": sdg[i].background
+      });
     }
   }
 

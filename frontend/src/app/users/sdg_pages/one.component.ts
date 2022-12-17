@@ -78,7 +78,7 @@ export class OneComponent implements OnInit {
   school_id = this.data.account.school_id;
 
   filters = ["title", "author", "year published", "adviser"];
-  filter: any;
+  filter = "title";
   filterBy(filter: any) {
     console.log(filter);
     this.filter = filter;
