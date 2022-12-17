@@ -36,7 +36,7 @@ export class ResearchService {
     } 
 
     // fetchResearch
-    fetchAllLibrary(school_id: Pick<Account, "school_id">): Observable<ResearchDetails> {
+    fetchAllLibrary(school_id: any): Observable<ResearchDetails> {
         return this.http
             .get<ResearchDetails>(`${this.url}/research/fetchLibrary/${school_id}`, this.httpOptions)
             .pipe(

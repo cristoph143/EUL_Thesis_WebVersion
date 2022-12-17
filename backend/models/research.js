@@ -72,10 +72,18 @@ module.exports = class Research {
 
     static fetchLibrary(school_id) {
         return db.execute(
-            'SELECT * FROM research_list LEFT JOIN research_details ' +
-            'ON research_details.research_id = research_list.research_id ' +
-            'LEFT JOIN account ON research_list.school_id = account.school_id ' +
-            'WHERE research_list.school_id = ?', [school_id]
+            "Select * from research_list " +
+            "Left join " +
+            "research_details on research_list.research_id = research_details.research_id " +
+            "left join " +
+            "account on research_list.school_id = account.school_id " +
+            "left join " +
+            "research_file on research_list.research_id = research_file.research_id " +
+            "left join " +
+            "department on research_details.departmentID = department.departmentID " +
+            "left join " +
+            "role on account.role_roleID = role.roleID " +
+            "where research_list.school_id = ?", [school_id]
         );
     }
 
