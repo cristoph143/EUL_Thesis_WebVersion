@@ -77,6 +77,12 @@ export class OneComponent implements OnInit {
   userId: Pick<Account, "school_id"> | undefined;
   school_id = this.data.account.school_id;
 
+  filters = ["title", "author", "year published", "adviser"];
+  filter: any;
+  filterBy(filter: any) {
+    console.log(filter);
+    this.filter = filter;
+  }
   filterByTabs(tab: any) {
     // filter data.curr using tab
     // filter using tab
@@ -165,11 +171,41 @@ export class OneComponent implements OnInit {
       list.push(this.research_data[i]);
     }
     console.log(list);
+    console.log("filter", this.filter)
     // filter list by normal method of search
     let ret: any = [];
     for (let i = 0; i < list.length; i++) {
-      if (list[i].title.toLowerCase().includes(this.search.toLowerCase())) {
-        ret.push(list[i]);
+      // if filter is equal to title
+      if (this.filter == "title") {
+        if (list[i].title.toLowerCase().includes(this.search.toLowerCase())) {
+          ret.push(list[i]);
+        }
+      }
+      // if filter is equal to author
+      else if (this.filter == "author") {
+        // either search in first name or last name
+        if (list[i].firstName.toLowerCase().includes(this.search.toLowerCase()) || list[i].lastName.toLowerCase().includes(this.search.toLowerCase())) {
+          ret.push(list[i]);
+        }
+        // combine first name and last name
+        else if ((list[i].firstName + " " + list[i].lastName).toLowerCase().includes(this.search.toLowerCase())) {
+          ret.push(list[i]);
+        }
+      }
+      // if filter is equal to date_published
+      else if (this.filter == "year published") {
+        // extract year from date_published
+        let year = list[i].date_published.split("-")[0];
+        console.log(year)
+        if (year.toLowerCase().includes(this.search.toLowerCase())) {
+          ret.push(list[i]);
+        }
+      }
+      // if filter is equal to adviser
+      else if (this.filter == "adviser") {
+        if (list[i].adviser.toLowerCase().includes(this.search.toLowerCase())) {
+          ret.push(list[i]);
+        }
       }
     }
     console.log(ret);

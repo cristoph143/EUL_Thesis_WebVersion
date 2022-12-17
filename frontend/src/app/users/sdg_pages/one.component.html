@@ -27,6 +27,14 @@
                     <button mat-icon-button matSuffix>
                         <mat-icon>search</mat-icon>
                     </button>
+                    <button mat-icon-button matSuffix [matMenuTriggerFor]="menu">
+                        <mat-icon>filter_list</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item *ngFor="let filter of filters" (click)="filterBy(filter)">
+                            {{filter}}
+                        </button>
+                    </mat-menu>
                 </mat-form-field>
             </div>
             <mat-card-content>

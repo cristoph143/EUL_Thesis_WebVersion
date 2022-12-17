@@ -39,6 +39,8 @@ import { ResearchLibraryComponent } from './users/research-library/research-libr
 import { UpdateDialogComponent } from './users/update-dialog/update-dialog.component';
 import { ReadMoreComponent } from './users/read-more/read-more.component';
 import { AuthGuard } from './authentication/services/auth-guard.service';
+import { MatMenuModule} from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +86,7 @@ import { AuthGuard } from './authentication/services/auth-guard.service';
     MatGridListModule,
     MatDialogModule,
     MatChipsModule,
+    MatMenuModule,
   ],
   providers: [
     AuthGuard
