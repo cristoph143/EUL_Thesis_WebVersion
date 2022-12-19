@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { UploadResearchComponent } from '../upload-research/upload-research.component';
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { TokenStorageService } from 'src/app/authentication/services/token-storage.service';
 
 export interface Tabs {
   label: string;
@@ -28,7 +29,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     private accService: AccountService,
     private router: Router,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher) {
+    media: MediaMatcher,
+    private tokenStorage: TokenStorageService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -99,5 +102,23 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       console.log('upload');
       this.cur_tab = event.label;
     }
+    if (event.label === 'Logout') {
+      this.logout();
+    }
+  }
+
+  logout(): void {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    // const remove = this.authService.isUserLoggedIn$.next(false);
+    const remove: any = this.tokenStorage.getTokens();
+    // this.authService.isUserLoggedIn$ = false;
+    this.isAuthenticated = remove;
+    console.log(this.isAuthenticated + " is authenticated")
+    this.router.navigate(["login"]);
+  }
+
+  nav(dest: string) {
+    this.router.navigate([dest]);
   }
 }
