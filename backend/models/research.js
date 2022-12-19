@@ -6,7 +6,7 @@ const {
 module.exports = class Research {
     constructor(
         research_id, topic_category, sdg_category, date_published, adviser,
-        departmentID, keywords, title, abstract, qr, number_of_views
+        departmentID, keywords, title, abstracts, qr, number_of_views
     ) {
         this.research_id = research_id;
         this.topic_category = topic_category;
@@ -16,7 +16,7 @@ module.exports = class Research {
         this.departmentID = departmentID;
         this.keywords = keywords;
         this.title = title;
-        this.abstract = abstract;
+        this.abstracts = abstracts;
         this.qr = qr;
         this.number_of_views = number_of_views;
     }
@@ -28,7 +28,7 @@ module.exports = class Research {
     // add research details to the db
     static addResearch(research) {
         return db.execute(
-            'INSERT INTO research_details (research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [research.research_id, research.topic_category, research.sdg_category, research.date_published, research.adviser, research.department, research.keywords, research.title, research.abstract, research.qr, research.number_of_views]
+            'INSERT INTO research_details (research_id, departmentID, topic_category, sdg_category, date_published, adviser, keywords, title, abstracts, qr, number_of_views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [research.research_id, research.departmentID, research.topic_category, research.sdg_category, research.date_published, research.adviser, research.keywords, research.title, research.abstracts, research.qr, research.number_of_views]
         );
     }
 

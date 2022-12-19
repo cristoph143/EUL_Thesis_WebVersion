@@ -74,22 +74,21 @@ export class UploadResearchComponent implements OnInit{
   }
 
   addResearch() {
-    // convert research_details.topic_category, research_details.sdg_category, research_details.keywords to string  
     let topic_category = this.research_details.topic_category;
     let sdg_category = this.research_details.sdg_category;
     let keywords = this.research_details.keywords;
     // create new object
     let new_research_details = {
       research_id: this.research_details.research_id,
-      title: this.research_details.title,
-      abstract: this.research_details.abstract,
       topic_category: topic_category,
       sdg_category: sdg_category,
-      qr: this.research_details.qr,
-      adviser: this.research_details.adviser,
       date_published: this.research_details.date_published,
+      adviser: this.research_details.adviser,
       departmentID: this.research_details.departmentID,
+      title: this.research_details.title,
+      abstract: this.research_details.abstract,
       keywords: keywords,
+      qr: this.research_details.qr,
       number_of_view: this.research_details.number_of_view,
     }
     this.researchService.addResearch(new_research_details).subscribe(
@@ -102,6 +101,12 @@ export class UploadResearchComponent implements OnInit{
       }
     );
 
+  }
+
+  uploadFiles() {
+    for (var i = 0; i < this.attachmentList.length; i++) {
+      this.upload(this.attachmentList[i]);
+    }
   }
     
 
@@ -140,11 +145,6 @@ export class UploadResearchComponent implements OnInit{
     fileInput.value = '';
   }
 
-  uploadFiles() {
-    for (var i = 0; i < this.attachmentList.length; i++) {
-      this.upload(this.attachmentList[i]);
-    }
-  }
 
   uploading: boolean = false;
   formData = new FormData();

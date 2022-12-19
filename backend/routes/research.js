@@ -14,16 +14,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/addResearchDetails', [
-    // research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views
     body('research_id').trim().not().isEmpty(),
+    body('departmentID').trim().not().isEmpty(),
     body('topic_category'),
     body('sdg_category'),
     body('date_published').trim().not().isEmpty(),
     body('adviser').trim().not().isEmpty(),
-    body('department').trim().not().isEmpty(),
     body('keywords'),
     body('title').trim().not().isEmpty(),
-    body('abstract').trim().not().isEmpty(),
+    body('abstracts').trim().not().isEmpty(),
     body('qr').trim().not().isEmpty(),
     body('number_of_views').trim().not().isEmpty()
 ], researchController.addResearchDetails);

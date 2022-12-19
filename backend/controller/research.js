@@ -4,19 +4,32 @@ const authoredList = require('../models/authored_list');
 
 exports.addResearchDetails = async(req, res, next) => {
     const research_id = req.body.research_id;
+    const departmentID = parseInt(req.body.departmentID);
     const topic_category = req.body.topic_category;
     const sdg_category = req.body.sdg_category;
     const date_published = req.body.date_published;
     const adviser = req.body.adviser;
-    const department = req.body.department;
     const keywords = req.body.keywords;
     const title = req.body.title;
-    const abstract = req.body.abstract;
+    const abstracts = req.body.abstract;
     const qr = req.body.qr;
     const number_of_views = req.body.number_of_views;
 
     try {
-        const researchDetails = new research(research_id, topic_category, sdg_category, date_published, adviser, department, keywords, title, abstract, qr, number_of_views);
+        const researchDetails = {
+            research_id: research_id,
+            departmentID: departmentID,
+            topic_category: topic_category,
+            sdg_category: sdg_category,
+            date_published: date_published,
+            adviser: adviser,
+            keywords: keywords,
+            title: title,
+            abstracts: abstracts,
+            qr: qr,
+            number_of_views: number_of_views
+        }
+        console.log(researchDetails)
         await research.addResearch(researchDetails);
         res.status(200).json({
             message: 'Research details added successfully'
