@@ -100,6 +100,7 @@ export class SearchComponent implements OnInit {
 
   // filter this.research_data by the keywords
   filterSearch() {
+    console.log(this.research$)
     console.log(this.search + "d")
     // covert object to list of json
     let list: any = [];
@@ -235,6 +236,13 @@ export class SearchComponent implements OnInit {
   onChange($event: any) {
     this.search = $event;
     console.log(this.search, 'search');
+    let research: any;
+    // iterate this.research_data and print the values inside the array
+    this.research$.forEach((item: any) => {
+      console.log(item);
+      research = item;
+    });
+    this.research$ = research;
     this.filterSearch();
   }
   
