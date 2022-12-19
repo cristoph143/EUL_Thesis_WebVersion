@@ -106,7 +106,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     console.log(event);
     console.log(event);
     // check the event.tab.textLabel to tabs
-    if (event.label !== 'Logout' || event.label !== 'My Research') {
+    if (event.label !== 'Logout') {
       console.log('upload');
       this.cur_tab = event.label;
     }

@@ -17,7 +17,6 @@ import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.co
 import { NavigateComponent } from './navigate/navigate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { AdminComponent } from './admin/admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -40,6 +39,9 @@ import { UpdateDialogComponent } from './users/update-dialog/update-dialog.compo
 import { ReadMoreComponent } from './users/read-more/read-more.component';
 import { AuthGuard } from './authentication/services/auth-guard.service';
 import { MatMenuModule} from '@angular/material/menu';
+import { MyResearchComponent } from './users/my-research/my-research.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairman-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,6 @@ import { MatMenuModule} from '@angular/material/menu';
     UserDashboardComponent,
     NavigateComponent,
     NotFoundComponent,
-    AdminComponent,
     SignupComponent,
     UploadResearchComponent,
     HomepageComponent,
@@ -58,6 +59,9 @@ import { MatMenuModule} from '@angular/material/menu';
     ResearchLibraryComponent,
     UpdateDialogComponent,
     ReadMoreComponent,
+    MyResearchComponent,
+    AdminDashboardComponent,
+    ChairmanDashboardComponent,
   ],
   imports: [
     BrowserModule,
