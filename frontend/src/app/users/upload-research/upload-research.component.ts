@@ -27,9 +27,14 @@ export class UploadResearchComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+    const token = localStorage.getItem('token');
+    const token_arr = JSON.parse(token!);
+    const type = 
+      token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
+    this.school_id = type;
   }
 
+  school_id: any;
   research_ids: string = this.random_uiD();
 
 
@@ -95,6 +100,7 @@ export class UploadResearchComponent implements OnInit{
       (data: any) => {
         console.log(data);
         this.uploadFiles();
+        this.addAuthored();
       },
       (error: any) => {
         console.log(error);
@@ -108,8 +114,21 @@ export class UploadResearchComponent implements OnInit{
       this.upload(this.attachmentList[i]);
     }
   }
-    
 
+  // addAuthored
+  addAuthored() {
+    let research_id = this.research_details.research_id;
+    let school_id = this.school_id;
+    this.researchService.addAuthored(research_id, school_id).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+    
   isLinear = false;
   download(index: string | number){
     var filename = this.attachmentList[index].uploadname;

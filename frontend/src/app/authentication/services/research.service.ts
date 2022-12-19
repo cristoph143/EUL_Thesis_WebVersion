@@ -93,4 +93,21 @@ export class ResearchService {
                 )
             );
     }
+
+    // addAuthored using research_id and the school_id
+    addAuthored(research_id: any, school_id: any): Observable<any> {
+        return this.http
+            .post(`${this.url}/research/addAuthored/`,
+                {
+                    research_id: research_id,
+                    school_id: school_id,
+                }, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("addAuthored")
+                )
+        );
+    }
+            
 }
