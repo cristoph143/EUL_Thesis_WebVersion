@@ -43,7 +43,6 @@ md-sidenav.md-closed.md-locked-open-add-active {
 
 .mat-list-base .mat-list-item:last-child {
     margin-top: 154px;
-    ;
     display: flex;
 }
 
@@ -51,6 +50,14 @@ md-sidenav.md-closed.md-locked-open-add-active {
     padding-top: 8px;
     width: 200px;
     display: block;
+}
+
+
+/* set disabled button text color to white */
+
+button[disabled=disabled],
+button:disabled {
+    color: white;
 }
 
 .start {
@@ -63,4 +70,95 @@ md-sidenav.md-closed.md-locked-open-add-active {
     flex-direction: column;
     padding: 0;
     margin: 0;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+mat-card-title {
+    display: flex;
+    justify-content: center;
+    font-weight: 100px;
+    /* margin-bottom: 40px; */
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    color: #1f0e7e;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 64px;
+    align-items: center;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+}
+
+.dropbtn {
+    background-color: #3f51b5;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3f51b5;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    display: flex;
+    justify-content: space-between;
 }

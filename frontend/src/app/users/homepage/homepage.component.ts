@@ -59,7 +59,7 @@ export class HomepageComponent implements OnInit {
         "rows": 1,
         "src": sdg[i].src,
         "redirect": OneComponent,
-        "disabled": false,
+        "disabled": sdg[i].disabled,
         "title": sdg[i].title,
         "sub_title": sdg[i].sub_title,
         "background": sdg[i].background

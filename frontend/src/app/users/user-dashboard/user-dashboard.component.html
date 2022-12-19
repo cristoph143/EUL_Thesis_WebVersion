@@ -1,7 +1,16 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="example-toolbar">
         <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-        <h1 class="example-app-name">Responsive App</h1>
+        <span class="header example-app-name">
+            <img src="../../assets/group1.png" alt="logo" class="logo">
+            <mat-card-title>EUL Thesis</mat-card-title>
+        </span>
+        <!-- display the student full name of mat-button -->
+        <span class="auth_hidden">
+            <button mat-button (click)="setProfile('profile')">{{account$?.first_name}} {{account$?.last_name}}</button>
+            <button mat-button (click)="logout()">Logout</button>
+        </span>
+
     </mat-toolbar>
     <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'push' : 'push'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">

@@ -60,9 +60,17 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.userId = this.authService.userId;
     this.school_id = this.authService.school_id;
+    const token = localStorage.getItem('token');
+    const token_arr = JSON.parse(token!);
+    const type = 
+      token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
+    this.getInfoUsingSchoolId(type);
     console.log(this.school_id)
-    this.getInfoUsingSchoolId(this.school_id);
     this.onTabClick(this.tabs[0]);
+  }
+
+  setProfile(profile: any) {
+    this.cur_tab = profile;
   }
 
   userId: Pick<Account, "school_id"> | undefined;
