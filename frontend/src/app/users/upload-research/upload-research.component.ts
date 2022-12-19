@@ -107,6 +107,8 @@ export class UploadResearchComponent implements OnInit{
       }
     );
 
+    /*TODO - add research to database not successfull */
+
   }
 
   uploadFiles() {

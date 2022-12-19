@@ -309,10 +309,13 @@ export class OneComponent implements OnInit {
     console.log(this.search, 'search');
     // 
     console.log(this.current_tab);
+    let research: any;
     // iterate this.research_data and print the values inside the array
     this.research_data.forEach((item: any) => {
       console.log(item);
+      research = item;
     });
+    this.research_data = research;
     this.filterByTabs(this.current_tab);
   }
   
