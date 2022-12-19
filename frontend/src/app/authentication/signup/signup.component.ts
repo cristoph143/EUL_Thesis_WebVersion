@@ -206,6 +206,7 @@ export class SignupComponent implements OnInit {
   }
 
   nav(dest: string) {
+    console.log(dest);
     this.router.navigate([dest]);
   }
 
