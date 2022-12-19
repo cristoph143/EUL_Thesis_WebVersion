@@ -77,18 +77,16 @@ exports.login = async(req, res, next) => {
             throw error;
         }
 
+        // extract approve value from user
+        const approve = user[0][0].approve;
+        // print the approve value of user
+        console.log("user" + approve);
+
         const storedUser = user[0][0];
         // print the approve value of storedUser
         console.log("store" + storedUser.approve);
 
         const isEqual = await bcrypt.compare(password, storedUser.password);
-
-        // if approve is null then error
-        if (storedUser.approve == null) {
-            const error = new Error("Wait for the Admin's Approval!");
-            error.statusCode = 401;
-            throw error;
-        }
 
         if (!isEqual) {
             const error = new Error('Wrong password!');
@@ -108,7 +106,9 @@ exports.login = async(req, res, next) => {
         );
         res.status(200).json({
             token: token,
-            userId: storedUser.school_id
+            userId: storedUser.school_id,
+            role: storedUser.role_roleID,
+            approve: storedUser.approve
         });
     } catch (err) {
         if (!err.statusCode) {

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 import { Inject} from "@angular/core";
 // import { LibraryConfig } from "../model/config";
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
-    private authInt: AuthInterceptorService
+    private authInt: AuthInterceptorService,
+    private tokenStorage: TokenStorageService
     // @Inject('config') private config: LibraryConfig) {}
   ) {}
 
@@ -93,9 +95,15 @@ export class AuthService {
           this.isUserLoggedIn$.next(true);
           // this.isUserLoggedIn$ = true;
           this.school_id = school_id;
-          console.log('sdd=>',this.school_id);
-          this.router.navigate(["home"]);
-          // alert("Successfully logged in");
+          console.log('sdd=>', this.school_id);
+          // if tokenObject.approve is equal to 0 then redirect to approve
+          if (tokenObject.approve === 0) {
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
+            this.router.navigate(["approve"]);
+          } else {
+            this.router.navigate(["home"]);
+          }
         }),
         catchError(
           this.errorHandlerService.handleError<{

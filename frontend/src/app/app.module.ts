@@ -42,6 +42,7 @@ import { MatMenuModule} from '@angular/material/menu';
 import { MyResearchComponent } from './users/my-research/my-research.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairman-dashboard.component';
+import { ApproveComponent } from './users/approve/approve.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairm
     MyResearchComponent,
     AdminDashboardComponent,
     ChairmanDashboardComponent,
+    ApproveComponent,
   ],
   imports: [
     BrowserModule,

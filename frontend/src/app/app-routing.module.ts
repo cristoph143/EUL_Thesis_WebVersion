@@ -5,36 +5,10 @@ import { SignupComponent} from './authentication/signup/signup.component';
 import { AuthGuard } from './authentication/services/auth-guard.service';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
-import { NavigateComponent } from './navigate/navigate.component';
 import { OneComponent } from './users/sdg_pages/one.component';
+import { ApproveComponent } from './users/approve/approve.component';
 
 const routes: Routes = [
-  // default route
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  // {
-  //   path: '', 
-  //   component: NavigateComponent,
-  //   children: [
-  //     { path: '', redirectTo: 'login', pathMatch: 'full' },
-  //     { path: 'login', component: LoginComponent },
-  //     { path: 'signup', component: SignupComponent },
-  //     {
-  //       path: 'home', 
-  //       component: UserDashboardComponent,
-  //       canActivate: [AuthGuard],
-  //       children: [
-  //         {
-  //           path: 'home',
-  //           component: UserDashboardComponent,
-  //         },
-  //         {
-  //           path: 'upload',
-  //           component: UploadResearchComponent,
-  //         }
-  //       ]
-  //     },
-  //   ]
-  // },
   {
     path: '', 
     component: LoginComponent
@@ -46,6 +20,10 @@ const routes: Routes = [
   {
     path: 'signup', 
     component: SignupComponent
+  },
+  {
+    path: 'approve',
+    component: ApproveComponent
   },
   {
     path: 'home', 
@@ -72,6 +50,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }
