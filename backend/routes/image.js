@@ -4,6 +4,7 @@ var multer = require('multer');
 var path = require('path');
 var account = require('../models/account');
 var File = require('../models/file');
+const FileController = require('../controller/file');
 
 const {
     validationResult
@@ -80,10 +81,31 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
     })
 });
 
+_router.get('/getProfile/:school_id', FileController.getProfile);
 
-_router.post('/download', function(req, res, next) {
-    filepath = path.join(__dirname, '../uploads') + '/' + req.body.filename;
-    res.sendFile(filepath);
+
+_router.get('/download/:school_id', async function(req, res, next) {
+    // get research file using school_id
+    const school_id = req.params.school_id;
+    console.log(school_id + "ss")
+    try {
+        console.log(school_id + "ss")
+        const result = await File.getProfile(school_id);
+        console.log('result' + result)
+            // convert result object to string
+        const resultString = JSON.stringify(result);
+        console.log('resultString' + resultString)
+            // extract file value in resultString
+        const fileValue = resultString.match(/(?<=image":")[^"]*/);
+        console.log('fileValue' + fileValue)
+        filepath = path.join(__dirname, '../uploads') + '\\' + fileValue;
+        res.download(filepath);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
 });
 
 module.exports = _router;

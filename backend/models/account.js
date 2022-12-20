@@ -74,7 +74,9 @@ module.exports = class Account {
             "role on role.roleID = account.role_roleID " +
             "Left Join " +
             "department on department.departmentID = account.departmentID " +
-            "where school_id = ?", [school_id]
+            "Left Join " +
+            "user_profile on user_profile.school_id = account.school_id " +
+            "where account.school_id = 2018010210"
         );
     }
 

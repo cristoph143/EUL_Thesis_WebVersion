@@ -29,4 +29,12 @@ module.exports = class File {
             'SELECT * FROM research_file WHERE research_id = ?', [research_id]
         );
     }
+
+    // getProfile
+    static getProfile(school_id) {
+        console.log('getProfile' + school_id)
+        return db.execute(
+            'Select * from user_profile where school_id = ?', [school_id]
+        );
+    }
 }
