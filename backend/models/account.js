@@ -98,4 +98,13 @@ module.exports = class Account {
             'SELECT password FROM account WHERE school_id = ?', [school_id]
         );
     }
+
+    // check if school_id exists in the db
+    static checkSchoolId(school_id) {
+        console.log(school_id);
+        // use count
+        return db.execute(
+            'SELECT COUNT(*) FROM account WHERE school_id = ?', [school_id]
+        );
+    }
 }

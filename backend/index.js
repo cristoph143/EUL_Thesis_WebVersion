@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth');
 const accountRoutes = require('./routes/account');
 const researchRoutes = require('./routes/research');
 const fileRoutes = require('./routes/file');
+const imageRoutes = require('./routes/image');
 
 const errorController = require('./controller/error');
 
@@ -45,6 +46,7 @@ app.use('/auth', authRoutes);
 app.use('/api/account', accountRoutes);
 app.use('/api/research', researchRoutes);
 app.use('/file', fileRoutes);
+app.use('/image', imageRoutes);
 
 
 app.use(errorController.get404);

@@ -56,13 +56,6 @@ _router.get('/download/:research_id', async function(req, res, next) {
         next(err);
     }
 });
-// _router.post('/download/:filename', function(req, res, next) {
-//     filepath = path.join(__dirname, '../uploads') + '/' + req.params.filename;
-//     res.download(filepath);
-//     console.log(filepath);
-//     res.sendFile(filepath);
-// });
-
 /*
 req: file
 res: originalname, uploadname

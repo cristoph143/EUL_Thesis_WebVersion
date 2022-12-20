@@ -15,6 +15,14 @@ module.exports = class File {
         );
     }
 
+    // add userProfile
+    static addUserProfile(file) {
+        console.log(file.originalname + ' ' + file.school_id);
+        return db.execute(
+            'INSERT INTO user_profile (image, school_id) VALUES (?, ?)', [file.originalname, file.school_id]
+        );
+    }
+
     // getResearchFile
     static getResearchFile(research_id) {
         return db.execute(
