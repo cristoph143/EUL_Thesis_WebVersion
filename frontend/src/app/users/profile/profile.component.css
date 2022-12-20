@@ -1,0 +1,37 @@
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 37px;
+}
+
+.profile-form {
+    margin-left: 70px;
+    margin-top: 20px;
+}
+
+.mat-drawer-container {
+    position: static !important;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.mat-list-base {
+    margin: 72px !important;
+}
+
+.mat-list-item,
+.mat-list-base .mat-list-option {
+    height: 129px;
+}

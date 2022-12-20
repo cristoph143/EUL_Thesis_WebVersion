@@ -65,4 +65,11 @@ export class FileService {
 
         return this._http.request(req);
     }
+
+    // getProfile
+    getProfile(school_id: string) {
+        return this._http.get(`http://localhost:3000/image/download/${school_id}`,
+            { responseType: 'blob' as 'json' }
+        );
+    }
 }

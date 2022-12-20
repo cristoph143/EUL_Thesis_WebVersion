@@ -1,3 +1,75 @@
-<mat-card>
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+        <!-- avatar for profile picture that can be edited or click for upload picture -->
+        <mat-nav-list>
+            <mat-list-item>
+                <div class="rows">
+                    <img [src]="img" class="avatar">
+                    <h3 mat-line>{{account$?.first_name}} {{account$?.last_name}}</h3>
+                </div>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>account_circle</mat-icon>
+                <h3 mat-line>Profile</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>search</mat-icon>
+                <h3 mat-line>Search</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>cloud_upload</mat-icon>
+                <h3 mat-line>Upload</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>library_books</mat-icon>
+                <h3 mat-line>Library</h3>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>home</mat-icon>
+                <h3 mat-line>Home</h3>
+            </mat-list-item>
+        </mat-nav-list>
 
-</mat-card>
+    </mat-drawer>
+    <mat-drawer-content>
+        <!-- profile information of student formGroup -->
+        <form class="profile" [formGroup]="profile">
+            <div class="rowss">
+                <!-- studentID readonly -->
+                <mat-form-field class="profile-form">
+                    <mat-label>Student ID</mat-label>
+                    <input matInput placeholder="Student ID" formControlName="school_id" readonly>
+                </mat-form-field>
+                <!-- student email -->
+                <mat-form-field class="profile-form">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+            </div>
+            <div class="rowss">
+                <!-- student first name -->
+                <mat-form-field class="profile-form">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" formControlName="first_name">
+                </mat-form-field>
+                <!-- student last name -->
+                <mat-form-field class="profile-form">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="last_name">
+                </mat-form-field>
+            </div>
+            <div class="rowss">
+                <!-- student role readonly -->
+                <mat-form-field class="profile-form">
+                    <mat-label>Role</mat-label>
+                    <input matInput placeholder="Role" formControlName="role" readonly>
+                </mat-form-field>
+                <!-- student department -->
+                <mat-form-field class="profile-form">
+                    <mat-label>Department</mat-label>
+                    <input matInput placeholder="Department" formControlName="department">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-drawer-content>
+</mat-drawer-container>
