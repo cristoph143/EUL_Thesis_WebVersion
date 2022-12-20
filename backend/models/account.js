@@ -80,6 +80,14 @@ module.exports = class Account {
         );
     }
 
+    // update account
+    static updateAccount(account) {
+        return db.execute(
+            // school_id, first_name, last_name, email, role_roleID, departmentID
+            'UPDATE account SET first_name = ?, last_name = ?, email = ?, role_roleID = ?, departmentID = ? WHERE school_id = ?', [account.first_name, account.last_name, account.email, account.role_roleID, account.departmentID, account.school_id]
+        );
+    }
+
     // get all roles
     static getRoles() {
         return db.execute(

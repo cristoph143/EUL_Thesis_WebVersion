@@ -30,8 +30,19 @@ export class ProfileComponent implements OnInit {
     this.getProfile();
   }
 
+  active = false;
+
   userId: Pick<Account, "school_id"> | undefined;
   school_id: any;
+
+  edit() {
+    if (this.active == false) {
+      this.active = true;
+    }
+    else {
+      this.active = false;
+    }
+  }
 
   getProfile() {
     console.log(this.school_id)
@@ -83,10 +94,43 @@ export class ProfileComponent implements OnInit {
     console.log(this.account$, 'account$');
   }
 
+
+  saveProfile() {
+    // set first_name using formvalue if it has value else account$.first_name
+    const first_name = this.profile.value.first_name != "" ? this.profile.value.first_name : this.account$?.first_name;
+    const last_name = this.profile.value.last_name != "" ? this.profile.value.last_name : this.account$?.last_name;
+    const email = this.profile.value.email != "" ? this.profile.value.email : this.account$?.email;
+    const account = {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      role_roleID: this.account$?.roleID,
+      departmentID: this.account$.departmentID,
+    }
+    
+    // prompt ask for password
+    const password = prompt("Please enter your password", "");
+    // check if the password is correct
+    this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
+      console.log(data.message);
+      // if data.message is equal to "Password is correct"
+      if (data.message == "Password is correct") {
+        this.accService.updateAccount(
+          this.school_id, account
+        ).subscribe((data: any) => {
+          console.log(data);
+        });
+        window.location.reload();
+      }
+      else {
+        alert("Wrong Password!");
+      }
+    });
+  }
+
   profile: FormGroup = new FormGroup({
     school_id: new FormControl(
       '',
-      Validators.required,
     ),
     first_name: new FormControl(
       '',
@@ -102,11 +146,9 @@ export class ProfileComponent implements OnInit {
     ),
     role: new FormControl(
       '',
-      Validators.required,
     ),
     department: new FormControl(
       '',
-      Validators.required,
     ),
   });
 }

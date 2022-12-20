@@ -35,6 +35,61 @@ exports.fetchAccountBySchoolID = async(req, res, next) => {
     }
 }
 
+// update account
+exports.updateAccountBySchoolID = async(req, res, next) => {
+    const errors = validationResult(req);
+    console.log(errors.result)
+
+    // school_id, first_name, last_name, email, role_roleID, departmentID
+    console.log('controller auth')
+
+    if (!errors.isEmpty()) {
+        return res.status(500).json({
+            tokens: null,
+            error: errors.array()
+        });
+    }
+
+    // school_id, first_name, last_name, email, role_roleID, departmentID
+    const school_id = req.params.school_id;
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    const email = req.body.email;
+    const role_roleID = req.body.role_roleID;
+    const departmentID = req.body.departmentID;
+
+    console.log('controller auth aft')
+    try {
+
+        console.log('controller auth try')
+
+        const AccountDetails = {
+            school_id: school_id,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            role_roleID: role_roleID,
+            departmentID: departmentID
+        };
+
+        const result = await account.updateAccount(AccountDetails);
+
+        console.log(result.values());
+        res.status(201).json({
+            message: 'Account updated!'
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+            res.status(500).json({
+                message: 'Account updated failed!'
+            });
+        }
+        next(err);
+    }
+}
+
+
 // find by email
 exports.findAccountByEmail = async(req, res, next) => {
     const email = req.params.email;
@@ -113,8 +168,9 @@ exports.confirmPassword = async(req, res, next) => {
         });
     } catch (err) {
         if (!err.statusCode) {
-            err.statusCode = 500;
-            res.status(500).json(err);
+            res.status(500).json({
+                message: 'Password is incorrect'
+            })
         }
         next(err);
     }

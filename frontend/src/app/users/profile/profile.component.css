@@ -35,3 +35,25 @@ form {
 .mat-list-base .mat-list-option {
     height: 129px;
 }
+
+.color {
+    background-color: #a1afff;
+}
+
+.headers {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 70px 70px 0 70px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 76px;
+}
+
+.bt {
+    margin-left: 45px;
+}

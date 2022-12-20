@@ -60,6 +60,19 @@ export class AccountService {
             );
     }
 
+    // updateAccount
+    updateAccount(school_id: string, account: any): Observable<Account> {
+        return this.http
+            .post<Account>(`${this.url}/update/${school_id}`, account, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account>("updateAccount")
+                )
+        );
+    }
+
+
     // confirm password using school_id and password
     confirmPasswordUsingId(school_id: string, password: any): Observable<Account> {
         return this.http

@@ -19,4 +19,11 @@ router.post('/confirm', [
         body('password').trim().not().isEmpty()
     ],
     accountController.confirmPassword);
+router.post('/update/:school_id', [
+    body('first_name').trim().not().isEmpty(),
+    body('last_name').trim().not().isEmpty(),
+    body('email').trim().not().isEmpty(),
+    body('role_roleID').trim().not().isEmpty(),
+    body('departmentID').trim().not().isEmpty(),
+], accountController.updateAccountBySchoolID);
 module.exports = router;
