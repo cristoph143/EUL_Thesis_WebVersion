@@ -47,4 +47,22 @@ export class FileService {
 
         return this._http.request(req);
     }
+    uploadProfile(formData: FormData) {
+        // extract and print the formData
+        console.log(formData.get('file'));
+        console.log(formData.get('school_id'));
+        console.log(formData)
+        // return this._http.post('http://localhost:3000/file/upload-file', formData, {
+        //     reportProgress: true,
+        //     observe: 'events'
+        // });
+        let id = formData.get('school_id');
+        const req = new HttpRequest('POST', `http://localhost:3000/image/upload-avatar/${id}`, formData, {
+            reportProgress: true,
+            responseType: 'json',
+        });
+        console.log(req);
+
+        return this._http.request(req);
+    }
 }

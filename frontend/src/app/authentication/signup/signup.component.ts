@@ -10,6 +10,7 @@ import { FileUploadService } from '../services/file-upload.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
+import { FileService } from '../services/file.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -29,7 +30,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private _formBuilder: FormBuilder,
-    private uploadService: FileUploadService,
+    private fileService: FileService,
     private http: HttpClient,
     private account_service: AccountService,
   ) { }
@@ -122,7 +123,10 @@ export class SignupComponent implements OnInit {
   private getRole() {
     this.account_service.fetchAllRoles().subscribe((data: any) => {
       this.roles = data[0];
+      console.log(data[0])
+      this.roles = data[0].filter((role: any) => role.roleID !== 1 && role.roleID !== 2);
     });
+    // remove 1 and 2 in this.roles
   }
 
   private getDepartment() {
@@ -181,17 +185,6 @@ export class SignupComponent implements OnInit {
     }
     console.log(this.secondFormGroup.value.department)
     
-    this.formData.append('school_id', this.secondFormGroup.get('school_id')?.value);
-    this.formData.append('image', this.firstFormGroup.get('image')?.value);
-    console.log('{{{{{{{{', this.formData);
-    
-    // this.http
-    //   .post('http://localhost:3000/api/add-profile', this.formData)
-    //   .subscribe({
-    //     next: (response) => console.log(response),
-    //     error: (error) => console.log(error),
-    //   });
-
     console.log(acc)
     this.con = acc;
     
@@ -199,12 +192,38 @@ export class SignupComponent implements OnInit {
       .signup(acc)
       .subscribe(
         (data) => {
+          this.uploadFiles();
           this.toast.success('Registration Successful');
           console.log(data)
         }
     );
   }
 
+  uploadFiles() {
+    this.message = [];
+
+    for (let i = 0; i < this.selectedFiles!.length; i++) {
+      this.upload(this.selectedFiles![i]);
+    }
+  }
+
+  school_id: any;
+  upload(file: any) {
+    this.formData.append('file', file);
+    const school_id = this.secondFormGroup.value.school_id;
+    this.school_id = school_id;
+    this.formData.append('school_id', school_id);
+    console.log(school_id, 'upload');
+
+    this.fileService.uploadProfile(this.formData).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
   nav(dest: string) {
     console.log(dest);
     this.router.navigate([dest]);

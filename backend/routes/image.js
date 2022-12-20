@@ -14,7 +14,7 @@ var store = multer.diskStorage({
         cb(null, './uploads');
     },
     filename: function(req, file, cb) {
-        cb(null, Date.now() + '.' + file.originalname);
+        cb(null, file.originalname);
     }
 });
 
@@ -27,7 +27,7 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
     upload(req, res, async function(err) {
         const errors = validationResult(req);
         console.log(errors.result)
-
+        console.log(req.file.originalname, "req.file.originalname")
         console.log('controller auth')
 
         if (!errors.isEmpty()) {

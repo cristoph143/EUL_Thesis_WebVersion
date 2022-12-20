@@ -45,49 +45,51 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="block right">
-                        <label for="file-input">
-                            <mat-icon class="upIcon" *ngIf="!validImage">add_photo_alternate</mat-icon>
-                            <img *ngFor='let preview of previews' [src]="preview" class="preview">
-                        </label>
-                        <input id="file-input" type="file" accept="image/*" (change)="selectFiles($event)" />
-                    </div> -->
                 </div>
             </mat-step>
             <mat-step [stepControl]="secondFormGroup" errorMessage="Fill Up The Form">
                 <form [formGroup]="secondFormGroup">
                     <ng-template matStepLabel>Login Information</ng-template>
-
-                    <mat-form-field appearance="fill">
-                        <mat-label>School ID</mat-label>
-                        <input matInput placeholder="2018021001" formControlName="school_id" required />
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
-                        <mat-select formControlName="role" required>
-                            <mat-option>-- None --</mat-option>
-                            <mat-option *ngFor="let role of roles" [value]="role">
-                                {{role.roleName}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-label>Role</mat-label>
-                    </mat-form-field>
-                    <p>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Enter your password</mat-label>
-                            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <div class="rw">
+                        <div class="block">
+                            <mat-form-field appearance="fill">
+                                <mat-label>School ID</mat-label>
+                                <input matInput placeholder="2018021001" formControlName="school_id" required />
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="getFloatLabelValue()" required>
+                                <mat-select formControlName="role" required>
+                                    <mat-option>-- None --</mat-option>
+                                    <mat-option *ngFor="let role of roles" [value]="role">
+                                        {{role.roleName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-label>Role</mat-label>
+                            </mat-form-field>
+                            <p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Enter your password</mat-label>
+                                    <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Confirm your password</mat-label>
-                            <input formControlName="confirm_password" matInput [type]="hide ? 'password' : 'text'" />
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Confirm your password</mat-label>
+                                    <input formControlName="confirm_password" matInput [type]="hide ? 'password' : 'text'" />
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
-                        </mat-form-field>
-                    </p>
-
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <div class="block right">
+                            <label for="file-input">
+                            <mat-icon class="upIcon" *ngIf="!validImage">add_photo_alternate</mat-icon>
+                            <img *ngFor='let preview of previews' [src]="preview" class="preview">
+                        </label>
+                            <input id="file-input" type="file" accept="image/*" (change)="selectFiles($event)" />
+                        </div>
+                    </div>
                     <div>
                         <p>
                             <mat-checkbox class="example-margin" required>I agree to Terms and Agreement</mat-checkbox>
@@ -101,7 +103,7 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
-                <h1>Congratiolation Josenian for Signing Up!</h1>
+                <h1>Congratulation Josenian for Signing Up!</h1>
                 <p>Wait for the Admin's Approval through your registered email!</p>
                 <!-- <p>{{con | json}}</p> -->
                 <div>

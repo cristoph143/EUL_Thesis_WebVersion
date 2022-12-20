@@ -7,6 +7,10 @@
     display: block;
 }
 
+.rw {
+    display: flex;
+}
+
 .page {
     display: flex;
     flex-direction: row;
