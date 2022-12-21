@@ -118,4 +118,24 @@ module.exports = class Research {
             'UPDATE research_details SET sdg_category = ? WHERE research_id = ?', [sdg_category, research_id]
         );
     }
+
+    // fetch all research details using school_id
+    static fetchMyResearchList(school_id) {
+        return db.execute(
+            "Select research_details.*, role.*, research_file.file, " +
+            "account.first_name, account.last_name, account.school_id, department.DepartmentName " +
+            "from authored " +
+            "left join account " +
+            "on authored.school_id = account.school_id " +
+            "left join " +
+            "research_details on research_details.research_id = authored.research_id " +
+            "left join " +
+            "role on role.roleID = account.role_roleID " +
+            "left join " +
+            "department on department.departmentID = research_details.departmentID " +
+            "left join " +
+            "research_file on research_file.research_id = research_details.research_id " +
+            "where authored.school_id = ?", [school_id]
+        )
+    }
 }

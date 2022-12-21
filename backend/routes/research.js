@@ -51,4 +51,8 @@ router.get('/incrementViews/:research_id', researchController.incrementViews);
 router.post('/updateSDG/:research_id/',
     body('sdg_category').trim().not().isEmpty(),
     researchController.updateSDG);
+
+// fetchMyResearchList
+router.get('/fetchMyResearchList/:school_id', researchController.fetchMyResearchList);
+
 module.exports = router;

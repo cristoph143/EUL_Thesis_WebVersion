@@ -208,3 +208,22 @@ exports.updateSDG = async(req, res, next) => {
         next(err);
     }
 }
+
+// fetchMyResearch using school_id
+exports.fetchMyResearchList = async(req, res, next) => {
+    const school_id = req.params.school_id;
+    try {
+        const research_list = await research.fetchMyResearchList(school_id).then(token => {
+            // console.log(token);
+            return token;
+        });
+        const result = res.status(200).json(research_list);
+        // console.log(research_list);
+        return result;
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}
