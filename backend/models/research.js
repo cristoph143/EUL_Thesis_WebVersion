@@ -72,7 +72,7 @@ module.exports = class Research {
 
     static fetchLibrary(school_id) {
         return db.execute(
-            "Select * from research_list " +
+            "Select research_details.*, account.*, role.*, department.*, research_file.file, research_file.idx  from research_list " +
             "Left join " +
             "research_details on research_list.research_id = research_details.research_id " +
             "left join " +

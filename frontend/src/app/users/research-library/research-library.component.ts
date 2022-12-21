@@ -33,16 +33,16 @@ export class ResearchLibraryComponent implements OnInit {
   school_id: any;
 
   ngOnInit(): void {
-    this.fetchAllResearch();
     console.log("hello")
     const token = localStorage.getItem('token');
     const token_arr = JSON.parse(token!);
     const type = 
-      token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
+    token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.school_id = type;
     this.getInfoUsingSchoolId(type);
     console.log(type)
     console.log('this,auth', this.authService.isUserAuthenticated);
+    this.fetchAllResearch();
   }
 
   // http request for getting the user details using school_id
@@ -82,9 +82,22 @@ export class ResearchLibraryComponent implements OnInit {
       return data[0];
     });
   }
-
+  
   getVal(res:any){
-    const research_list = res;
+    let research_list = [];
+    // remove duplicate research using research_id in res
+    for (let research of res) {
+      let isUnique = true;
+      for (let i = 0; i < research_list.length; i++) {
+        if (research_list[i].research_id == research.research_id) {
+          isUnique = false;
+          break;
+        }
+      }
+      if (isUnique) {
+        research_list.push(research);
+      }
+    }
     this.research$ = research_list;
   }
 

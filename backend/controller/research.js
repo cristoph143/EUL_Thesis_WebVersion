@@ -139,9 +139,13 @@ exports.fetchLibrary = async(req, res, next) => {
             // console.log(token);
             return token;
         });
-        const result = res.status(200).json(library);
-        // console.log(library);
-        return result;
+        console.log(library[0])
+            // convert library[0] to string
+        const libraryString = JSON.stringify(library[0]);
+        // convert libraryString to object
+        const libraryObject = JSON.parse(libraryString);
+        // console.log(libraryObject)
+        res.status(200).json(library);
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
