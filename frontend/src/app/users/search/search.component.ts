@@ -30,16 +30,16 @@ export class SearchComponent implements OnInit {
   school_id: any;
 
   ngOnInit(): void {
-    this.fetchAllResearch();
     console.log("hello")
     const token = localStorage.getItem('token');
     const token_arr = JSON.parse(token!);
     const type = 
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
-    this.school_id = type;
-    this.getInfoUsingSchoolId(type);
+      this.school_id = type;
+      this.getInfoUsingSchoolId(type);
     console.log(type)
     console.log('this,auth', this.authService.isUserAuthenticated);
+    this.fetchAllResearch();
   }
 
   // http request for getting the user details using school_id
@@ -98,56 +98,59 @@ export class SearchComponent implements OnInit {
     this.filter = filter;
   }
 
+  orig_res: any;
+
   // filter this.research_data by the keywords
-  filterSearch() {
-    console.log(this.research$)
-    console.log(this.search + "d")
-    // covert object to list of json
-    let list: any = [];
+  filterSearch(txt: any) {
+    // if this.orig is empty, then assign this.research_data to this.orig
+    if (this.orig_res == undefined) {
+      this.orig_res = this.research$;
+    }
+    this.research$ = this.orig_res;
+
+    const list = []
+    // iterate this.research_data
     for (let i = 0; i < this.research$.length; i++) {
-      console.log(this.research$[i])
+      // save research$ to list
       list.push(this.research$[i]);
     }
-    console.log(list);
-    console.log("filter", this.filter)
-    // filter list by normal method of search
-    let ret: any = [];
-    for (let i = 0; i < list.length; i++) {
-      // if filter is equal to title
+    console.log(list)
+        // filter list by normal method of search
+    this.research$ = list.filter((res: any) => {
+      // if the filter is title
       if (this.filter == "title") {
-        if (list[i].title.toLowerCase().includes(this.search.toLowerCase())) {
-          ret.push(list[i]);
+        // if the title contains the search keyword
+        if (res.title.toLowerCase().includes(txt.toLowerCase())) {
+          // return the research
+          return res;
         }
       }
-      // if filter is equal to author
+      // if the filter is author
       else if (this.filter == "author") {
-        // either search in first name or last name
-        if (list[i].firstName.toLowerCase().includes(this.search.toLowerCase()) || list[i].lastName.toLowerCase().includes(this.search.toLowerCase())) {
-          ret.push(list[i]);
-        }
-        // combine first name and last name
-        else if ((list[i].firstName + " " + list[i].lastName).toLowerCase().includes(this.search.toLowerCase())) {
-          ret.push(list[i]);
+        // if the author contains the search keyword
+        if (res.author.toLowerCase().includes(txt.toLowerCase())) {
+          // return the research
+          return res;
         }
       }
-      // if filter is equal to date_published
+      // if the filter is year published
       else if (this.filter == "year published") {
-        // extract year from date_published
-        let year = list[i].date_published.split("-")[0];
-        console.log(year)
-        if (year.toLowerCase().includes(this.search.toLowerCase())) {
-          ret.push(list[i]);
+        // if the year published contains the search keyword
+        if (res.year_published.toLowerCase().includes(txt.toLowerCase())) {
+          // return the research
+          return res;
         }
       }
-      // if filter is equal to adviser
+      // if the filter is adviser
       else if (this.filter == "adviser") {
-        if (list[i].adviser.toLowerCase().includes(this.search.toLowerCase())) {
-          ret.push(list[i]);
+        // if the adviser contains the search keyword
+        if (res.adviser.toLowerCase().includes(txt.toLowerCase())) {
+          // return the research
+          return res;
         }
       }
-    }
-    console.log(ret);
-    this.research$ = ret;
+    });
+
   } //ret receive from input search
   
   search: string = "";
@@ -235,15 +238,8 @@ export class SearchComponent implements OnInit {
 
   onChange($event: any) {
     this.search = $event;
-    console.log(this.search, 'search');
-    let research: any;
-    // iterate this.research_data and print the values inside the array
-    this.research$.forEach((item: any) => {
-      console.log(item);
-      research = item;
-    });
-    this.research$ = research;
-    this.filterSearch();
+    console.log(this.search);
+    this.filterSearch($event);
   }
   
 }
