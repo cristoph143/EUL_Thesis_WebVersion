@@ -37,6 +37,7 @@ export class ResearchService {
 
     // fetchResearch
     fetchAllLibrary(school_id: any): Observable<ResearchDetails> {
+        console.log(school_id)
         return this.http
             .get<ResearchDetails>(`${this.url}/research/fetchLibrary/${school_id}`, this.httpOptions)
             .pipe(
@@ -46,6 +47,19 @@ export class ResearchService {
                 )
             );
     } 
+
+    // fetchMyResearchList
+    fetchMyResearchList(school_id: any): Observable<ResearchDetails> {
+        return this.http
+            .get<ResearchDetails>(`${this.url}/research/fetchMyResearchList/${school_id}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("fetchAccount")
+                )
+        );
+    }
+
 
     addResearch(research: ResearchDetails): Observable<ResearchDetails> {
         return this.http
@@ -106,6 +120,51 @@ export class ResearchService {
                 first(),
                 catchError(
                     this.errorHandlerService.handleError<ResearchDetails>("addAuthored")
+                )
+        );
+    }
+
+    // addMyResearchList
+    addMyResearchList(research_id: any, school_id: any): Observable<any> {
+        return this.http
+            .post(`${this.url}/research/addMyResearchList/`,
+                {
+                    research_id: research_id,
+                    school_id: school_id,
+                }, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("addMyResearchList")
+                )
+        );
+    }
+
+    // removeMyResearchList
+    removeMyResearchList(research_id: any, school_id: any): Observable<any> {
+        return this.http
+            .post(`${this.url}/research/removeMyResearchList/`,
+                {
+                    research_id: research_id,
+                    school_id: school_id,
+                }, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("removeMyResearchList")
+                )
+        );
+    }
+
+    // checkResearchList
+    checkResearchList(research_id: any, school_id: any): Observable<any> {
+        return this.http
+            .get(`${this.url}/research/checkResearchList/${research_id}/${school_id}`
+                , this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("checkResearchList")
                 )
         );
     }

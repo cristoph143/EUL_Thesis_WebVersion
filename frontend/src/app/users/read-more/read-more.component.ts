@@ -39,7 +39,43 @@ export class ReadMoreComponent implements OnInit {
     console.log(this.data.num_views);
     this.getNumberOfViews();
     console.log(this.data.ownership)
+    console.log(this.data.res.departmentName)
+    this.researchService.checkResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
+      console.log(res.count[0].count);
+      if (res.count[0].count == 0) {
+        this.bookmarkIcon = false;
+      }
+      else {
+        this.bookmarkIcon = true;
+      }
+    });
+  }
 
+  bookmarkIcon: any;
+
+  bookmark() {
+    this.researchService.checkResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
+      console.log(res.count[0].count);
+      if (res.count[0].count == 0) {
+        this.researchService.addMyResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
+          console.log(res);
+          this.bookmarkIcon = true;
+        });
+      }
+      else {
+        this.researchService.removeMyResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
+          console.log(res);
+          this.bookmarkIcon = false;
+        });
+      }
+    });
+    console.log(this.bookmarkIcon)
+    // // if this.bookmarkIcon is false
+    // if(this.bookmarkIcon == false) {
+    //   this.bookmarkIcon = true;
+    // } else {
+    //   this.bookmarkIcon = false;
+    // }
   }
 
   download() {

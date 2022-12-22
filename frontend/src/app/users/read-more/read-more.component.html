@@ -15,6 +15,17 @@
                     </div>
                 </div>
                 <div class="end">
+                    <!-- bookmark -->
+                    <div class="box">
+                        <div class="bookmark">
+                            <button mat-button (click)="bookmark()">
+                                <!-- ngif for bookmark icon if it is true, it will fill the bookmark else hollow bookmark -->
+                                <mat-icon *ngIf="bookmarkIcon" class="bookmark-icon">bookmark</mat-icon>
+                                <mat-icon *ngIf="!bookmarkIcon" class="bookmark-icon">bookmark_border</mat-icon>
+                                <span>Bookmark </span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="box">
                         <!-- data views from data.res -->
                         <div class="views">
