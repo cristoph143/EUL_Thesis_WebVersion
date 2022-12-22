@@ -39,13 +39,6 @@ module.exports = class Research {
         );
     }
 
-    // add research_id and school_id to the table research_list
-    static addResearchList(research_id, school_id) {
-        return db.execute(
-            'INSERT INTO research_list (research_id, school_id) VALUES (?, ?)', [research_id, school_id]
-        );
-    }
-
     // get all research details from the db
     static fetchAllResearch() {
         return db.execute(
@@ -137,5 +130,12 @@ module.exports = class Research {
             "research_file on research_file.research_id = research_details.research_id " +
             "where authored.school_id = ?", [school_id]
         )
+    }
+
+    // addMyResearchList
+    static addMyResearchList(details) {
+        return db.execute(
+            'INSERT INTO research_list (research_id, school_id) VALUES (?, ?)', [details.research_id, details.school_id]
+        );
     }
 }

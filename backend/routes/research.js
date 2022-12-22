@@ -55,4 +55,10 @@ router.post('/updateSDG/:research_id/',
 // fetchMyResearchList
 router.get('/fetchMyResearchList/:school_id', researchController.fetchMyResearchList);
 
+// addMyResearchList
+router.post('/addMyResearchList', [
+    body('research_id').trim().not().isEmpty(),
+    body('school_id').trim().not().isEmpty(),
+], researchController.addMyResearchList);
+
 module.exports = router;
