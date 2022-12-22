@@ -8,6 +8,7 @@ import { UploadResearchComponent } from '../upload-research/upload-research.comp
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TokenStorageService } from 'src/app/authentication/services/token-storage.service';
+import { FileService } from 'src/app/authentication/services/file.service';
 
 export interface Tabs {
   label: string;
@@ -29,6 +30,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     private accService: AccountService,
     private router: Router,
     changeDetectorRef: ChangeDetectorRef,
+    private fileService: FileService,
     media: MediaMatcher,
     private tokenStorage: TokenStorageService
   ) {
@@ -53,7 +55,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     { label: 'Upload', icon: 'cloud_upload', dir: 'app-upload-research' },
     { label: 'Library', icon: 'books', dir: 'app-research-library' },
     { label: 'My Research', icon: 'library_books', dir: 'app-my-research' },
-    { label: 'Profile', icon: 'portrait', dir: 'app-profile' },
+    // { label: 'Profile', icon: 'portrait', dir: 'app-profile' },
     { label: 'Logout', icon: 'logout', dir: 'app-logout'}
   ];
 
@@ -67,6 +69,32 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     this.getInfoUsingSchoolId(type);
     console.log(this.school_id)
     this.onTabClick(this.tabs[0]);
+    this.getProfile(type);
+  }
+
+  img: any;
+
+  getProfile(school_id: any) {
+    console.log(school_id)
+    this.fileService.getProfile(school_id).subscribe((data: any) => {
+      console.log(data);
+      this.img = data;
+      this.blobToImage(data);
+    });
+  }
+
+
+  imageToShow: any;
+
+  // convert blob to image
+  blobToImage(blob: any) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.img = reader.result;
+    }, false);
+    if (blob) {
+      reader.readAsDataURL(blob);
+    }
   }
 
   setProfile(profile: any) {

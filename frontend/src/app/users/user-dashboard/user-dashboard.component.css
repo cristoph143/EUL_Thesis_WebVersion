@@ -38,14 +38,6 @@ md-sidenav.md-closed.md-locked-open-add-active {
     max-width: 400px !important;
 }
 
-
-/* last child of mat-list-item should be put at the bottom of the screen */
-
-.mat-list-base .mat-list-item:last-child {
-    margin-top: 154px;
-    display: flex;
-}
-
 .mat-list-base {
     padding-top: 8px;
     width: 200px;
@@ -161,4 +153,24 @@ mat-card-title {
 .mat-toolbar-single-row {
     display: flex;
     justify-content: space-between;
+}
+
+
+/* avatar picture */
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.no {
+    background-color: white !important;
+}
+
+.first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

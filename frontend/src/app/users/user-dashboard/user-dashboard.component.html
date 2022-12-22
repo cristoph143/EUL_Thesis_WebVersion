@@ -7,6 +7,7 @@
         </span>
         <!-- display the student full name of mat-button -->
         <span class="auth_hidden">
+            <img [src]="img" class="avatar">
             <button mat-button (click)="setProfile('Profile')">{{account$?.first_name}} {{account$?.last_name}}</button>
             <button mat-button (click)="logout()">Logout</button>
         </span>
@@ -15,6 +16,10 @@
     <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'push' : 'push'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
             <mat-nav-list>
+                <div class="first">
+                    <img [src]="img" class="avatar">
+                    <button mat-button (click)="setProfile('Profile')" class="no">{{account$?.first_name}} {{account$?.last_name}}</button>
+                </div>
                 <mat-list-item *ngFor="let tab of tabs" (click)="onTabClick(tab)">
                     <mat-icon mat-list-icon>{{tab.icon}}</mat-icon>
                     <h3 mat-line>{{tab.label}}</h3>
