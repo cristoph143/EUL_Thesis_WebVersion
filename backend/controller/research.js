@@ -279,3 +279,29 @@ exports.removeMyResearchList = async(req, res, next) => {
         next(err);
     }
 }
+
+// checkResearchList
+exports.checkResearchList = async(req, res, next) => {
+    const research_id = req.params.research_id;
+    const school_id = req.params.school_id;
+    try {
+        const details = {
+            research_id: research_id,
+            school_id: school_id
+        }
+        const checkResearchList = await research.checkResearchList(details).then(token => {
+            // console.log(token);
+            return token;
+        });
+        console.log(checkResearchList[0]);
+        res.status(200).json({
+            count: checkResearchList[0],
+            message: 'Research list checked successfully',
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

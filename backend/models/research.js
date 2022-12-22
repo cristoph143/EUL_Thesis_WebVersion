@@ -141,8 +141,14 @@ module.exports = class Research {
 
     // removeMyResearchList
     static removeMyResearchList(details) {
+            return db.execute(
+                'DELETE FROM research_list WHERE research_id = ? AND school_id = ?', [details.research_id, details.school_id]
+            );
+        }
+        // checkResearchList
+    static checkResearchList(details) {
         return db.execute(
-            'DELETE FROM research_list WHERE research_id = ? AND school_id = ?', [details.research_id, details.school_id]
+            'SELECT COUNT(*) as count FROM research_list WHERE research_id = ? AND school_id = ?', [details.research_id, details.school_id]
         );
     }
 }

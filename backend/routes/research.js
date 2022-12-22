@@ -67,4 +67,8 @@ router.post('/removeMyResearchList', [
     body('research_id').trim().not().isEmpty(),
     body('school_id').trim().not().isEmpty(),
 ], researchController.removeMyResearchList);
+
+// check if it exist in research_list
+router.get('/checkResearchList/:research_id/:school_id',
+    researchController.checkResearchList);
 module.exports = router;
