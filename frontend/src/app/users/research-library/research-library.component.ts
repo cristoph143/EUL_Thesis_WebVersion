@@ -248,6 +248,9 @@ export class ResearchLibraryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
+      // clear the search
+      this.search = "";
+      this.fetchAllResearch();
     });
   }
 
