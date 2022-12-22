@@ -61,4 +61,10 @@ router.post('/addMyResearchList', [
     body('school_id').trim().not().isEmpty(),
 ], researchController.addMyResearchList);
 
+
+//removeMyResearchList 
+router.post('/removeMyResearchList', [
+    body('research_id').trim().not().isEmpty(),
+    body('school_id').trim().not().isEmpty(),
+], researchController.removeMyResearchList);
 module.exports = router;

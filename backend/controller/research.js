@@ -253,3 +253,29 @@ exports.addMyResearchList = async(req, res, next) => {
         next(err);
     }
 }
+
+// removeMyResearchList
+exports.removeMyResearchList = async(req, res, next) => {
+    const research_id = req.body.research_id;
+    const school_id = req.body.school_id;
+    try {
+        const details = {
+            research_id: research_id,
+            school_id: school_id
+        }
+        const removeMyResearchList = await research.removeMyResearchList(details).then(token => {
+            // console.log(token);
+            return token;
+        });
+        // console.log(addResearchList);
+        res.status(200).json({
+            message: 'My Research list removed successfully',
+        });
+
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

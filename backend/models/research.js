@@ -138,4 +138,11 @@ module.exports = class Research {
             'INSERT INTO research_list (research_id, school_id) VALUES (?, ?)', [details.research_id, details.school_id]
         );
     }
+
+    // removeMyResearchList
+    static removeMyResearchList(details) {
+        return db.execute(
+            'DELETE FROM research_list WHERE research_id = ? AND school_id = ?', [details.research_id, details.school_id]
+        );
+    }
 }
