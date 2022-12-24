@@ -22,7 +22,7 @@
                 <div>
                     <button mat-button matStepperNext (click)="upNext()" *ngIf="disabled" disabled>Next</button>
                     <button mat-button matStepperNext (click)="upNext()" *ngIf="!disabled">Next</button>
-                    <button mat-button>Back to Login</button>
+                    <button mat-button (click)="gotoHome() ">Go to Home</button>
                 </div>
             </div>
         </mat-step>
@@ -36,28 +36,32 @@
                     <mat-card-title class="res_cent">Research Details</mat-card-title>
                 </div>
                 <div class="down">
-                    <div class="first">
-                        <mat-form-field class="full-width">
-                            <!-- input for research_id disabled -->
-                            <input matInput placeholder="Research ID" value="{{research_details.research_id}}" disabled />
-                        </mat-form-field>
-                        <mat-form-field class="full-width firsti">
-                            <input matInput type="date" placeholder="Date Published" [(ngModel)]="research_details.date_published" />
-                        </mat-form-field>
-                    </div>
-                    <div class="second">
-                        <!-- input for title disabled -->
-                        <mat-form-field class="full-width">
-                            <input matInput placeholder="Title" value="{{research_details.title}}" />
-                        </mat-form-field>
-                        <mat-form-field class="full-width firsti">
-                            <input matInput placeholder="Adviser" [(ngModel)]="research_details.adviser" />
-                        </mat-form-field>
-                        <!-- department -->
-                        <mat-form-field class="full-width firsti">
-                            <input matInput placeholder="Department" [(ngModel)]="research_details.departmentName" disabled />
-                        </mat-form-field>
-                    </div>
+                    <form [formGroup]="inputs">
+                        <div class="first">
+                            <mat-form-field class="full-width">
+                                <!-- input for research_id disabled -->
+                                <input matInput placeholder="Research ID" value="{{research_details.research_id}}" disabled />
+                            </mat-form-field>
+                            <mat-form-field class="full-width firsti">
+                                <input matInput type="date" formControlName="date_published" placeholder="Date Published" [(ngModel)]="research_details.date_published" />
+                            </mat-form-field>
+                        </div>
+                        <div class="second">
+                            <!-- input for title disabled -->
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="Title" formControlName="title" [(ngModel)]="research_details.title" />
+                            </mat-form-field>
+                            <mat-form-field class="full-width firsti">
+                                <input matInput placeholder="Adviser" formControlName="adviser" [(ngModel)]="research_details.adviser" />
+                            </mat-form-field>
+                            <!-- ngFor department -->
+                            <mat-form-field class="full-width firsti">
+                                <mat-select placeholder="Department" formControlName="department" [(ngModel)]="research_details.departmentName">
+                                    <mat-option *ngFor="let department of departments" [value]="department.departmentName">{{department.departmentName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
                     <div class="">
                         <mat-card-title>Authors</mat-card-title>
                         <div class="forms">
@@ -66,7 +70,7 @@
                                     <input matInput placeholder="School ID" formControlName="school_id" />
                                 </mat-form-field>
                             </form>
-                            <button mat-raised-button color="primary" (click)="pushAuthor()">Add</button>
+                            <button mat-raised-button color="primary" class="bt" (click)="pushAuthor()">Add</button>
                         </div>
                         <div class="row" *ngIf="display">
                             <mat-card-title>Authors</mat-card-title>
@@ -76,15 +80,15 @@
                                     <input matInput placeholder="First Name" [(ngModel)]="author.first_name" disabled />
                                 </mat-form-field>
                                 <!-- last_name -->
-                                <mat-form-field class="full-width">
+                                <mat-form-field class="full-width bt">
                                     <input matInput placeholder="Last Name" [(ngModel)]="author.last_name" disabled />
                                 </mat-form-field>
                                 <!-- school_id -->
-                                <mat-form-field class="full-width">
+                                <mat-form-field class="full-width bt">
                                     <input matInput placeholder="School ID" [(ngModel)]="author.school_id" disabled />
                                 </mat-form-field>
                                 <!-- button remove -->
-                                <button mat-raised-button color="warn" (click)="removeAuthor(author)">Remove</button>
+                                <button mat-raised-button color="warn" class="bt" (click)="removeAuthor(author)">Remove</button>
                             </div>
                         </div>
                     </div>
@@ -126,9 +130,10 @@
                 </div>
             </div>
             <div>
-                <button mat-button matStepperNext (click)="addResearch(); ">Next</button>
+                <button mat-button matStepperNext (click)="addResearch();" *ngIf=" dis " disabled>Next</button>
+                <button mat-button matStepperNext (click)="addResearch();" *ngIf="!dis">Next</button>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button>Back to Login</button>
+                <button mat-button (click)="gotoHome() ">Go to Home</button>
             </div>
         </mat-step>
         <mat-step errorMessage="Fill Up the Form ">

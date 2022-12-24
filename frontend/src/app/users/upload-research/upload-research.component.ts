@@ -41,8 +41,12 @@ export class UploadResearchComponent implements OnInit{
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.school_id = type;
     this.getDepartment();
+    // if this.authors is empty disable is true
+    // if this.authors is not empty disable is false
+    this.dis = this.authors.length == 0 ? true : false;
   }
 
+  dis: boolean = true;
   departments: any;
 
   private getDepartment() {
@@ -91,7 +95,28 @@ export class UploadResearchComponent implements OnInit{
     window.location.href = '/home';
   }
 
+  inputs = new FormGroup({
+    date_published: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    adviser: new FormControl('', Validators.required),
+    department: new FormControl('', Validators.required),
+  });
+
   addResearch() {
+    // if date_published input is null, then date_published will be set to the current date
+    let date_published = this.inputs.value.date_published
+    let title = this.inputs.get('title')!.value;
+    let adviser = this.inputs.get('adviser')!.value;
+    let department = this.inputs.get('department')!.value;
+    console.log(date_published, title, adviser, department);
+    // iterate this.departments
+    let departmentID = 0;
+    for (var i = 0; i < this.departments.length; i++) {
+      if (this.departments[i].departmentName == department) {
+        departmentID = this.departments[i].departmentID;
+      }
+    }
+    console.log(departmentID);
     let topic_category = this.research_details.topic_category;
     let sdg_category = this.research_details.sdg_category;
     let keywords = this.research_details.keywords;
@@ -100,14 +125,20 @@ export class UploadResearchComponent implements OnInit{
       research_id: this.research_details.research_id,
       topic_category: topic_category,
       sdg_category: sdg_category,
-      date_published: this.research_details.date_published,
-      adviser: this.research_details.adviser,
-      departmentID: this.research_details.departmentID,
-      title: this.research_details.title,
+      date_published: date_published != null ? date_published : this.research_details.date_published,
+      adviser: adviser!= null ? adviser : 'adviser',
+      departmentID: departmentID,
+      title: title != null ? title : this.research_details.title,
       abstract: this.research_details.abstract,
       keywords: keywords,
       qr: this.research_details.qr,
       number_of_view: this.research_details.number_of_view,
+    }
+    // if author is null, then return error
+    if (this.authors.length == 0) {
+      this.toast.error('Please add author');
+
+      return;
     }
     this.researchService.addResearch(new_research_details).subscribe(
       (data: any) => {
@@ -177,6 +208,7 @@ export class UploadResearchComponent implements OnInit{
       this.authors.push(author);
       this.authorForm.reset();
       this.display = true;
+      this.dis = false;
     });
   }
 
@@ -188,6 +220,9 @@ export class UploadResearchComponent implements OnInit{
       return;
     }
     this.authors.splice(i, 1);
+    if (this.authors.length == 0) {
+      this.dis = true;
+    }
   }
 
 
