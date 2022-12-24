@@ -5,6 +5,10 @@ import { saveAs } from 'file-saver';
 import { Injector } from '@nestjs/core/injector/injector';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResearchService } from 'src/app/authentication/services/research.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { AccountService } from '../../../app/authentication/services/account.service';
+import { first } from 'rxjs/operators';
+import { HotToastService } from '@ngneat/hot-toast';
 
 const uri = 'http://localhost:3000/file/upload-file';
 @Component({
@@ -20,7 +24,10 @@ export class UploadResearchComponent implements OnInit{
   research_id: string = '';
   
   attachmentList:any = [];
-  constructor(private fileService:FileService, private researchService: ResearchService){
+  constructor(private fileService: FileService,
+    private account_service: AccountService,
+    private toast: HotToastService,
+    private researchService: ResearchService) {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
         this.attachmentList.push(JSON.parse(response));
     }
@@ -33,6 +40,16 @@ export class UploadResearchComponent implements OnInit{
     const type = 
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.school_id = type;
+    this.getDepartment();
+  }
+
+  departments: any;
+
+  private getDepartment() {
+    this.account_service.fetchAllDepartments().subscribe((data: any) => {
+      this.departments = data[0];
+      console.log(data[0])
+    });
   }
 
   school_id: any;
@@ -74,15 +91,6 @@ export class UploadResearchComponent implements OnInit{
     window.location.href = '/home';
   }
 
-  addTopic() {
-    // alert what topic to add
-    var topic = prompt("Please enter topic", "topic");
-    if (topic != null) {
-      this.research_details.sdg_category.push(topic);
-      // this.research_details.topic_category.push(topic);
-    }
-  }
-
   addResearch() {
     let topic_category = this.research_details.topic_category;
     let sdg_category = this.research_details.sdg_category;
@@ -105,7 +113,13 @@ export class UploadResearchComponent implements OnInit{
       (data: any) => {
         console.log(data);
         this.uploadFiles();
-        this.addAuthored();
+        this.toast.success('Research successfully added');
+        // iterate authors
+        for (var i = 0; i < this.authors.length; i++) {
+          // get school_id
+          let school_id = this.authors[i].school_id;
+          this.addAuthored(school_id)
+        }
       },
       (error: any) => {
         console.log(error);
@@ -116,16 +130,71 @@ export class UploadResearchComponent implements OnInit{
 
   }
 
+  authors: any = [];
+
+
   uploadFiles() {
     for (var i = 0; i < this.attachmentList.length; i++) {
       this.upload(this.attachmentList[i]);
     }
   }
+  display = false;
+  authorForm = new FormGroup({
+    school_id: new FormControl('', Validators.required),
+  });
+
+  pushAuthor() {
+    console.log(this.authors)
+    // return error if form is invalid
+    if (this.authorForm.invalid) {
+      // toast error
+      this.toast.error('Please fill out all fields');
+      // this.display = false;
+      return;
+    }
+
+    // check if input school_id already exist in the form
+    for (var i = 0; i < this.authors.length; i++) {
+      if (this.authors[i].school_id == this.authorForm.value.school_id) {
+        this.toast.error('School ID already exist');
+        return;
+      }
+    }
+    
+
+    this.account_service.fetchAccount(this.authorForm.value.school_id).subscribe((data: any) => {
+      if (data[0].length == 0) {
+        this.toast.error('School ID does not exist');
+        return;
+      }
+      console.log(data[0])
+      const author = {
+        first_name: data[0][0].first_name,
+        last_name: data[0][0].last_name,
+        school_id: this.authorForm.value.school_id,
+      }
+  
+      this.authors.push(author);
+      this.authorForm.reset();
+      this.display = true;
+    });
+  }
+
+  removeAuthor(i: any) {
+    // confirm if want to remove
+    console.log(this.authors)
+    const con = confirm('Are you sure you want to remove this author ?');
+    if (con == false) {
+      return;
+    }
+    this.authors.splice(i, 1);
+  }
+
+
 
   // addAuthored
-  addAuthored() {
+  addAuthored(school_id: any) {
     let research_id = this.research_details.research_id;
-    let school_id = this.school_id;
     this.researchService.addAuthored(research_id, school_id).subscribe(
       (data: any) => {
         console.log(data);

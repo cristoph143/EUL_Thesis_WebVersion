@@ -34,6 +34,18 @@ export class AccountService {
             );
     }
     
+    // fetchAccount using school_id
+    fetchAccount(school_id: any): Observable<Account> {
+        return this.http
+            .get<Account>(`${this.url}/${school_id}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account>("fetchAccount")
+                )
+            );
+    }
+    
     // fetchALlRoles
     fetchAllRoles() {
         return this.http
