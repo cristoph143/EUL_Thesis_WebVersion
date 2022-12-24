@@ -30,4 +30,9 @@
             </mat-card-actions>
         </mat-card>
     </div>
+    <div class="content-research" *ngIf="research$.length == 0">
+        <mat-card>
+            <app-not-found></app-not-found>
+        </mat-card>
+    </div>
 </div>

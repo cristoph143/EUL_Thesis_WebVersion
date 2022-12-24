@@ -1,2 +1,15 @@
 <app-navigate></app-navigate>
-<p>approve works!</p>
+<!-- page that tells user to wait for chairman's approval -->
+<div class="body">
+    <mat-card-title>Waiting for Chairman's Approval</mat-card-title>
+    <div class="page">
+        <div class="example-container grid">
+            <img src="../../../assets/not-approved.png" alt="image" />
+            <p>Thank you for registering. Your account is currently pending approval from the chairman. You will be notified via email once your account has been approved.</p>
+        </div>
+    </div>
+    <!-- actions goto login -->
+    <div class="actions">
+        <button mat-raised-button color="primary" routerLink="/login" routerLinkActive="active">Login</button>
+    </div>
+</div>

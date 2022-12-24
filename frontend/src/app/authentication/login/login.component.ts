@@ -93,28 +93,19 @@ export class LoginComponent implements OnInit{
         this.loginForm.value.school_id,
         this.loginForm.value.password,
       )
-      .pipe(
-        // toaster 
-        this.toast.observe({
-          success: 'Successfully logged in',
-          loading: 'loading',
-          error: (msg: any) => {
-            console.log(msg)
-            alert(msg)
-            return msg;
-          }
-        })
-      )
       .subscribe(data => {
         console.log('Data', data);
+        if (data == undefined) {
+          this.nav('approve')
+          // toast error message
+          this.toast.error('Please wait for approval');
+        }
         this.data = data;
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
-
-        // this.isLoginFailed = false;
         this.isLoggedIn = true;
-        // this.roles = this.tokenStorage.getUser().roles;
-        // this.router.navigate(['/home']);
+        // toast success message
+        this.toast.success('Login successful');
       }
       )
     );

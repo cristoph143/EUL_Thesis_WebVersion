@@ -7,7 +7,7 @@
                     <mat-card-title class="res_cent">Upload Research</mat-card-title>
                     <div class=" columns">
                         <label for="file-input">
-                                        <img src="../../../assets/Upload-Transparent.png" class="img" />
+                                        <img src="../../../assets/upload.png" />
                                     </label>
                         <!-- accepts only pdf, word file -->
                         <input id="file-input" type="file" accept=".pdf, .docx, .docs" (change)="selectFiles($event)" ng2FileSelect uploader="uploader" />
@@ -20,7 +20,8 @@
                 </div>
 
                 <div>
-                    <button mat-button matStepperNext (click)="upNext()">Next</button>
+                    <button mat-button matStepperNext (click)="upNext()" *ngIf="disabled" disabled>Next</button>
+                    <button mat-button matStepperNext (click)="upNext()" *ngIf="!disabled">Next</button>
                     <button mat-button>Back to Login</button>
                 </div>
             </div>
@@ -51,8 +52,6 @@
                         <!-- mat-chip-list of research_details.topic_category -->
                         <mat-chip-list>
                             <mat-chip *ngFor="let topic of research_details.topic_category">{{topic}}</mat-chip>
-                            <!-- add button for adding new category in topic_category -->
-                            <mat-chip color="primary" (click)="addTopic()">Add</mat-chip>
                         </mat-chip-list>
                         <mat-chip-list>
                             <mat-chip *ngFor="let sdg of research_details.sdg_category">{{sdg}}</mat-chip>
@@ -81,10 +80,9 @@
             </div>
             <div class="row">
                 <div class="tops">
-                    <mat-card-title class="res_cent">Done</mat-card-title>
-                </div>
-                <div class="down">
-                    <p>Research has been uploaded successfully.</p>
+                    <mat-card-title class="res_cent">Research has been uploaded successfully.</mat-card-title>
+                    <img src="../../../assets/upload_success.png" alt="" />
+                    <button mat-button (click)="gotoHome()">Go to Home</button>
                 </div>
             </div>
         </mat-step>

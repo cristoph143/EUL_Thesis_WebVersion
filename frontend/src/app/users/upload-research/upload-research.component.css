@@ -65,6 +65,12 @@
     align-items: center;
 }
 
+.tops {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .down {
     margin-top: 20px;
     margin-bottom: 20px;

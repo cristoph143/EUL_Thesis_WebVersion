@@ -26,6 +26,7 @@ export class UploadResearchComponent implements OnInit{
     }
   }
 
+  disabled = true;
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     const token_arr = JSON.parse(token!);
@@ -56,7 +57,7 @@ export class UploadResearchComponent implements OnInit{
 
   research_details = {
     research_id: this.research_ids,
-    title: 'Hide message',
+    title: 'Confused Title',
     abstract: 'Lorem Ipsum is simply dummy text of versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
     topic_category: ['topic1', 'topic2', 'topic3'],
     sdg_category: ['sdg1', 'sdg2', 'sdg3'],
@@ -67,6 +68,10 @@ export class UploadResearchComponent implements OnInit{
     departmentName: "School of Computer Studies",
     keywords: ['keyword1', 'keyword2', 'keyword3'],
     number_of_view: 0,
+  }
+
+  gotoHome() {
+    window.location.href = '/home';
   }
 
   addTopic() {
@@ -157,7 +162,9 @@ export class UploadResearchComponent implements OnInit{
     }
     console.log(this.attachmentList);
     console.log(this.attachmentList[0].name);
+    this.disabled = false;
   }
+
 
   removeFile(_t18: any) {
     this.attachmentList = [];
@@ -201,6 +208,7 @@ export class UploadResearchComponent implements OnInit{
   upNext(){
     console.log(this.formData.get('file'), 'upNext');
     console.log(this.formData.get('research_id'), 'upNext');
+    console.log(this.attachmentList, 'upNext');
   }
 
   onSubmitDetails() {
