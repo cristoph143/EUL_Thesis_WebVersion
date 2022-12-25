@@ -9,7 +9,6 @@ module.exports = class File {
 
     // add research_file details
     static addResearchFile(file) {
-        console.log(file.originalname + ' ' + file.research_id);
         return db.execute(
             'INSERT INTO research_file (file, research_id) VALUES (?, ?)', [file.originalname, file.research_id]
         );
@@ -17,7 +16,6 @@ module.exports = class File {
 
     // add userProfile
     static addUserProfile(file) {
-        console.log(file.originalname + ' ' + file.school_id);
         return db.execute(
             'INSERT INTO user_profile (image, school_id) VALUES (?, ?)', [file.originalname, file.school_id]
         );
@@ -32,7 +30,6 @@ module.exports = class File {
 
     // getProfile
     static getProfile(school_id) {
-        console.log('getProfile' + school_id)
         return db.execute(
             'Select * from user_profile where school_id = ?', [school_id]
         );

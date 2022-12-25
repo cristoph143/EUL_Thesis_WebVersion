@@ -56,8 +56,6 @@ module.exports = class Research {
 
     // check if research_id exists in the db
     static checkResearchId(research_id) {
-        console.log(research_id);
-        // use count
         return db.execute(
             'SELECT COUNT(*) FROM research_details WHERE research_id = ?', [research_id]
         );
