@@ -7,8 +7,6 @@ import { first } from 'rxjs/operators';
 import { Account } from '../model/account';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
-// import { AccountCrudService } from '../services/account-crud.service';
-// import { LibraryConfig } from '../../authentication/model/config';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,6 @@ export class LoginComponent implements OnInit{
   
   constructor(
     private authService: AuthService,
-    // private AccountCrudService: AccountCrudService,
     private router: Router,
     private toast: HotToastService,
     private tokenStorage: TokenStorageService
@@ -33,9 +30,7 @@ export class LoginComponent implements OnInit{
     if (this.tokenStorage.getTokens()) {
       localStorage.setItem('token', sessionStorage.getItem('token')!);
       this.isLoggedIn = true;
-      // this.roles = this.tokenStorage.getUser().roles;
     }
-    // this.AutoLogin();
   }
 
   account$ = Observable<Account[]>;
@@ -56,31 +51,6 @@ export class LoginComponent implements OnInit{
 
   hide = true;
 
-//   AutoLogin(){
-//     const accessTokenObj = localStorage.getItem("token");
-//     // Retrieve rememberMe value from local storage
-//     const rememberMe = localStorage.getItem('rememberMe');
-// console.log(accessTokenObj);
-//     if (accessTokenObj && rememberMe == 'yes') {
-//       this.router.navigate(['/home']);
-//     } else {
-//       console.log("You need to login")
-//     }
-//   }
-  
-  // loginForm: FormGroup = new FormGroup({
-  //   school_id: new FormControl(
-  //     '',
-  //     Validators.required,
-  //   ),
-  //   password: new FormControl(
-  //     '',
-  //     Validators.required
-  //   )
-  // })
-
-  
-
   onSubmitLogin(){
     if (this.loginForm.invalid) {
       this.toast.error('Please fill in all fields');
@@ -88,29 +58,22 @@ export class LoginComponent implements OnInit{
       return;
     }
     
-    console.log(this.authService
+    this.authService
       .login(
         this.loginForm.value.school_id,
         this.loginForm.value.password,
       )
       .subscribe(data => {
-        console.log('Data', data);
         if (data == undefined) {
           this.nav('approve')
-          // toast error message
           this.toast.error('Please wait for approval');
         }
         this.data = data;
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
         this.isLoggedIn = true;
-        // toast success message
         this.toast.success('Login successful');
-      }
-      )
-    );
-    console.log(this.authService.currUser)
-    console.log(this.authService.isUserAuthenticated)
+      });
   }
 
   reloadPage(): void {
@@ -120,7 +83,6 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.hasError('required')) {
       return 'You must enter a value';
     }
-
     return this.loginForm.hasError('school_id') ? 'Not a school_id' : '';
   }
 
