@@ -1,6 +1,5 @@
 const research = require('../models/research');
 const authoredList = require('../models/authored_list');
-// const accounts = require('../models/accounts');
 
 exports.addResearchDetails = async(req, res, next) => {
     const research_id = req.body.research_id;
@@ -29,7 +28,6 @@ exports.addResearchDetails = async(req, res, next) => {
             qr: qr,
             number_of_views: number_of_views
         }
-        console.log(researchDetails)
         await research.addResearch(researchDetails);
         res.status(200).json({
             message: 'Research details added successfully'
@@ -45,11 +43,9 @@ exports.addResearchDetails = async(req, res, next) => {
 exports.getAllResearch = async(req, res, next) => {
     try {
         const research_list = await research.fetchAllResearch().then(token => {
-            // console.log(token);
             return token;
         });
         const result = res.status(200).json(research_list);
-        // console.log(research_list);
         return result;
     } catch (err) {
         if (!err.statusCode) {
@@ -90,11 +86,8 @@ exports.addAuthored = async(req, res, next) => {
             school_id: school_id
         }
         const addAuthored = await authoredList.addAuthored(details).then(token => {
-            // console.log(token);
             return token;
         });
-        // console.log("ddge")
-        // console.log(addAuthored);
         res.status(200).json({
             message: 'Authored added successfully',
         });
@@ -116,10 +109,8 @@ exports.addResearchList = async(req, res, next) => {
             school_id: school_id
         }
         const addResearchList = await authoredList.addResearchList(details).then(token => {
-            // console.log(token);
             return token;
         });
-        // console.log(addResearchList);
         res.status(200).json({
             message: 'Research list added successfully',
         });
@@ -136,15 +127,12 @@ exports.fetchLibrary = async(req, res, next) => {
     const school_id = req.params.school_id;
     try {
         const library = await research.fetchLibrary(school_id).then(token => {
-            // console.log(token);
             return token;
         });
-        console.log(library[0])
-            // convert library[0] to string
+        // convert library[0] to string
         const libraryString = JSON.stringify(library[0]);
         // convert libraryString to object
         const libraryObject = JSON.parse(libraryString);
-        // console.log(libraryObject)
         res.status(200).json(library);
     } catch (err) {
         if (!err.statusCode) {
@@ -173,13 +161,9 @@ exports.deleteResearch = async(req, res, next) => {
 // increment by one in number_of_views using research_id
 exports.incrementViews = async(req, res, next) => {
     const research_id = req.params.research_id;
-    console.log(research_id)
     try {
         let view = await research.incrementViews(research_id);
-        console.log(view)
-            // fetch_research using id
         const number_of_views = await research.fetchResearchUsingResearch_ID(research_id);
-        console.log(number_of_views)
         return res.status(200).json({
             message: 'Views incremented successfully',
             number_of_views: number_of_views
@@ -214,11 +198,9 @@ exports.fetchMyResearchList = async(req, res, next) => {
     const school_id = req.params.school_id;
     try {
         const research_list = await research.fetchMyResearchList(school_id).then(token => {
-            // console.log(token);
             return token;
         });
         const result = res.status(200).json(research_list);
-        // console.log(research_list);
         return result;
     } catch (err) {
         if (!err.statusCode) {
@@ -238,10 +220,8 @@ exports.addMyResearchList = async(req, res, next) => {
             school_id: school_id
         }
         const addMyResearchList = await research.addMyResearchList(details).then(token => {
-            // console.log(token);
             return token;
         });
-        // console.log(addResearchList);
         res.status(200).json({
             message: 'My Research list added successfully',
         });
@@ -264,10 +244,8 @@ exports.removeMyResearchList = async(req, res, next) => {
             school_id: school_id
         }
         const removeMyResearchList = await research.removeMyResearchList(details).then(token => {
-            // console.log(token);
             return token;
         });
-        // console.log(addResearchList);
         res.status(200).json({
             message: 'My Research list removed successfully',
         });
@@ -290,7 +268,6 @@ exports.checkResearchList = async(req, res, next) => {
             school_id: school_id
         }
         const checkResearchList = await research.checkResearchList(details).then(token => {
-            // console.log(token);
             return token;
         });
         console.log(checkResearchList[0]);

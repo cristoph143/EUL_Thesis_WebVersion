@@ -9,10 +9,6 @@ const Account = require('../models/account');
 
 exports.signup = async(req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors.result)
-
-    // school_id, first_name, last_name, email, department, image, password
-    console.log('controller auth')
 
     if (!errors.isEmpty()) {
         return res.status(500).json({
@@ -21,7 +17,6 @@ exports.signup = async(req, res, next) => {
         });
     }
 
-    // school_id,role_roleID,departmentID,first_name,last_name,email,password,approved
     const school_id = req.body.school_id;
     const role_roleID = req.body.role_roleID;
     const departmentID = req.body.departmentID;
@@ -31,10 +26,7 @@ exports.signup = async(req, res, next) => {
     const password = req.body.password;
     const approve = req.body.approve;
 
-    console.log('controller auth aft')
     try {
-
-        console.log('controller auth try')
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const AccountDetails = {
@@ -50,7 +42,6 @@ exports.signup = async(req, res, next) => {
 
         const result = await Account.createAccount(AccountDetails);
 
-        console.log(result.values());
         res.status(201).json({
             message: 'Account registered!'
         });
@@ -79,12 +70,8 @@ exports.login = async(req, res, next) => {
 
         // extract approve value from user
         const approve = user[0][0].approve;
-        // print the approve value of user
-        console.log("user" + approve);
 
         const storedUser = user[0][0];
-        // print the approve value of storedUser
-        console.log("store" + storedUser.approve);
 
         const isEqual = await bcrypt.compare(password, storedUser.password);
 
