@@ -1,6 +1,5 @@
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened class="color">
-        <!-- avatar for profile picture that can be edited or click for upload picture -->
         <mat-nav-list>
             <mat-list-item>
                 <div class="rows">
@@ -33,22 +32,17 @@
     </mat-drawer>
     <mat-drawer-content>
         <div class="headers">
-            <!-- profile information -->
             <h1 class="profile-header">Profile Information</h1>
-            <!-- button icon for edit -->
             <button mat-icon-button class="edit" (click)="edit()">
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
-        <!-- profile information of student formGroup -->
         <form class="profile" [formGroup]="profile">
             <div class="rowss">
-                <!-- studentID readonly -->
                 <mat-form-field class="profile-form">
                     <mat-label>{{account$?.school_id}}</mat-label>
                     <input matInput placeholder="{{account$?.school_id}}" formControlName="school_id" readonly>
                 </mat-form-field>
-                <!-- student email -->
                 <mat-form-field class="profile-form" *ngIf="!active">
                     <mat-label>{{account$?.email}}</mat-label>
                     <input matInput placeholder="{{account$?.email}}" formControlName="email" readonly>
@@ -59,7 +53,6 @@
                 </mat-form-field>
             </div>
             <div class="rowss">
-                <!-- student first name -->
                 <mat-form-field class="profile-form" *ngIf="!active">
                     <mat-label>{{account$?.first_name}}</mat-label>
                     <input matInput placeholder="{{account$?.first_name}}" formControlName="first_name" readonly>
@@ -68,7 +61,6 @@
                     <mat-label>{{account$?.first_name}}</mat-label>
                     <input matInput placeholder="{{account$?.first_name}}" formControlName="first_name">
                 </mat-form-field>
-                <!-- student last name -->
                 <mat-form-field class="profile-form" *ngIf="!active">
                     <mat-label>{{account$?.last_name}}</mat-label>
                     <input matInput placeholder="{{account$?.last_name}}" formControlName="last_name" ng-disabled="active" readonly>
@@ -79,12 +71,10 @@
                 </mat-form-field>
             </div>
             <div class="rowss">
-                <!-- student role readonly -->
                 <mat-form-field class="profile-form">
                     <mat-label>{{account$?.roleName}}</mat-label>
                     <input matInput placeholder="{{account$?.roleName}}" formControlName="role" readonly>
                 </mat-form-field>
-                <!-- student department -->
                 <mat-form-field class="profile-form">
                     <mat-label>{{account$?.departmentName}}</mat-label>
                     <input matInput placeholder="{{account$?.departmentName}}" formControlName="department" readonly>
@@ -92,9 +82,7 @@
             </div>
         </form>
         <div class="buttons" *ngIf="active">
-            <!-- button for save profile information -->
             <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
-            <!-- button for cancel profile information -->
             <button class="bt" mat-raised-button color="warn">Cancel</button>
         </div>
     </mat-drawer-content>

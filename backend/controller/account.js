@@ -94,7 +94,6 @@ exports.findAccountByEmail = async(req, res, next) => {
 
 // get all roles
 exports.getRoles = async(req, res, next) => {
-    console.log('controller role')
     try {
         const result = await account.getRoles();
         res.status(200).json(result);

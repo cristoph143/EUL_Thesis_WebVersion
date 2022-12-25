@@ -26,7 +26,6 @@ export class ProfileComponent implements OnInit {
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.getInfoUsingSchoolId(type);
     this.school_id = type;
-    console.log(this.school_id)
     this.getProfile();
   }
 
@@ -45,9 +44,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfile() {
-    console.log(this.school_id)
     this.fileService.getProfile(this.school_id).subscribe((data: any) => {
-      console.log(data);
       this.img = data;
       this.blobToImage(data);
     });
@@ -68,15 +65,9 @@ export class ProfileComponent implements OnInit {
   }
 
   getInfoUsingSchoolId(school_id: any) {
-    console.log(school_id, 'school_id');
     let res: never[] = [];
-    // return this.accService.fetchAccount(school_id);
-    this.accService
-      .fetchAccountUsingId(
-        school_id
-    )
+    this.accService.fetchAccountUsingId(school_id)
       .subscribe((data:any) => {
-        console.log(data[0][0]);
         res = data[0][0];
         this.getAcc(res);
         return data[0][0];
@@ -87,11 +78,8 @@ export class ProfileComponent implements OnInit {
   img: any;
 
   getAcc(res:any) {
-    console.log(res)
     const curr_acc = res;
-    console.log(curr_acc, 'curr_acc');
     this.account$ = curr_acc;
-    console.log(this.account$, 'account$');
   }
 
 
@@ -107,19 +95,14 @@ export class ProfileComponent implements OnInit {
       role_roleID: this.account$?.roleID,
       departmentID: this.account$.departmentID,
     }
-    
-    // prompt ask for password
     const password = prompt("Please enter your password", "");
     // check if the password is correct
     this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
-      console.log(data.message);
       // if data.message is equal to "Password is correct"
       if (data.message == "Password is correct") {
         this.accService.updateAccount(
           this.school_id, account
-        ).subscribe((data: any) => {
-          console.log(data);
-        });
+        ).subscribe();
         window.location.reload();
       }
       else {
