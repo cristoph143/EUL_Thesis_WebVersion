@@ -19,12 +19,9 @@
 
 .right {
     margin-left: 20px;
-    /* display: flex; */
-    /* border: 3px solid black; */
     width: 100%;
     height: 200px;
     max-width: 400px;
-    /* flex-direction: column; */
 }
 
 .left {
@@ -55,7 +52,6 @@ mat-card-content {
     display: flex;
     justify-content: center;
     font-weight: 100px;
-    /* margin-bottom: 40px; */
     font-family: Poppins;
     font-style: normal;
     font-weight: bolder;
@@ -71,7 +67,6 @@ mat-card-content {
     height: 120px;
     margin-top: 7px;
     border-radius: 50%;
-    /* margin-left: 85px; */
 }
 
 #file-input {

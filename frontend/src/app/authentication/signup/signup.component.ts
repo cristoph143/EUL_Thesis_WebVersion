@@ -6,9 +6,8 @@ import { AuthService } from '../services/auth.service';
 import { FormBuilder } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FloatLabelType } from '@angular/material/form-field';
-import { FileUploadService } from '../services/file-upload.service';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
 import { FileService } from '../services/file.service';
 @Component({
@@ -26,12 +25,10 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    // private AccountCrudService: AccountCrudService,
     private router: Router,
     private toast: HotToastService,
     private _formBuilder: FormBuilder,
     private fileService: FileService,
-    private http: HttpClient,
     private account_service: AccountService,
   ) { }
 
@@ -41,27 +38,19 @@ export class SignupComponent implements OnInit {
     this.getDepartment();
   }
 
-    baseUrl = 'http://localhost:3000';
-  
-    fileName = '';
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-    imagePath = "";
-    url: any;
-    // message: String = "";
-    validImage: boolean = false;
-
-    selectedFiles?: FileList;
-    selectedFileNames: string[] = [];
-  
-    progressInfos: any[] = [];
-    message: string[] = [];
-  
-    previews: string[] = [];
-    imageInfos?: Observable<any>;
-  
-  
-    isLinear = false;
-    hide = true;
+  baseUrl = 'http://localhost:3000';
+  fileName = '';
+  imagePath = "";
+  url: any;
+  validImage: boolean = false;
+  selectedFiles?: FileList;
+  selectedFileNames: string[] = [];
+  progressInfos: any[] = [];
+  message: string[] = [];
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
+  isLinear = false;
+  hide = true;
   firstFormGroup: FormGroup = new FormGroup({
     first_name: new FormControl(
           '',
@@ -74,10 +63,6 @@ export class SignupComponent implements OnInit {
     email: new FormControl(
       '',
       Validators.required,
-      // pattern validation using regexp and the org email pattern
-      // Validators.pattern(
-      //   '^[a-z0-9._%+-]+@usjr.edu.com$'
-      // ),
     ),
     department: new FormControl(
           '',
@@ -97,7 +82,6 @@ export class SignupComponent implements OnInit {
     password: new FormControl(
       '',
       Validators.required,
-      // pattern with regex for password
     ),
     confirm_password: new FormControl(
       '',
@@ -112,21 +96,19 @@ export class SignupComponent implements OnInit {
   departments: any;
   roles: any;
   
-    hideRequiredControl = new FormControl(false);
-    floatLabelControl = new FormControl('auto' as FloatLabelType);
-  
-    options = this._formBuilder.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-    });
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto' as FloatLabelType);
+
+  options = this._formBuilder.group({
+    hideRequired: this.hideRequiredControl,
+    floatLabel: this.floatLabelControl,
+  });
   
   private getRole() {
     this.account_service.fetchAllRoles().subscribe((data: any) => {
       this.roles = data[0];
-      console.log(data[0])
       this.roles = data[0].filter((role: any) => role.roleID !== 1 && role.roleID !== 2);
     });
-    // remove 1 and 2 in this.roles
   }
 
   private getDepartment() {
@@ -135,13 +117,11 @@ export class SignupComponent implements OnInit {
       console.log(data[0])
     });
   }
+  getFloatLabelValue(): FloatLabelType {
+    return this.floatLabelControl.value || 'auto';
+  }
 
-
-    getFloatLabelValue(): FloatLabelType {
-      return this.floatLabelControl.value || 'auto';
-    }
-
-    private formSubmitAttempt: boolean = false;
+  private formSubmitAttempt: boolean = false;
   isFieldInvalid(field: string, form: string) {
     form = form + 'FormGroup';
     if (form == 'firstFormGroup') {
@@ -154,16 +134,13 @@ export class SignupComponent implements OnInit {
         (!this.secondFormGroup.get(field)?.valid && this.secondFormGroup.get(field)?.touched) ||
         (this.secondFormGroup.get(field)?.untouched && this.formSubmitAttempt)
       );
-
   }
 
   con = {};
   img!: File;
-
   formData = new FormData();
 
   onSubmitRegister(): void {
-    console.log(this.secondFormGroup.value)
     if (!this.secondFormGroup.valid) {
       this.toast.error("Invalid Registration");
       return;
@@ -183,9 +160,6 @@ export class SignupComponent implements OnInit {
       password: this.secondFormGroup.value.password,
       approve: 0
     }
-    console.log(this.secondFormGroup.value.department)
-    
-    console.log(acc)
     this.con = acc;
     
     this.authService
@@ -194,7 +168,6 @@ export class SignupComponent implements OnInit {
         (data) => {
           this.uploadFiles();
           this.toast.success('Registration Successful');
-          console.log(data)
         }
     );
   }
@@ -213,16 +186,8 @@ export class SignupComponent implements OnInit {
     const school_id = this.secondFormGroup.value.school_id;
     this.school_id = school_id;
     this.formData.append('school_id', school_id);
-    console.log(school_id, 'upload');
 
-    this.fileService.uploadProfile(this.formData).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.fileService.uploadProfile(this.formData).subscribe();
   }
   nav(dest: string) {
     console.log(dest);
@@ -235,24 +200,20 @@ export class SignupComponent implements OnInit {
 
     if (this.selectedFiles && this.selectedFiles[0]) {
       const reader = new FileReader();
-      console.log(this.selectedFiles[0]);
       this.img = this.selectedFiles[0];
-      console.log(this.img, typeof (this.img));
       this.firstFormGroup.patchValue({
         image: this.img
       })
-      this.firstFormGroup.get('image')?.updateValueAndValidity()
+      this.firstFormGroup.get('image')?.updateValueAndValidity();
 
-        reader.onload = (e: any) => {
-          console.log(e.target.result);
-          this.previews.push(e.target.result);
-          this.validImage = true;
-        };
+      reader.onload = (e: any) => {
+        this.previews.push(e.target.result);
+        this.validImage = true;
+      };
 
       reader.readAsDataURL(this.selectedFiles[0]);
       this.selectedFileNames.push(this.selectedFiles[0].name);
       this.url = this.selectedFiles[0].name;
-      console.log(this.url)
     }
   }
 }
