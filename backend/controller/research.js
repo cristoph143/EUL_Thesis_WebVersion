@@ -60,11 +60,9 @@ exports.getSimilarAuthor = async(req, res, next) => {
     const research_id = req.params.research_id;
     try {
         const similarAuthors = await research.getSimilarAuthors(research_id).then(token => {
-            // console.log(token);
             return token;
         });
         const result = res.status(200).json(similarAuthors);
-        // console.log(similarAuthors);
         res.status(200).json({
             message: 'Similar authors fetched successfully'
         });
@@ -270,7 +268,6 @@ exports.checkResearchList = async(req, res, next) => {
         const checkResearchList = await research.checkResearchList(details).then(token => {
             return token;
         });
-        console.log(checkResearchList[0]);
         res.status(200).json({
             count: checkResearchList[0],
             message: 'Research list checked successfully',
