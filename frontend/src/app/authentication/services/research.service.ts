@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
 import { Observable } from "rxjs";
 import { catchError, first } from "rxjs/operators";
-
 import { ResearchDetails } from "../model/research_details";
 import { ErrorHandlerService } from "./error-handler.service";
-import { Account } from "../model/account";
 
 @Injectable({
     providedIn: "root",
@@ -37,7 +34,6 @@ export class ResearchService {
 
     // fetchResearch
     fetchAllLibrary(school_id: any): Observable<ResearchDetails> {
-        console.log(school_id)
         return this.http
             .get<ResearchDetails>(`${this.url}/research/fetchLibrary/${school_id}`, this.httpOptions)
             .pipe(

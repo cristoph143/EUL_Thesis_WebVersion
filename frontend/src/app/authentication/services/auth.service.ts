@@ -1,17 +1,10 @@
-import { AuthInterceptorService } from './auth-interceptor.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { map } from "rxjs/operators";
 import { Account } from "../model/account";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { first, catchError, tap } from 'rxjs/operators';
 import { ErrorHandlerService } from './error-handler.service';
 import { Router } from '@angular/router';
-
-import { Inject} from "@angular/core";
-// import { LibraryConfig } from "../model/config";
-import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +16,11 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
-    private authInt: AuthInterceptorService,
-    private tokenStorage: TokenStorageService
-    // @Inject('config') private config: LibraryConfig) {}
   ) {}
 
   private url = "http://127.0.0.1:3000/auth"
 
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
-  // isUserLoggedIn$ = false;
   userId: Pick<Account, "school_id"> | undefined;
   school_id: any;
   httpOptions: {
@@ -43,8 +32,6 @@ export class AuthService {
     }
   
   signup(user: Omit<Account,"school_id">): Observable<Account>{
-    console.log('signup')
-    console.log(user);
     return this.http
       .post<Account>(
         `${this.url}/signup`,
@@ -67,7 +54,6 @@ export class AuthService {
     token: string,
     school_id: Pick<Account, "school_id">
   }> {
-    console.log('login');
     const user = this.http
       .post(
         `${this.url}/login`,
@@ -91,11 +77,9 @@ export class AuthService {
           // store user details and jwt token in session storage to keep user logged in between page refreshes
           sessionStorage.setItem("token", tokenString);
           // print the expiration
-          console.log(tokenObject.expiresIn + "hhhh");
           this.isUserLoggedIn$.next(true);
           // this.isUserLoggedIn$ = true;
           this.school_id = school_id;
-          console.log('sdd=>', this.school_id);
           // if tokenObject.approve is equal to 0 then redirect to approve
           if (tokenObject.approve === 0) {
             localStorage.removeItem("token");
@@ -113,7 +97,6 @@ export class AuthService {
         ),
     ) 
     this.currUser = user;
-    console.log(this.currUser,"djsjsdj");
     return this.currUser;
   }
 
@@ -127,11 +110,9 @@ export class AuthService {
       const item = localStorage.getItem('token');
       // if item is not null return parse
       return item ? JSON.parse(item) : null;
-    // return JSON.parse(localStorage.getItem("token", null));
   }
 
   isUserAuthenticated(): boolean {
-    console.log(!!localStorage.getItem("token"));
     return !!localStorage.getItem("token");
   }
 }
