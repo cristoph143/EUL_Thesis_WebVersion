@@ -42,13 +42,8 @@ _router.get('/download/:research_id', async function(req, res, next) {
             // extract file value in resultString
         const fileValue = resultString.match(/(?<=file":")[^"]*/);
         console.log('fileValue' + fileValue)
-            // convert result string to json
-            // res.status(200).json(result);
-            // console.log(__dirname)
         filepath = path.join(__dirname, '../uploads') + '\\' + fileValue;
         res.download(filepath);
-        // console.log(filepath);
-        // res.sendFile(filepath);
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;
@@ -64,9 +59,6 @@ _router.post('/upload-file/:id',
     function(req, res, next) {
         upload(req, res, async function(err) {
             const errors = validationResult(req);
-            console.log(errors.result)
-
-            console.log('controller auth')
 
             if (!errors.isEmpty()) {
                 return res.status(500).json({
@@ -78,13 +70,7 @@ _router.post('/upload-file/:id',
             const research_id = req.params.id;
             const originalname = req.file.originalname;
 
-            console.log(research_id + ' --' + originalname)
-
-            console.log('controller auth aft')
             try {
-
-                console.log('controller auth try')
-
                 const FileDetails = {
                     research_id: research_id,
                     originalname: originalname,
@@ -92,7 +78,6 @@ _router.post('/upload-file/:id',
 
                 // call checkDuplicate method
                 const checkDuplicate = await research.checkResearchId(research_id);
-                console.log(checkDuplicate + 's')
                 if (checkDuplicate == 0) {
                     return res.status(500).json({
                         tokens: null,
@@ -102,13 +87,10 @@ _router.post('/upload-file/:id',
 
                 const result = File.addResearchFile(FileDetails);
 
-                console.log("kkkak" + result);
                 res.status(201).json({
                     message: 'File uploaded!'
                 });
             } catch (err) {
-
-                console.log('controller auth catch')
 
                 if (!err.statusCode) {
                     err.statusCode = 500;

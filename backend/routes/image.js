@@ -27,9 +27,6 @@ var upload = multer({
 _router.post('/upload-avatar/:id', function(req, res, next) {
     upload(req, res, async function(err) {
         const errors = validationResult(req);
-        console.log(errors.result)
-        console.log(req.file.originalname, "req.file.originalname")
-        console.log('controller auth')
 
         if (!errors.isEmpty()) {
             return res.status(500).json({
@@ -41,13 +38,7 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
         const school_id = req.params.id;
         const originalname = req.file.originalname;
 
-        console.log(school_id + ' --' + originalname)
-
-        console.log('controller auth aft')
         try {
-
-            console.log('controller auth try')
-
             const FileDetails = {
                 school_id: school_id,
                 originalname: originalname,
@@ -55,7 +46,6 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
 
             // call checkDuplicate method
             const checkDuplicate = await account.checkSchoolId(school_id);
-            console.log(checkDuplicate + 's')
             if (checkDuplicate == 0) {
                 return res.status(500).json({
                     tokens: null,
@@ -65,14 +55,10 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
 
             const result = File.addUserProfile(FileDetails);
 
-            console.log("kkkak" + result);
             res.status(201).json({
                 message: 'File uploaded!'
             });
         } catch (err) {
-
-            console.log('controller auth catch')
-
             if (!err.statusCode) {
                 err.statusCode = 500;
             }
@@ -83,21 +69,15 @@ _router.post('/upload-avatar/:id', function(req, res, next) {
 
 _router.get('/getProfile/:school_id', FileController.getProfile);
 
-
 _router.get('/download/:school_id', async function(req, res, next) {
     // get research file using school_id
     const school_id = req.params.school_id;
-    console.log(school_id + "ss")
     try {
-        console.log(school_id + "ss")
         const result = await File.getProfile(school_id);
-        console.log('result' + result)
-            // convert result object to string
+        // convert result object to string
         const resultString = JSON.stringify(result);
-        console.log('resultString' + resultString)
-            // extract file value in resultString
+        // extract file value in resultString
         const fileValue = resultString.match(/(?<=image":")[^"]*/);
-        console.log('fileValue' + fileValue)
         filepath = path.join(__dirname, '../uploads') + '\\' + fileValue;
         res.download(filepath);
     } catch (err) {

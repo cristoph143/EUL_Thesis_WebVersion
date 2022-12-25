@@ -10,10 +10,8 @@ const Account = require('../models/account');
 
 const authController = require('../controller/auth');
 
-console.log('auth')
 router.post(
     '/signup', [
-        // school_id,role_roleID,departmentID,first_name,last_name,email,password,approved
         body('school_id')
         .custom(async(school_id) => {
             const account = await Account.findBySchoolID(school_id);
