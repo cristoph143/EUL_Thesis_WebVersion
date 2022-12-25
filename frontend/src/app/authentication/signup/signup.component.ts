@@ -114,7 +114,6 @@ export class SignupComponent implements OnInit {
   private getDepartment() {
     this.account_service.fetchAllDepartments().subscribe((data: any) => {
       this.departments = data[0];
-      console.log(data[0])
     });
   }
   getFloatLabelValue(): FloatLabelType {
@@ -190,7 +189,6 @@ export class SignupComponent implements OnInit {
     this.fileService.uploadProfile(this.formData).subscribe();
   }
   nav(dest: string) {
-    console.log(dest);
     this.router.navigate([dest]);
   }
 
