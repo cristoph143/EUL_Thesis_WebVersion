@@ -79,6 +79,5 @@
 }
 
 .mat-dialog-content {
-    /* max-size is none */
     max-height: 100% !important;
 }

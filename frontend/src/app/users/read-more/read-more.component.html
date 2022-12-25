@@ -56,42 +56,34 @@
         </div>
         <div class="lower">
             <mat-card-content>
-                <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabClick($event)">
+                <mat-tab-group mat-align-tabs="center">
                     <mat-tab label={{tab.label}} *ngFor="let tab of tabs">
                         <ng-template mat-tab-label>
-                            <!-- <mat-icon class="example-tab-icon">{{tab.icon}}</mat-icon> -->
                             &nbsp;&nbsp;&nbsp; {{tab.label}}
                         </ng-template>
                         <div class="content-research">
                             <mat-card>
-                                <!-- if tabs == overview, display the abstract -->
                                 <mat-card-content *ngIf="tab.label == 'Overview'">
                                     <p>{{data.res.abstracts}}</p>
                                 </mat-card-content>
-                                <!-- if tabs == research_details,  -->
                                 <mat-card-content *ngIf="tab.label == 'Research Details'">
-                                    <!-- date published in data.res.year_published -->
                                     <div class="row">
                                         <p class="spax">Date Published: {{date}}</p>
                                         <p class="spax">Adviser: {{data.res.adviser}}</p>
-                                        <!-- department -->
                                         <p class="spax">Department: {{data.res.DepartmentName}}</p>
                                     </div>
-                                    <!-- chips for topic_category in data.res.topic_category -->
                                     <div class="row">
                                         <p class="spax auths">Topic Category: </p>
                                         <mat-chip-list>
                                             <mat-chip *ngFor="let topic of data.res.topic_category">{{topic}}</mat-chip>
                                         </mat-chip-list>
                                     </div>
-                                    <!-- chips for sdg_category in data.res.sdg_category -->
                                     <div class="row">
                                         <p class="spax auths">SDG Category: </p>
                                         <mat-chip-list>
                                             <mat-chip *ngFor="let sdg of data.res.sdg_category">{{sdg}}</mat-chip>
                                         </mat-chip-list>
                                     </div>
-                                    <!-- chips for keywords in data.res.keywords -->
                                     <div class="row">
                                         <p class="spax auths">Keywords: </p>
                                         <mat-chip-list>
@@ -99,7 +91,6 @@
                                         </mat-chip-list>
                                     </div>
                                 </mat-card-content>
-                                <!-- if tabs == authors -->
                                 <mat-card-content *ngIf="tab.label == 'Authors'">
                                     <div class="row">
                                         <p class="spax auths">Authors: </p>
@@ -108,13 +99,11 @@
                                         </mat-chip-list>
                                     </div>
                                 </mat-card-content>
-                                <!-- if tabs == Cite this Research -->
                                 <mat-card-content *ngIf="tab.label == 'Cite this Research'">
                                     <div class="row">
                                         <p class="spax auths">Cite this Research: </p>
                                     </div>
                                 </mat-card-content>
-                                <!-- if tabs == Related Articles -->
                                 <mat-card-content *ngIf="tab.label == 'Related Articles'">
                                     <div class="row">
                                         <p class="spax auths">Related Articles: </p>
@@ -142,8 +131,3 @@
         </div>
     </div>
 </mat-dialog-content>
-<!-- <p>{{data.res | json}} </p>
-<mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>No Thanks</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</mat-dialog-actions> -->

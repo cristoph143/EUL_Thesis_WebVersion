@@ -1,14 +1,11 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Account } from 'src/app/authentication/model/account';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
 import { ReadMoreComponent } from '../read-more/read-more.component';
-import { OneComponent } from '../sdg_pages/one.component';
-import { Tabs } from '../user-dashboard/user-dashboard.component';
 
 @Component({
   selector: 'app-research-library',
@@ -33,50 +30,37 @@ export class ResearchLibraryComponent implements OnInit {
   school_id: any;
 
   ngOnInit(): void {
-    console.log("hello")
     const token = localStorage.getItem('token');
     const token_arr = JSON.parse(token!);
     const type = 
     token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.school_id = type;
     this.getInfoUsingSchoolId(type);
-    console.log(type)
-    console.log('this,auth', this.authService.isUserAuthenticated);
     this.fetchAllResearch();
   }
 
   // http request for getting the user details using school_id
   getInfoUsingSchoolId(school_id: any) {
-    console.log(school_id, 'school_id');
     let res: never[] = [];
     // return this.accService.fetchAccount(school_id);
-    console.log(this.accService
-      .fetchAccountUsingId(
-        school_id
-    )
+    this.accService.fetchAccountUsingId(school_id)
       .subscribe((data:any) => {
-        console.log(data[0][0]);
         res = data[0][0];
         this.getAcc(res);
         return data[0][0];
       }
-    ));
+    );
   }
 
   getAcc(res:any) {
-    console.log(res)
     const curr_acc = res;
     this.account$ = curr_acc;
-    console.log(this.account$.first_name, 'account$');
   }
 
   authors: any;
   fetchAllResearch() {
-    console.log("Getting")
     let res: never[] = [];
     this.researchService.fetchAllLibrary(this.school_id).subscribe((data: any) => {
-      console.log(data[0]);
-      console.log(data);
       res = data[0];
       this.getVal(res);
       return data[0];
@@ -111,7 +95,6 @@ export class ResearchLibraryComponent implements OnInit {
   filters = ["title", "author", "year published", "adviser"];
   filter: any = "title";
   filterBy(filter: any) {
-    console.log(filter);
     this.filter = filter;
   }
 
@@ -130,7 +113,6 @@ export class ResearchLibraryComponent implements OnInit {
       // save research$ to list
       list.push(this.research$[i]);
     }
-    console.log(list)
         // filter list by normal method of search
     this.research$ = list.filter((res: any) => {
       // if the filter is title
@@ -185,7 +167,6 @@ export class ResearchLibraryComponent implements OnInit {
   }
 
   deleteRes(res: any) {
-    console.log(res);
     /*FIXME - 
       When user wants to delete the research using wrong password,
       it creates an error in the console.
@@ -196,13 +177,10 @@ export class ResearchLibraryComponent implements OnInit {
       let password = prompt("Please enter your password to confirm");
       // check if the password is correct
       this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
-        console.log(data.message);
         // if data.message is equal to "Password is correct"
         if (data.message == "Password is correct") {
           // delete the research
-          this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
-            console.log(data);
-          });
+          this.researchService.deleteResearch(res.research_id).subscribe();
           window.location.reload();
         }
         else {
@@ -217,8 +195,6 @@ export class ResearchLibraryComponent implements OnInit {
     dialogConfig = {
       disableClose: true,
       autoFocus: true,
-      // width: '100%',
-      // height: '100%',
       position: {
         left: '1px'
       },
@@ -226,29 +202,20 @@ export class ResearchLibraryComponent implements OnInit {
       width: '100vw',
       maxWidth: '100vw',
       panelClass: 'full-screen-modal'
-      // panelClass: ['full-screen-modal']
     }
     let ownership = this.showDeleteButton(res);
-    console.log(ownership, 'ownership');
     
     const all_res = this.research$;
-    console.log(all_res, 'all_res');
     dialogConfig.data = {
       res, //current or specific research
       all_res,
       account: this.account$,
       ownership: ownership
     };
-    console.log(dialogConfig.data, 'dialogConfig.data');
     
-    // this.dialog.open(dialogReference);
     const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
-    console.log(ReadMoreComponent)
-    //   const dialogRef = this.dialog.open(dialogReference);
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-      // clear the search
       this.search = "";
       this.fetchAllResearch();
     });
@@ -256,7 +223,6 @@ export class ResearchLibraryComponent implements OnInit {
 
   onChange($event: any) {
     this.search = $event;
-    console.log(this.search);
     this.filterSearch($event);
   }
 }

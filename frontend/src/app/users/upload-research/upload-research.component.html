@@ -15,7 +15,6 @@
                     <!-- if attachment-list is not equal to zero -->
                     <div class="columns btnss" *ngIf="attachmentList.length != 0">
                         <button class="pas" mat-raised-button color="warn" (click)="removeFile(attachmentList[0])">Remove File</button>
-                        <!-- <button class="pas" mat-raised-button color="primary" (click)="uploadFiles()">Upload</button> -->
                     </div>
                 </div>
 
@@ -30,7 +29,6 @@
             <div class="page">
                 <ng-template matStepLabel>Research Details</ng-template>
             </div>
-            <!-- form page for research_details [research_id, topic category, sdg category,date_published, adviser, department, keywords, title, abstract, qr, number_of_view ]-->
             <div class="row top-row">
                 <div class="tops">
                     <mat-card-title class="res_cent">Research Details</mat-card-title>
@@ -39,7 +37,6 @@
                     <form [formGroup]="inputs">
                         <div class="first">
                             <mat-form-field class="full-width">
-                                <!-- input for research_id disabled -->
                                 <input matInput placeholder="Research ID" value="{{research_details.research_id}}" disabled />
                             </mat-form-field>
                             <mat-form-field class="full-width firsti">
@@ -47,14 +44,12 @@
                             </mat-form-field>
                         </div>
                         <div class="second">
-                            <!-- input for title disabled -->
                             <mat-form-field class="full-width">
                                 <input matInput placeholder="Title" formControlName="title" [(ngModel)]="research_details.title" />
                             </mat-form-field>
                             <mat-form-field class="full-width firsti">
                                 <input matInput placeholder="Adviser" formControlName="adviser" [(ngModel)]="research_details.adviser" />
                             </mat-form-field>
-                            <!-- ngFor department -->
                             <mat-form-field class="full-width firsti">
                                 <mat-select placeholder="Department" formControlName="department" [(ngModel)]="research_details.departmentName">
                                     <mat-option *ngFor="let department of departments" [value]="department.departmentName">{{department.departmentName}}</mat-option>
@@ -93,15 +88,12 @@
                         </div>
                     </div>
                     <div class="fourth">
-                        <!-- text input for abstract -->
                         <mat-card-title>Abstract</mat-card-title>
                         <textarea placeholder="Abstract" [(ngModel)]="research_details.abstract" disabled></textarea>
                     </div>
                     <div class="fifth">
-                        <!-- topic category -->
                         <mat-card-title>Topic Category</mat-card-title>
                         <mat-form-field class="full-width">
-                            <!-- chiplist -->
                             <mat-chip-list #chipList>
                                 <mat-chip *ngFor="let topic of research_details.topic_category">
                                     {{topic}}
@@ -109,7 +101,6 @@
                             </mat-chip-list>
                         </mat-form-field>
                         <mat-form-field class="full-width">
-                            <!-- chiplist -->
                             <mat-card-title>SDG Category</mat-card-title>
                             <mat-chip-list #chipList>
                                 <mat-chip *ngFor="let sdg of research_details.sdg_category">
@@ -117,7 +108,6 @@
                                 </mat-chip>
                             </mat-chip-list>
                         </mat-form-field>
-                        <!-- keywords -->
                         <mat-form-field class="full-width">
                             <mat-card-title>Keywords</mat-card-title>
                             <mat-chip-list #chipList>

@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploader} from 'ng2-file-upload';
 import { FileService } from '../../authentication/services/file.service';
 import { saveAs } from 'file-saver';
-import { Injector } from '@nestjs/core/injector/injector';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResearchService } from 'src/app/authentication/services/research.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AccountService } from '../../../app/authentication/services/account.service';
-import { first } from 'rxjs/operators';
 import { HotToastService } from '@ngneat/hot-toast';
 
 const uri = 'http://localhost:3000/file/upload-file';
@@ -41,8 +38,6 @@ export class UploadResearchComponent implements OnInit{
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.school_id = type;
     this.getDepartment();
-    // if this.authors is empty disable is true
-    // if this.authors is not empty disable is false
     this.dis = this.authors.length == 0 ? true : false;
   }
 
@@ -52,7 +47,6 @@ export class UploadResearchComponent implements OnInit{
   private getDepartment() {
     this.account_service.fetchAllDepartments().subscribe((data: any) => {
       this.departments = data[0];
-      console.log(data[0])
     });
   }
 
@@ -61,7 +55,6 @@ export class UploadResearchComponent implements OnInit{
 
 
   researchForm = new FormGroup({
-    // [research_id, topic category, sdg category,date_published, adviser, department, keywords, title, abstract, qr, number_of_view ]
     research_id: new FormControl('', Validators.required),
     topic_category: new FormControl('', Validators.required),
     sdg_category: new FormControl('', Validators.required),
@@ -103,24 +96,19 @@ export class UploadResearchComponent implements OnInit{
   });
 
   addResearch() {
-    // if date_published input is null, then date_published will be set to the current date
     let date_published = this.inputs.value.date_published
     let title = this.inputs.get('title')!.value;
     let adviser = this.inputs.get('adviser')!.value;
     let department = this.inputs.get('department')!.value;
-    console.log(date_published, title, adviser, department);
-    // iterate this.departments
     let departmentID = 0;
     for (var i = 0; i < this.departments.length; i++) {
       if (this.departments[i].departmentName == department) {
         departmentID = this.departments[i].departmentID;
       }
     }
-    console.log(departmentID);
     let topic_category = this.research_details.topic_category;
     let sdg_category = this.research_details.sdg_category;
     let keywords = this.research_details.keywords;
-    // create new object
     let new_research_details = {
       research_id: this.research_details.research_id,
       topic_category: topic_category,
@@ -134,15 +122,12 @@ export class UploadResearchComponent implements OnInit{
       qr: this.research_details.qr,
       number_of_view: this.research_details.number_of_view,
     }
-    // if author is null, then return error
     if (this.authors.length == 0) {
       this.toast.error('Please add author');
-
       return;
     }
     this.researchService.addResearch(new_research_details).subscribe(
       (data: any) => {
-        console.log(data);
         this.uploadFiles();
         this.toast.success('Research successfully added');
         // iterate authors
@@ -153,16 +138,12 @@ export class UploadResearchComponent implements OnInit{
         }
       },
       (error: any) => {
-        console.log(error);
+        alert(error);
       }
     );
-
-    /*TODO - add research to database not successfull */
-
   }
 
   authors: any = [];
-
 
   uploadFiles() {
     for (var i = 0; i < this.attachmentList.length; i++) {
@@ -175,12 +156,8 @@ export class UploadResearchComponent implements OnInit{
   });
 
   pushAuthor() {
-    console.log(this.authors)
-    // return error if form is invalid
     if (this.authorForm.invalid) {
-      // toast error
       this.toast.error('Please fill out all fields');
-      // this.display = false;
       return;
     }
 
@@ -191,14 +168,11 @@ export class UploadResearchComponent implements OnInit{
         return;
       }
     }
-    
-
     this.account_service.fetchAccount(this.authorForm.value.school_id).subscribe((data: any) => {
       if (data[0].length == 0) {
         this.toast.error('School ID does not exist');
         return;
       }
-      console.log(data[0])
       const author = {
         first_name: data[0][0].first_name,
         last_name: data[0][0].last_name,
@@ -213,8 +187,6 @@ export class UploadResearchComponent implements OnInit{
   }
 
   removeAuthor(i: any) {
-    // confirm if want to remove
-    console.log(this.authors)
     const con = confirm('Are you sure you want to remove this author ?');
     if (con == false) {
       return;
@@ -225,19 +197,10 @@ export class UploadResearchComponent implements OnInit{
     }
   }
 
-
-
   // addAuthored
   addAuthored(school_id: any) {
     let research_id = this.research_details.research_id;
-    this.researchService.addAuthored(research_id, school_id).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.researchService.addAuthored(research_id, school_id).subscribe();
   }
     
   isLinear = false;
@@ -250,7 +213,7 @@ export class UploadResearchComponent implements OnInit{
         return saveAs(data, filename);
       },
         (error: any) => {
-          return console.error(error);
+          alert(error);
         }
     );
   }
@@ -264,8 +227,6 @@ export class UploadResearchComponent implements OnInit{
     for (var i = 0; i < event.target.files.length; i++) {
       this.attachmentList.push(event.target.files[i]);
     }
-    console.log(this.attachmentList);
-    console.log(this.attachmentList[0].name);
     this.disabled = false;
   }
 
@@ -287,16 +248,8 @@ export class UploadResearchComponent implements OnInit{
     const research_id = this.research_ids;
     this.research_id = research_id;
     this.formData.append('research_id', research_id);
-    console.log(research_id, 'upload');
 
-    this.fileService.uploadFile(this.formData).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.fileService.uploadFile(this.formData).subscribe();
   }
 
   random_uiD() {
@@ -305,19 +258,14 @@ export class UploadResearchComponent implements OnInit{
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
-    console.log(research_id, 'random_uiD');
     return research_id;
   }
 
   upNext(){
-    console.log(this.formData.get('file'), 'upNext');
-    console.log(this.formData.get('research_id'), 'upNext');
     console.log(this.attachmentList, 'upNext');
   }
 
   onSubmitDetails() {
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.researchForm.value, null, 4));
-    console.log(this.researchForm.value, 'onSubmitDetails');
   }
-    
 }

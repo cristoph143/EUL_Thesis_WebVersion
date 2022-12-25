@@ -5,9 +5,7 @@
             <img src="../../assets/group1.png" alt="logo" class="logo">
             <mat-card-title>EUL Thesis</mat-card-title>
         </span>
-        <!-- display the student full name of mat-button -->
         <span class="auth_hidden">
-            <!-- <img [src]="img" class="avatar"> -->
             <button mat-button (click)="setProfile('Profile')">{{account$?.first_name}} {{account$?.last_name}}</button>
             <button mat-button (click)="logout()">Logout</button>
         </span>

@@ -1,15 +1,10 @@
 import { ResearchService } from 'src/app/authentication/services/research.service';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Account } from 'src/app/authentication/model/account';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReadMoreComponent } from '../read-more/read-more.component';
-import { FormControl } from '@angular/forms';
-import Fuse from 'fuse.js';
 
 export interface Tile {
   cols: number;
@@ -32,7 +27,6 @@ export class OneComponent implements OnInit {
 
   @Output() submitClicked = new EventEmitter<any>();
   constructor(
-    private authService: AuthService,
     private accService: AccountService,
     public dialog: MatDialog,
     public researchService: ResearchService,
@@ -49,19 +43,11 @@ export class OneComponent implements OnInit {
   research_data: any;
 
   ngOnInit(): void {
-    console.log(this.data.account);
     this.school_id = this.data.account.school_id;
-    console.log(this.data.background, 'data');
     this.url = "'../../../../../assets/" + this.data.background + "'";
-    console.log(this.url)
-    // set background image to id = backs
     document.getElementById("backs")!.style.backgroundImage = "url(" + this.url + ")";
-    console.log(this.research$, 'research$');
     this.research_data = this.data.curr;
-    console.log(this.research_data);
-    console.log(this.data.all_research, 'all_research');
     this.research_all$ = this.data.all_research;
-    console.log(this.research_all$, 'research_data');
   }
   url: any;
   research_all$: any;
@@ -80,42 +66,28 @@ export class OneComponent implements OnInit {
   filters = ["title", "author", "year published", "adviser"];
   filter = "title";
   filterBy(filter: any) {
-    console.log(filter);
     this.filter = filter;
   }
   filterByTabs(tab: any) {
     // filter data.curr using tab
     // filter using tab
     let ret: any;
-    console.log(this.search + " --- " + this.search.length)
     if (tab == 'All') {
       this.research_data = this.data.curr;
-      console.log(this.data.curr)
-      console.log(ret + "ret");
       this.research_data = this.data.curr;
-      console.log(this.research_data, 'research_data');
       if (this.search.length != 0) {
-        console.log(this.search + " !und")
         this.filterSearch(tab);
       }
       else{
-        console.log(this.search + " und")
         this.research_data = this.data.curr;
       }
     }
     const department = this.data.account.departmentName;
-    console.log(department + "dep")
     if (tab == "Department's Research") {
-      // get account
-      console.log(this.data.curr.departmentName)
-      // console.log(this.account$.department);
-      console.log(ret + "ret");
       // check if department is equal to this.data.curr.DepartmentName
       ret = this.data.curr.filter((item: any) => item.DepartmentName == department);
-      console.log(ret, 'ret');
       this.research_data = ret;
       if (this.search.length != 0) {
-        console.log(this.search + " !und")
         this.filterSearch(tab);
       }
       else {
@@ -133,13 +105,9 @@ export class OneComponent implements OnInit {
       }
     }
     if (tab == "Student's Research") {
-      console.log(this.data.curr)
-      // console.log(this.account$.department);
       ret = this.data.curr.filter((item: any) => item.roleName == "Student");
-      console.log(ret + "ret");
       this.research_data = ret;
       if (this.search.length != 0) {
-        console.log(this.search + " !und")
         this.filterSearch(tab);
       }
       else{
@@ -161,17 +129,13 @@ export class OneComponent implements OnInit {
     */
 
   }
-
   // filter this.research_data by the keywords
   filterSearch(tab: any) {
-    console.log("It works at " + tab + " : '" + this.search + "' " + this.research_data);
     // covert object to list of json
     let list: any = [];
     for (let i = 0; i < this.research_data.length; i++) {
       list.push(this.research_data[i]);
     }
-    console.log(list);
-    console.log("filter", this.filter)
     // filter list by normal method of search
     let ret: any = [];
     for (let i = 0; i < list.length; i++) {
@@ -196,7 +160,6 @@ export class OneComponent implements OnInit {
       else if (this.filter == "year published") {
         // extract year from date_published
         let year = list[i].date_published.split("-")[0];
-        console.log(year)
         if (year.toLowerCase().includes(this.search.toLowerCase())) {
           ret.push(list[i]);
         }
@@ -208,14 +171,10 @@ export class OneComponent implements OnInit {
         }
       }
     }
-    console.log(ret);
     this.research_data = ret;
   } //ret receive from input search
 
   onTabClick(event: { tab: { textLabel: any; }; }) {
-    console.log(event);
-    console.log(event.tab.textLabel);
-    // this.filterByTabs(event.tab.textLabel);
     this.current_tab = event.tab.textLabel;
     this.filterByTabs(this.current_tab)
   }
@@ -235,7 +194,6 @@ export class OneComponent implements OnInit {
   }
 
   deleteRes(res: any) {
-    console.log(res);
     /*FIXME - 
       When user wants to delete the research using wrong password,
       it creates an error in the console.
@@ -246,13 +204,10 @@ export class OneComponent implements OnInit {
       let password = prompt("Please enter your password to confirm");
       // check if the password is correct
       this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
-        console.log(data.message);
         // if data.message is equal to "Password is correct"
         if (data.message == "Password is correct") {
           // delete the research
-          this.researchService.deleteResearch(res.research_id).subscribe((data: any) => {
-            console.log(data);
-          });
+          this.researchService.deleteResearch(res.research_id).subscribe();
           window.location.reload();
         }
         else {
@@ -267,8 +222,6 @@ export class OneComponent implements OnInit {
     dialogConfig = {
       disableClose: true,
       autoFocus: true,
-      // width: '100%',
-      // height: '100%',
       position: {
         left: '1px'
       },
@@ -276,29 +229,20 @@ export class OneComponent implements OnInit {
       width: '100vw',
       maxWidth: '100vw',
       panelClass: 'full-screen-modal'
-      // panelClass: ['full-screen-modal']
     }
     let ownership = this.showDeleteButton(res);
-    console.log(ownership, 'ownership');
     
     const all_res = this.research_all$;
-    console.log(all_res, 'all_res');
     dialogConfig.data = {
       res, //current or specific research
       all_res,
       account: this.data.account,
       ownership: ownership
     };
-    console.log(dialogConfig.data, 'dialogConfig.data');
     
-    // this.dialog.open(dialogReference);
     const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
-    console.log(ReadMoreComponent)
-    //   const dialogRef = this.dialog.open(dialogReference);
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
   search: string = "";
@@ -306,19 +250,12 @@ export class OneComponent implements OnInit {
 
   onChange($event: any) {
     this.search = $event;
-    console.log(this.search, 'search');
-    // 
-    console.log(this.current_tab);
     let research: any;
     // iterate this.research_data and print the values inside the array
     this.research_data.forEach((item: any) => {
-      console.log(item);
       research = item;
     });
     this.research_data = research;
     this.filterByTabs(this.current_tab);
   }
-  
-  
-  
 }

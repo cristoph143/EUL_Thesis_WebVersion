@@ -28,20 +28,11 @@ export class ReadMoreComponent implements OnInit {
     
   school_id: any;
   ngOnInit(): void {
-    console.log(this.data.account.school_id + 'account');
-    console.log(this.data.res + "data");
-    // console.log(this.getSimilarAuthors()); 
-    console.log(this.getSimilarAuthors()); 
-    console.log(this.authors, 'authors');
+    this.getSimilarAuthors(); 
     this.formatDate();
-    console.log(this.data.all_res + "data");
     this.school_id = this.data.account.school_id;
-    console.log(this.data.num_views);
     this.getNumberOfViews();
-    console.log(this.data.ownership)
-    console.log(this.data.res.departmentName)
     this.researchService.checkResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
-      console.log(res.count[0].count);
       if (res.count[0].count == 0) {
         this.bookmarkIcon = false;
       }
@@ -55,41 +46,22 @@ export class ReadMoreComponent implements OnInit {
 
   bookmark() {
     this.researchService.checkResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
-      console.log(res.count[0].count);
       if (res.count[0].count == 0) {
         this.researchService.addMyResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
-          console.log(res);
           this.bookmarkIcon = true;
         });
       }
       else {
         this.researchService.removeMyResearchList(this.data.res.research_id, this.data.account.school_id).subscribe((res: any) => {
-          console.log(res);
           this.bookmarkIcon = false;
         });
       }
     });
-    console.log(this.bookmarkIcon)
-    // // if this.bookmarkIcon is false
-    // if(this.bookmarkIcon == false) {
-    //   this.bookmarkIcon = true;
-    // } else {
-    //   this.bookmarkIcon = false;
-    // }
   }
 
   download() {
     let research_id = this.data.res.research_id;
-    console.log("resID" + research_id)
-    // this.fileService.downloadFile(research_id).subscribe((res: any) => {
-      //   console.log(res);
-      //   const blob = new Blob([res], { type: 'application/pdf' });
-      //   const url = window.URL.createObjectURL(blob);
-      //   window.open(url);
-      // })
-    // call file service to download file
     this.fileService.downloadFile(research_id).subscribe((res: any) => {
-      console.log(res);
       const blob = new Blob([res], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
@@ -107,13 +79,8 @@ export class ReadMoreComponent implements OnInit {
       let password = prompt("Please enter your password to confirm");
       // check if the password is correct
       this.accService.confirmPasswordUsingId(this.school_id, password).subscribe((data: any) => {
-        console.log(data.message);
-        // if data.message is equal to "Password is correct"
         if (data.message == "Password is correct") {
-          // delete the research
-          this.researchService.deleteResearch(this.data.res.research_id).subscribe((data: any) => {
-            console.log(data);
-          });
+          this.researchService.deleteResearch(this.data.res.research_id).subscribe();
           window.location.reload();
         }
         else {
@@ -132,8 +99,6 @@ export class ReadMoreComponent implements OnInit {
       this.num_views = this.num_views.split(":")[1];
       // remove special characters
       this.num_views = this.num_views.replace(/[^0-9]/g, "");
-      console.log(this.num_views, 'num_views')
-      console.log(this.num_views, 'num_views')
     })
   }
 
@@ -141,19 +106,14 @@ export class ReadMoreComponent implements OnInit {
   getSimilarAuthors() {
     // get the research_id from data.res
     let research_id = this.data.res.research_id;
-    console.log(research_id, 'research_id');
     // extract all research in this.data.all_res using research_id
     let all_research = this.data.all_res.filter((res: any) => res.research_id == research_id);
-    console.log(all_research, 'all_research');
     // save first_name and last_name in authors from all_research
     this.authors = all_research.map((res: any) => res.first_name + ' ' + res.last_name);
-    console.log(this.authors, 'authors');
   }
 
   rel_res: any;
   getSimilarArticles() {
-    console.log(this.authors, 'authors');
-    console.log(this.data.res.sdg_category)
     // iterate this.data.res.sdg_category
     for (let i = 0; i < this.data.res.sdg_category.length; i++) { //sdg_category from current res
       // loop this.all_res
@@ -166,19 +126,15 @@ export class ReadMoreComponent implements OnInit {
             if (this.data.res.title != this.data.all_res[j].title) {
               // append the research to array rel_res that has the same sdg_category
               this.rel_res += this.data.all_res[j];
-              console.log(this.rel_res, 'rel_res--------------------------');
             }
           }
         }
       }
     }
-    console.log(this.rel_res, 'rel_res');
   }
 
   date: any;
-  // format the date
   formatDate() {
-    // format to Month Day, Year
     this.date = new Date(this.data.res.date_published).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -186,7 +142,6 @@ export class ReadMoreComponent implements OnInit {
     });
   }
 
-  // tabs: Overview, Research Details, Authors, Cite this Research, Related Articles
   tabs: Tabs[] = [
     { label: 'Overview' },
     { label: 'Research Details' },
@@ -195,37 +150,22 @@ export class ReadMoreComponent implements OnInit {
     { label: 'Related Articles' },
   ];
 
-  onTabClick(event: { tab: { textLabel: any; }; }) {
-    console.log(event);
-    console.log(event.tab.textLabel);
-  }
-
   readMore(res: any) {
-    console.log(this.data.account);
-    this.researchService.addNumberOfViews(res.research_id).subscribe((res: any) => {
-      console.log(res);
-    })
+    this.researchService.addNumberOfViews(res.research_id).subscribe()
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "100%";
     
     const all_res = this.data.all_res;
-    console.log(all_res, 'all_res');
     dialogConfig.data = {
       res,
       all_res,
       account: this.data.account
     };
-    console.log(dialogConfig.data, 'dialogConfig.data');
     
-    // this.dialog.open(dialogReference);
     const dialogRef = this.dialog.open(ReadMoreComponent, dialogConfig);
-    console.log(ReadMoreComponent)
-    //   const dialogRef = this.dialog.open(dialogReference);
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 }
