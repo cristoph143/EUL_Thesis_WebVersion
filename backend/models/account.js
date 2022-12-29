@@ -115,4 +115,14 @@ module.exports = class Account {
             'SELECT COUNT(*) FROM account WHERE school_id = ?', [school_id]
         );
     }
+
+    // getAllChairmanRole
+    static getAllSpecificRole(role) {
+        return db.execute(
+            "select account.*, role.roleName, department.departmentName from account " +
+            "left join role on role.roleID = account.role_roleID " +
+            "left join department on department.departmentID = account.departmentID " +
+            "where role.roleName = ?", [role]
+        );
+    }
 }

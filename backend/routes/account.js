@@ -25,4 +25,6 @@ router.post('/update/:school_id', [
     body('role_roleID').trim().not().isEmpty(),
     body('departmentID').trim().not().isEmpty(),
 ], accountController.updateAccountBySchoolID);
+
+router.get('/role/:role', accountController.getAllSpecificRole);
 module.exports = router;
