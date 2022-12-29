@@ -165,3 +165,17 @@ exports.getAllSpecificRole = async(req, res, next) => {
         next(err);
     }
 }
+
+// getNumofUser
+exports.getNumOfUser = async(req, res, next) => {
+    const role = req.params.role;
+    try {
+        const result = await account.getNumOfUser(role);
+        res.status(200).json(result);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

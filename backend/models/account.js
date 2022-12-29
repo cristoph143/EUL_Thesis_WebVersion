@@ -126,4 +126,14 @@ module.exports = class Account {
             "where role.roleName = ?", [role]
         );
     }
+
+    getNumOfUser
+    static getNumOfUser(role) {
+        return db.execute(
+            "select count(*) from account " +
+            "left join role on role.roleID = account.role_roleID " +
+            "left join department on department.departmentID = account.departmentID " +
+            "where role.roleName = ?", [role]
+        );
+    }
 }
