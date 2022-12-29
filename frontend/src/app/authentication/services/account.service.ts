@@ -103,4 +103,18 @@ export class AccountService {
         );        
     }
 
+    // getAllSpecificRoles
+    getAllSpecificRoles(role: string): Observable<Account[]> {
+        return this.http
+            .get<Account[]>(`${this.url}/role/${role}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account[]>(
+                        "getAllSpecificRoles"
+                    )
+                )
+            );
+    }
+
 }

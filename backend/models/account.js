@@ -119,7 +119,8 @@ module.exports = class Account {
     // getAllChairmanRole
     static getAllSpecificRole(role) {
         return db.execute(
-            "select account.*, role.roleName, department.departmentName from account " +
+            "select account.school_id, account.first_name, account.last_name, account.email, account.approve, " +
+            "role.*, department.* from account " +
             "left join role on role.roleID = account.role_roleID " +
             "left join department on department.departmentID = account.departmentID " +
             "where role.roleName = ?", [role]

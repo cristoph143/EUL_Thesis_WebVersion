@@ -43,6 +43,8 @@ import { MyResearchComponent } from './users/my-research/my-research.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairman-dashboard.component';
 import { ApproveComponent } from './users/approve/approve.component';
+import { ListOfChairmanComponent } from './admin/list-of-chairman/list-of-chairman.component';
+import { SummaryPageComponent } from './admin/summary-page/summary-page.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { ApproveComponent } from './users/approve/approve.component';
     AdminDashboardComponent,
     ChairmanDashboardComponent,
     ApproveComponent,
+    ListOfChairmanComponent,
+    SummaryPageComponent,
   ],
   imports: [
     BrowserModule,

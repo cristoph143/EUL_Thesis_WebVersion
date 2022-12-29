@@ -1,1 +1,26 @@
-<p>admin-dashboard works!</p>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="example-toolbar">
+        <span class="header example-app-name">
+            <img src="../../assets/group1.png" alt="logo" class="logo">
+            <mat-card-title>EUL Thesis</mat-card-title>
+        </span>
+        <span class="auth_hidden">
+            <button mat-button (click)="setProfile('Profile')">{{account$?.first_name}} {{account$?.last_name}}</button>
+            <button mat-button (click)="logout()">Logout</button>
+        </span>
+
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav-content>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <h1>Admin Dashboard</h1>
+                    </mat-card-title>
+                </mat-card-header>
+                <app-summary-page></app-summary-page>
+                <app-list-of-chairman></app-list-of-chairman>
+            </mat-card>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

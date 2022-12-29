@@ -1,0 +1,76 @@
+button[disabled=disabled],
+button:disabled {
+    color: white;
+}
+
+.start {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+mat-card-title {
+    display: flex;
+    justify-content: center;
+    font-weight: 100px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+    color: #1f0e7e;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 64px;
+    align-items: center;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.no {
+    background-color: white !important;
+}
+
+.first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

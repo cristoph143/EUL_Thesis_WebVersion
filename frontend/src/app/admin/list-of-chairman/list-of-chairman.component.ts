@@ -1,0 +1,159 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { AccountService } from 'src/app/authentication/services/account.service';
+import { AuthService } from 'src/app/authentication/services/auth.service';
+
+
+export interface ListOfChairman {
+  SchoolID: string;
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  Role: string;
+  Department: string;
+  Approve: string;
+}
+@Component({
+  selector: 'app-list-of-chairman',
+  templateUrl: './list-of-chairman.component.html',
+  styleUrls: ['./list-of-chairman.component.css']
+})
+export class ListOfChairmanComponent implements OnInit, AfterViewInit {
+
+  
+
+  listOfChairman: ListOfChairman[] = [];
+  dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
+
+  @ViewChild(MatPaginator, {static: false})
+  set paginator(value: MatPaginator) {
+    if (this.dataSource) {
+      console.log(value)
+      this.dataSource.paginator = value;
+    }
+  }
+  @ViewChild(MatSort, {static: false})
+  set sort(value: MatSort) {
+    if (this.dataSource){
+      this.dataSource.sort = value;
+    }
+  }
+  constructor(
+    private authService: AuthService,
+    private accService: AccountService,
+    private _liveAnnouncer: LiveAnnouncer,
+    private cdr: ChangeDetectorRef,
+  ) {
+  }
+
+  displayedColumns: string[] = [
+    'SchoolID', 'FirstName', 'LastName', 'Email', 'Department', 'Approve', 'Edit', 'Delete'
+  ];
+
+
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
+      this.dataSource.paginator = this.paginator;
+      console.log(this.paginator)
+      this.dataSource.sort = this.sort;
+    }, 1000);
+    }
+
+  account$: any;
+  isAuthenticated = false;
+  isLoggedIn$!: Observable<boolean>;
+  full_name$: any;
+  school_id: any;
+  ngOnInit(): void {
+    this.school_id = this.authService.school_id;
+    const token = localStorage.getItem('token');
+    const token_arr = JSON.parse(token!);
+    const type =
+      token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
+    this.getAllSpecificRole();
+    console.log(this.listOfChairman)
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 1000);
+  }
+
+  length: any;
+  // getAllSpecificRole
+  getAllSpecificRole() {
+    this.accService.getAllSpecificRoles('chairman').subscribe((data: any) => {
+      // this.listOfChairman = data[0];
+      console.log(data[0][1].departmentName)
+      // iterate data[0] and push to listOfChairman
+      for (let i = 0; i < data[0].length; i++) {
+        this.listOfChairman.push({
+          SchoolID: data[0][i].school_id,
+          FirstName: data[0][i].first_name,
+          LastName: data[0][i].last_name,
+          Email: data[0][i].email,
+          Role: data[0][i].role,
+          Department: data[0][i].departmentName,
+          Approve: data[0][i].approve,
+        });
+      }
+      this.dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
+      this.dataSource.sort = this.sort;
+      this.length = data[0].length;
+    });
+  }
+
+  approve(element: any) {
+    console.log(element)
+    // this.accService.approveChairman(element.SchoolID).subscribe((data: any) => {
+    //   console.log(data)
+    //   this.getAllSpecificRole();
+    // });
+  }
+
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  search: string = '';
+
+  onChanges(event: any) {
+    this.search = event;
+    console.log(this.search)
+    this.dataSource.filter = this.search.trim().toLowerCase();
+    console.log(this.dataSource.filter)
+  }
+  pageEvent(event: any) {
+    console.log(event);
+  }
+
+  pageSizeChange(event: any) {
+    console.log(event);
+  }
+
+  edit(element: any) {
+    console.log(element)
+  }
+
+  delete(element: any) {
+    console.log(element)
+  }
+
+}

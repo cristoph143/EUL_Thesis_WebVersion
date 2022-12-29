@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.search {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+.content-research {
+    margin: 20px;
+    border: 2px solid gray;
+}
+
+.mat-card-content {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+}
+
+.content-research {
+    border: 2px solid gray;
+}

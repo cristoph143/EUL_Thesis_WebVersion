@@ -7,6 +7,8 @@ import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.co
 import { UploadResearchComponent } from './users/upload-research/upload-research.component';
 import { OneComponent } from './users/sdg_pages/one.component';
 import { ApproveComponent } from './users/approve/approve.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairman-dashboard.component';
 
 const routes: Routes = [
   {
@@ -44,7 +46,28 @@ const routes: Routes = [
       }
     ]
   },
-  
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'adminDashboard',
+        component: AdminDashboardComponent,
+      },
+    ]
+  },
+  {
+    path: 'chairman',
+    component: ChairmanDashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'chairmanDashboard',
+        component: ChairmanDashboardComponent,
+      },
+    ]
+  }
 ];
 
 
