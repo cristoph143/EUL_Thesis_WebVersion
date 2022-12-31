@@ -32,7 +32,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
     if (this.dataSource) {
-      console.log(value)
       this.dataSource.paginator = value;
     }
   }
@@ -60,7 +59,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
       this.dataSource.paginator = this.paginator;
-      console.log(this.paginator)
       this.dataSource.sort = this.sort;
     }, 1000);
     }
@@ -77,7 +75,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     const type =
       token_arr.hasOwnProperty('userId') ? token_arr.userId : token_arr.school_id;
     this.getAllSpecificRole();
-    console.log(this.listOfChairman)
     setTimeout(() => {
       this.dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
       this.dataSource.paginator = this.paginator;
@@ -89,9 +86,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
   // getAllSpecificRole
   getAllSpecificRole() {
     this.accService.getAllSpecificRoles('chairman').subscribe((data: any) => {
-      // this.listOfChairman = data[0];
-      console.log(data[0][1].departmentName)
-      // iterate data[0] and push to listOfChairman
       for (let i = 0; i < data[0].length; i++) {
         this.listOfChairman.push({
           SchoolID: data[0][i].school_id,
@@ -136,17 +130,9 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
 
   onChanges(event: any) {
     this.search = event;
-    console.log(this.search)
     this.dataSource.filter = this.search.trim().toLowerCase();
-    console.log(this.dataSource.filter)
-  }
-  pageEvent(event: any) {
-    console.log(event);
   }
 
-  pageSizeChange(event: any) {
-    console.log(event);
-  }
 
   edit(element: any) {
     console.log(element)
@@ -154,6 +140,10 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
 
   delete(element: any) {
     console.log(element)
+  }
+
+  add() {
+    console.log('add')
   }
 
 }

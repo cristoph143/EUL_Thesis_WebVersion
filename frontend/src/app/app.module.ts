@@ -45,7 +45,12 @@ import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairm
 import { ApproveComponent } from './users/approve/approve.component';
 import { ListOfChairmanComponent } from './admin/list-of-chairman/list-of-chairman.component';
 import { SummaryPageComponent } from './admin/summary-page/summary-page.component';
-
+import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ListOfTeacherComponent } from './admin/list-of-teacher/list-of-teacher.component';
+import { ListOfStudentComponent } from './admin/list-of-student/list-of-student.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { AddChairmanComponent } from './admin/add-chairman/add-chairman.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,9 +73,15 @@ import { SummaryPageComponent } from './admin/summary-page/summary-page.componen
     ApproveComponent,
     ListOfChairmanComponent,
     SummaryPageComponent,
+    ListOfTeacherComponent,
+    ListOfStudentComponent,
+    AddChairmanComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
+    MatExpansionModule,
+    CdkAccordionModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

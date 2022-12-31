@@ -7,6 +7,10 @@
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
+        <button mat-icon-button (click)="add()" class="en">
+            <mat-icon>add</mat-icon>
+            Add Chairman
+        </button>
     </div>
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
         <!-- 'SchoolID', 'FirstName', 'LastName', 'Email', 'Role', 'Department', 'Approve' -->
@@ -59,7 +63,7 @@
             <td class="mat-cell">No data matching the filter "{{search}}"</td>
         </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="pageEvent($event)" [length]="length" (pageSizeChange)="pageSizeChange($event)" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="length" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>
 <!-- if equal to zero -->

@@ -18,8 +18,21 @@
                         <h1>Admin Dashboard</h1>
                     </mat-card-title>
                 </mat-card-header>
-                <app-summary-page></app-summary-page>
-                <app-list-of-chairman></app-list-of-chairman>
+                <div class="sumf">
+                    <app-summary-page></app-summary-page>
+                </div>
+                <div class="sum">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    List of Chairman
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <app-list-of-chairman></app-list-of-chairman>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
             </mat-card>
         </mat-sidenav-content>
     </mat-sidenav-container>

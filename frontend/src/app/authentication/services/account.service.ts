@@ -117,4 +117,17 @@ export class AccountService {
             );
     }
 
+    // getNumOfUser
+    getNumOfUser(role: string): Observable<Account[]> {
+        return this.http
+            .get<Account[]>(`${this.url}/num_of_user/${role}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account[]>(
+                        "getNumOfUser"
+                    )
+                )
+            );
+    }
 }

@@ -59,6 +59,7 @@ export class AdminDashboardComponent implements OnInit {
       this.blobToImage(data);
     });
   }
+  panelOpenState = false;
 
 
   imageToShow: any;

@@ -65,8 +65,16 @@ mat-card-title {
     margin-right: 20px;
 }
 
+.mat-mdc-form-field+.mat-mdc-form-field {
+    margin-left: 8px;
+}
+
 .no {
     background-color: white !important;
+}
+
+.sumf {
+    margin-bottom: 200px;
 }
 
 .first {
