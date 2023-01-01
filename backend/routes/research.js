@@ -71,4 +71,9 @@ router.post('/removeMyResearchList', [
 // check if it exist in research_list
 router.get('/checkResearchList/:research_id/:school_id',
     researchController.checkResearchList);
+
+// getCountofResearchDetails
+router.get('/getCountOfResearchDetails', researchController.getCountOfResearchDetails);
+// getCountOfDepartment
+router.get('/getCountOfDepartment', researchController.getCountOfDepartment);
 module.exports = router;

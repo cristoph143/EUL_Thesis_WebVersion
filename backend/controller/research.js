@@ -279,3 +279,32 @@ exports.checkResearchList = async(req, res, next) => {
         next(err);
     }
 }
+
+exports.getCountOfResearchDetails = async(req, res, next) => {
+    try {
+        const count = await research.getCountOfResearchDetails();
+        res.status(200).json({
+            count: count[0]
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}
+
+// getCountOfDepartment
+exports.getCountOfDepartment = async(req, res, next) => {
+    try {
+        const count = await research.getCountOfDepartment();
+        res.status(200).json({
+            count: count[0]
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

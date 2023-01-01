@@ -149,4 +149,16 @@ module.exports = class Research {
             'SELECT COUNT(*) as count FROM research_list WHERE research_id = ? AND school_id = ?', [details.research_id, details.school_id]
         );
     }
+
+    static getCountOfResearchDetails() {
+        return db.execute(
+            'SELECT COUNT(*) as count FROM research_details'
+        );
+    }
+
+    static getCountOfDepartment() {
+        return db.execute(
+            'SELECT COUNT(*) as count FROM department'
+        );
+    }
 }
