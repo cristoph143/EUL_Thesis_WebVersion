@@ -179,3 +179,17 @@ exports.getNumOfUser = async(req, res, next) => {
         next(err);
     }
 }
+
+// deleteAccountBySchoolID
+exports.deleteAccountBySchoolID = async(req, res, next) => {
+    const school_id = req.params.school_id;
+    try {
+        const result = await account.deleteAccountBySchoolID(school_id);
+        res.status(200).json(result);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

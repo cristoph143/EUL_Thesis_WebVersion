@@ -28,4 +28,6 @@ router.post('/update/:school_id', [
 
 router.get('/role/:role', accountController.getAllSpecificRole);
 router.get('/num_of_user/:role', accountController.getNumOfUser);
+// delete account
+router.delete('/:school_id', accountController.deleteAccountBySchoolID);
 module.exports = router;

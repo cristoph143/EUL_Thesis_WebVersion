@@ -137,4 +137,10 @@ module.exports = class Account {
         );
     }
 
+    // deleteAccountBySchoolID
+    static deleteAccountBySchoolID(school_id) {
+        return db.execute(
+            'DELETE FROM account WHERE school_id = ?', [school_id]
+        );
+    }
 }
