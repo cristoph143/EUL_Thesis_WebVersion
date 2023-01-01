@@ -1,9 +1,15 @@
 table {
-    width: 100%;
+    overflow-y: scroll;
+    height: 100%;
+    display: block;
 }
 
 th.mat-sort-header-sorted {
     color: black;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
 }
 
 .search {

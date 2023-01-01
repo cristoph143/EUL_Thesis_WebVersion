@@ -13,46 +13,33 @@
         </button>
     </div>
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-        <!-- 'SchoolID', 'FirstName', 'LastName', 'Email', 'Role', 'Department', 'Approve' -->
-        <ng-container matColumnDef="SchoolID">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by SchoolID"> School ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.SchoolID}} </td>
-        </ng-container>
-        <ng-container matColumnDef="FirstName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by FirstName"> First Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
-        </ng-container>
-        <ng-container matColumnDef="LastName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by LastName"> Last Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email"> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Department">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Department"> Department </th>
-            <td mat-cell *matCellDef="let element"> {{element.Department}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Approve">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Approve"> Approve </th>
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription>
+                {{ col.label }}
+            </th>
             <td mat-cell *matCellDef="let element">
-                <mat-icon *ngIf="element.Approve == 1">check_circle</mat-icon>
-                <mat-icon *ngIf="element.Approve == 0">cancel</mat-icon>
-                <button mat-button (click)="approve(element)">
-                </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="Edit">
-            <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon (click)="edit(element)">edit</mat-icon>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="Delete">
-            <th mat-header-cell *matHeaderCellDef> Delete </th>
-            <td mat-cell *matCellDef="let element">
-                <mat-icon (click)="delete(element)">delete</mat-icon>
+                <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                        <button mat-button (click)="element.isEdit = !element.isEdit">
+                            Edit
+                        </button>
+                    </div>
+                    <span *ngSwitchDefault>
+                        {{ element[col.key] }}
+                        <mat-icon *ngIf="element[col.key] == 1">check_circle</mat-icon>
+                        <mat-icon *ngIf="element[col.key] == 0">cancel</mat-icon>
+                    </span>
+                </div>
+                <div [ngSwitch]="col.type" *ngIf="element.isEdit">
+                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                        <button mat-button (click)="element.isEdit = !element.isEdit" [disabled]="disableSubmit(element.id)">
+                            Done
+                        </button>
+                    </div>
+                    <mat-form-field class="form-input" *ngSwitchDefault>
+                        <input [type]="col.type" matInput [(ngModel)]="element[col.key]" />
+                    </mat-form-field>
+                </div>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -6,8 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-
-
+import { AccountColumns } from '../../authentication/model/account'
 export interface ListOfChairman {
   SchoolID: string;
   FirstName: string;
@@ -24,20 +23,18 @@ export interface ListOfChairman {
 })
 export class ListOfChairmanComponent implements OnInit, AfterViewInit {
 
-  
-
   listOfChairman: ListOfChairman[] = [];
   dataSource = new MatTableDataSource<ListOfChairman>(this.listOfChairman);
 
-  @ViewChild(MatPaginator, {static: false})
+  @ViewChild(MatPaginator, { static: false })
   set paginator(value: MatPaginator) {
     if (this.dataSource) {
       this.dataSource.paginator = value;
     }
   }
-  @ViewChild(MatSort, {static: false})
+  @ViewChild(MatSort, { static: false })
   set sort(value: MatSort) {
-    if (this.dataSource){
+    if (this.dataSource) {
       this.dataSource.sort = value;
     }
   }
@@ -49,9 +46,15 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
   ) {
   }
 
-  displayedColumns: string[] = [
-    'SchoolID', 'FirstName', 'LastName', 'Email', 'Department', 'Approve', 'Edit', 'Delete'
-  ];
+  columnsSchema: any = AccountColumns;
+
+  // displayedColumns: string[] = [
+  //   'SchoolID', 'FirstName', 'LastName', 'Email', 'Department', 'Approve', 'Edit', 'Delete'
+  // ];
+
+  displayedColumns: string[] = AccountColumns.map((col: { key: any; }) => col.key);
+
+
 
 
 
@@ -61,7 +64,7 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, 1000);
-    }
+  }
 
   account$: any;
   isAuthenticated = false;
@@ -80,6 +83,8 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, 1000);
+
+    console.log(this.displayedColumns)
   }
 
   length: any;
@@ -92,7 +97,7 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
           FirstName: data[0][i].first_name,
           LastName: data[0][i].last_name,
           Email: data[0][i].email,
-          Role: data[0][i].role,
+          Role: data[0][i].roleName,
           Department: data[0][i].departmentName,
           Approve: data[0][i].approve,
         });
@@ -146,4 +151,16 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     console.log('add')
   }
 
+  removeRow(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+  disableSubmit(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+  editRow(_t35: any) {
+    throw new Error('Method not implemented.');
+  }
+  inputHandler($event: Event, arg1: any, arg2: any) {
+    throw new Error('Method not implemented.');
+  }
 }

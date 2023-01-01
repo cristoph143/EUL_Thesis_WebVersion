@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { ResearchService } from './../../authentication/services/research.service';
 
+
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
