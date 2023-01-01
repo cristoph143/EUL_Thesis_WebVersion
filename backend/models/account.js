@@ -143,4 +143,11 @@ module.exports = class Account {
             'DELETE FROM account WHERE school_id = ?', [school_id]
         );
     }
+
+    // editAccountBySchoolID
+    static editAccountBySchoolID(account) {
+        return db.execute(
+            'UPDATE account SET first_name = ?, last_name = ?, email = ?, role_roleID = ?, departmentID = ?, approve = ? WHERE school_id = ?', [account.first_name, account.last_name, account.email, account.role_roleID, account.departmentID, account.approve, account.school_id]
+        );
+    }
 }

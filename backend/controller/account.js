@@ -193,3 +193,32 @@ exports.deleteAccountBySchoolID = async(req, res, next) => {
         next(err);
     }
 }
+
+// editAccountBySchoolID
+exports.editAccountBySchoolID = async(req, res, next) => {
+    const school_id = req.params.school_id;
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    const email = req.body.email;
+    const role_roleID = req.body.role_roleID;
+    const departmentID = req.body.departmentID;
+    const approve = req.body.approve;
+    try {
+        const editAccount = {
+            school_id: school_id,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            role_roleID: role_roleID,
+            departmentID: departmentID,
+            approve: approve
+        };
+        const result = await account.editAccountBySchoolID(editAccount);
+        res.status(200).json(result);
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+}

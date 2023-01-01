@@ -29,5 +29,14 @@ router.post('/update/:school_id', [
 router.get('/role/:role', accountController.getAllSpecificRole);
 router.get('/num_of_user/:role', accountController.getNumOfUser);
 // delete account
-router.delete('/:school_id', accountController.deleteAccountBySchoolID);
+router.delete('/deleteSchoolID/:school_id', accountController.deleteAccountBySchoolID);
+// edit account where input is optional
+router.put('/editSchoolID/:school_id', [
+    body('first_name').trim().not().isEmpty(),
+    body('last_name').trim().not().isEmpty(),
+    body('email').trim().not().isEmpty(),
+    body('role_roleID').trim().not().isEmpty(),
+    body('departmentID').trim().not().isEmpty(),
+    body('approve').trim().not().isEmpty(),
+], accountController.editAccountBySchoolID);
 module.exports = router;
