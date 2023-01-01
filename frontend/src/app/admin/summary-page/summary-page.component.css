@@ -21,3 +21,14 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.bat {
+    box-shadow: 3px 3px #00d2c6, 0px 0px 20px #00ffff;
+    padding: 20px 98px;
+    margin-right: 11px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

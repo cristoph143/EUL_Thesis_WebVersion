@@ -19,6 +19,8 @@ export class SummaryPageComponent implements OnInit {
     this.getNumOfUser("chairman");
     this.getNumOfUser("teacher");
     this.getNumOfUser("student");
+    this.getCountOfDepartment();
+    this.getCountOfResearchDetails();
   }
   total_users: any;
 
@@ -27,11 +29,6 @@ export class SummaryPageComponent implements OnInit {
     { title: 'Chairman' },
     { title: 'Teacher'},
     { title: 'Student'},
-  ];
-  secondTabs: any = [
-    { title: 'Total User'},
-    { title: 'Total Research'},
-    { title: 'Total Departments'},
   ];
 
   studentsPerDepartment: any;
@@ -48,13 +45,43 @@ export class SummaryPageComponent implements OnInit {
       numOfUser = data[0][0].count;
       if (role == "chairman") {
         this.numOfChairman = numOfUser;
+        var numOfStudent = this.numOfStudent ? this.numOfStudent : 0;
+        var numOfTeacher = this.numOfTeacher ? this.numOfTeacher : 0;
+        totUser = numOfUser + numOfTeacher + numOfStudent;
+        console.log(totUser + "chairman   " + numOfUser)
       }
       else if (role == "teacher") {
         this.numOfTeacher = numOfUser;
+        var numOfChairman = this.numOfChairman ? this.numOfChairman : 0;
+        var numOfStudent = this.numOfStudent ? this.numOfStudent : 0;
+        totUser = numOfUser + numOfChairman + numOfStudent;
+        console.log(totUser + "chairman   " + numOfUser)
       }
       else if (role == "student") {
         this.numOfStudent = numOfUser;
+        var numOfChairman = this.numOfChairman ? this.numOfChairman : 0;
+        var numOfTeacher = this.numOfTeacher ? this.numOfTeacher : 0;
+        totUser = numOfUser + numOfTeacher + numOfChairman;
+        console.log(totUser + "chairman   " + numOfUser)
       }
+      this.total_users = totUser;
+    });
+    console.log(this.total_users)
+  }
+
+  CountOfDepartment = 0;
+
+  getCountOfDepartment() {
+    this.res_service.getCountOfDepartment().subscribe((data: any) => {
+      this.CountOfDepartment = data.count[0].count;
+    });
+  }
+  
+  CountOfResearchDetails = 0;
+  
+  getCountOfResearchDetails () {
+    this.res_service.getCountOfResearchDetails().subscribe((data: any) => {
+      this.CountOfResearchDetails = data.count[0].count;
     });
   }
 }

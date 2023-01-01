@@ -164,5 +164,31 @@ export class ResearchService {
                 )
         );
     }
+
+    // getCountOfResearchDetails
+    getCountOfResearchDetails(): Observable<any> {
+        return this.http
+            .get(`${this.url}/research/getCountOfResearchDetails`
+                , this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("getCountOfResearchDetails")
+                )
+        );
+    }
+
+    // getCountOfDepartment
+    getCountOfDepartment(): Observable<any> {
+        return this.http
+            .get(`${this.url}/research/getCountOfDepartment`
+                , this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<ResearchDetails>("getCountOfDepartment")
+                )
+        );
+    }
             
 }

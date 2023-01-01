@@ -5,13 +5,21 @@
             <p class="" *ngIf="tab.title == 'Chairman'">{{numOfChairman}}</p>
             <p class="" *ngIf="tab.title == 'Teacher'">{{numOfTeacher}}</p>
             <p class="" *ngIf="tab.title == 'Student'">{{numOfStudent}}</p>
-            <h3>{{tab.title}}</h3>
+            <h3>Total # of {{tab.title}}</h3>
         </div>
     </div>
     <div class="tabh">
-        <div class="tab" *ngFor="let tab of secondTabs">
-            <p class="" *ngIf="tab.title == 'Total_User'">{{total_users}}</p>
-            <h3>{{tab.title}}</h3>
+        <div class="bat">
+            <p class="">{{total_users}}</p>
+            <h3>Total # of Users</h3>
+        </div>
+        <div class="bat">
+            <p class="">{{CountOfResearchDetails}}</p>
+            <h3>Total # of Research</h3>
+        </div>
+        <div class="bat">
+            <p class="">{{CountOfDepartment}}</p>
+            <h3>Total # of Department</h3>
         </div>
     </div>
 </div>
