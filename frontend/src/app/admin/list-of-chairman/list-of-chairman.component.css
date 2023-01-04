@@ -1,15 +1,37 @@
 table {
-    overflow-y: scroll;
-    height: 100%;
-    display: block;
+    width: 100%;
+}
+
+
+/* if  */
+
+@media screen and (max-width: 768px) {
+    .en {
+        margin-left: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .ens {
+        margin-right: 130px;
+    }
+    .table {
+        overflow-y: scroll;
+        height: 100%;
+        display: block;
+    }
 }
 
 th.mat-sort-header-sorted {
     color: black;
 }
 
-::ng-deep .mat-form-field-underline {
+
+/* ::ng-deep .mat-form-field-underline {
     display: none;
+} */
+
+::ng-deep .mat-form-field-infix {
+    width: 100% !important;
 }
 
 .search {
@@ -26,7 +48,7 @@ th.mat-sort-header-sorted {
 }
 
 .mat-card-content {
-    overflow: auto;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
 }
@@ -42,5 +64,17 @@ th.mat-sort-header-sorted {
 }
 
 .en {
-    margin-left: 90%;
+    margin-left: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ens {
+    margin-right: 130px;
+}
+
+.df {
+    overflow-y: scroll;
+    height: 100%;
+    display: block;
 }

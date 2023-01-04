@@ -130,4 +130,16 @@ export class AccountService {
                 )
             );
     }
+
+    // deleteSchoolID
+    deleteSchoolID(school_id: string): Observable<Account> {
+        return this.http
+            .delete<Account>(`${this.url}/deleteSchoolID/${school_id}`, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account>("deleteSchoolID")
+                )
+            );
+    }
 }

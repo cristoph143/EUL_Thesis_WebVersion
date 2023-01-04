@@ -24,12 +24,12 @@ export const AccountColumns = [
     {
         key: 'LastName',
         type: 'text',
-        label: 'First Name',
+        label: 'Last Name',
     },
     {
         key: 'Email',
         type: 'text',
-        label: 'email',
+        label: 'Email',
     },
     {
         key: 'Role',
@@ -50,5 +50,5 @@ export const AccountColumns = [
         key: 'isEdit',
         type: 'isEdit',
         label: '',
-    },
+    }
 ]

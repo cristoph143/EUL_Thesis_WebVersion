@@ -69,11 +69,6 @@ export class ReadMoreComponent implements OnInit {
   }
 
   deleteRes() {
-    /*FIXME - 
-      When user wants to delete the research using wrong password,
-      it creates an error in the console.
-    */
-    // confirm if the user wants to delete the research
     if (confirm("Are you sure you want to delete this research?")) {
       // ask user for input password
       let password = prompt("Please enter your password to confirm");
