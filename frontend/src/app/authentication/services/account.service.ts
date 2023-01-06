@@ -142,4 +142,16 @@ export class AccountService {
                 )
             );
     }
+
+    // editSchoolID
+    editSchoolID(old_school_id: string, account: any): Observable<Account> {
+        return this.http
+            .put<Account>(`${this.url}/editSchoolID/${old_school_id}`, account, this.httpOptions)
+            .pipe(
+                first(),
+                catchError(
+                    this.errorHandlerService.handleError<Account>("editSchoolID")
+                )
+            );
+    }
 }

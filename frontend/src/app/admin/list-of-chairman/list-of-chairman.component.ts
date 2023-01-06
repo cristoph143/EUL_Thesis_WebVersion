@@ -201,7 +201,28 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     let errCheck = this.errorChecking(element, check, arr);
     console.log(errCheck)
     if (!errCheck) {
-      alert('s')
+      const old_school_id = this.ListOfChairmanCopy[index].SchoolID;
+      const role_roleID = this.roles.find((item: any) => item.roleName === element.Role.trim()).roleID;
+      const departmentID = this.departments.find((item: any) => item.departmentName === element.Department.trim()).departmentID;
+      const account = {
+        school_id: element.SchoolID.trim(),
+        first_name: element.FirstName.trim(),
+        last_name: element.LastName.trim(),
+        email: element.Email.trim(),
+        role_roleID: role_roleID,
+        departmentID: departmentID,
+        approve: element.Approve,
+      };
+      // iterate account and print
+      for (const [key, value] of Object.entries(account)) {
+        console.log("Account: " + key + " = " + value);
+      }
+      console.log(account + '\n' + old_school_id)
+      this.accService.editSchoolID(old_school_id, account).subscribe((data: any) => {
+        alert(data.message)
+        // reload window
+        window.location.reload();
+      });
     }
   }
 
