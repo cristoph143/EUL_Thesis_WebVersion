@@ -188,7 +188,8 @@ exports.deleteAccountBySchoolID = async(req, res, next) => {
 
 // editAccountBySchoolID
 exports.editAccountBySchoolID = async(req, res, next) => {
-    const school_id = req.params.school_id;
+    const old_school_id = req.params.id;
+    const new_school_id = req.body.school_id;
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
@@ -197,7 +198,8 @@ exports.editAccountBySchoolID = async(req, res, next) => {
     const approve = req.body.approve;
     try {
         const editAccount = {
-            school_id: school_id,
+            old_school_id: old_school_id,
+            new_school_id: new_school_id,
             first_name: first_name,
             last_name: last_name,
             email: email,
@@ -205,8 +207,18 @@ exports.editAccountBySchoolID = async(req, res, next) => {
             departmentID: departmentID,
             approve: approve
         };
-        const result = await account.editAccountBySchoolID(editAccount);
-        res.status(200).json(result);
+        // fetch account by old school id
+        const checkID = await account.findBySchoolID(old_school_id);
+        let message = "";
+        if (checkID[0].length === 0) {
+            message = "Account does not exist";
+        } else {
+            await account.editAccountBySchoolID(editAccount);
+            message = "Account updated";
+        }
+        res.status(200).json({
+            message: message
+        });
     } catch (err) {
         if (!err.statusCode) {
             err.statusCode = 500;

@@ -31,7 +31,7 @@ router.get('/num_of_user/:role', accountController.getNumOfUser);
 // delete account
 router.delete('/deleteSchoolID/:school_id', accountController.deleteAccountBySchoolID);
 // edit account where input is optional
-router.put('/editSchoolID/:school_id', [
+router.put('/editSchoolID/:id', [
     body('school_id').trim().not().isEmpty(),
     body('first_name').trim().not().isEmpty(),
     body('last_name').trim().not().isEmpty(),
