@@ -150,4 +150,10 @@ module.exports = class Account {
             'UPDATE account SET school_id = ?, first_name = ?, last_name = ?, email = ?, role_roleID = ?, departmentID = ?, approve = ? WHERE school_id = ?', [account.new_school_id, account.first_name, account.last_name, account.email, account.role_roleID, account.departmentID, account.approve, account.old_school_id]
         );
     }
+
+    static updateUserProfileID(old_school_id, new_school_id) {
+        return db.execute(
+            'UPDATE user_profile SET school_id = ? WHERE school_id = ?', [new_school_id, old_school_id]
+        );
+    }
 }

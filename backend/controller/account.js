@@ -211,11 +211,21 @@ exports.editAccountBySchoolID = async(req, res, next) => {
         const checkID = await account.findBySchoolID(old_school_id);
         let message = "";
         if (checkID[0].length === 0) {
-            message = "Account does not exist";
+            if (message === "")
+                message += "Account does not exist";
         } else {
             await account.editAccountBySchoolID(editAccount);
-            message = "Account updated";
+            // check if role_roleID is 3 or 4
+            if (role_roleID == 3 || role_roleID == 4) {
+                await account.updateUserProfileID(new_school_id, old_school_id);
+                if (message === "")
+                    message += "Account updated";
+            } else {
+                if (message === "")
+                    message += "Account updated";
+            }
         }
+        console.log(message)
         res.status(200).json({
             message: message
         });
