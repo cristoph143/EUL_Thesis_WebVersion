@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Account } from '../model/account';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/core/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({

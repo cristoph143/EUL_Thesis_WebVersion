@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Account } from 'src/app/authentication/model/account';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AuthService } from 'src/app/authentication/services/core/auth.service';
 import { FileService } from 'src/app/authentication/services/file.service';
 import { TokenStorageService } from 'src/app/authentication/services/token-storage.service';
 

@@ -37,7 +37,7 @@ import { SearchComponent } from './users/search/search.component';
 import { ResearchLibraryComponent } from './users/research-library/research-library.component';
 import { UpdateDialogComponent } from './users/update-dialog/update-dialog.component';
 import { ReadMoreComponent } from './users/read-more/read-more.component';
-import { AuthGuard } from './authentication/services/auth-guard.service';
+import { AuthGuard } from './authentication/services/core/auth-guard.service';
 import { MatMenuModule} from '@angular/material/menu';
 import { MyResearchComponent } from './users/my-research/my-research.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AuthService } from 'src/app/authentication/services/core/auth.service';
 
 @Component({
   selector: 'app-update-dialog',

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Account } from '../../authentication/model/account';
-import { AuthService } from '../../../app/authentication/services/auth.service';
+import { AuthService } from '../../../app/authentication/services/core/auth.service';
 import { AccountService } from '../../../app/authentication/services/account.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';

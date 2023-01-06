@@ -5,7 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AuthService } from 'src/app/authentication/services/core/auth.service';
 import { AccountColumns } from '../../authentication/model/account'
 
 export interface ListOfTeacher {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Account } from "../model/account";
+import { Account } from "../../model/account";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { first, catchError, tap } from 'rxjs/operators';
-import { ErrorHandlerService } from './error-handler.service';
+import { ErrorHandlerService } from '../error-handler.service';
 import { Router } from '@angular/router';
 
 @Injectable({

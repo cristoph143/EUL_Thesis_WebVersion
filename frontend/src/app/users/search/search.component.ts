@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AuthService } from 'src/app/authentication/services/core/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
 import { ReadMoreComponent } from '../read-more/read-more.component';
 

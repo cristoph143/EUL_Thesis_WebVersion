@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AccountService } from 'src/app/authentication/services/account.service';
-import { AuthService } from 'src/app/authentication/services/auth.service';
+import { AuthService } from '../../../app/authentication/services/core/auth.service';
 import { ResearchService } from 'src/app/authentication/services/research.service';
 import { FileService } from './../../authentication/services/file.service';
 
