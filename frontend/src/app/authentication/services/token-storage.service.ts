@@ -22,6 +22,10 @@ export class TokenStorageService {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
 
+  public parseToken() {
+    return window.localStorage.getItem(TOKEN);
+  }
+
   public getRole(): any {
     return window.sessionStorage.getItem("role");
   }

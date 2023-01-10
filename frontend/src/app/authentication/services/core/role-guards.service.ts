@@ -22,29 +22,21 @@ export class RoleGuardsComponent implements CanActivate {
   role: any;
 
   async isAuthorized(route: ActivatedRouteSnapshot): Promise<boolean> {
-    // const role = this.token.role;
-    let token = this.token.getTokens();
-    console.log(token)
-    // this.authService.
-    console.log(this.role)
-    if(this.role == null) {
-      console.log(this.role)
-    }
-    const roleName = "";
-    // const roleName = role == 1 ? 'Admin' : role == 2
-    //   ? 'Chairman' : role == 3
-    //   ? 'Teacher' : role == 4 ? 'Student' : 'guest';
+    let token: any = this.token.parseToken();
+    // convert the string value of token to JSON
+    let toJson: any = {};
+    toJson = JSON.parse(token);
+    console.log(toJson);
+    const roleName = toJson.role;
     console.log(roleName)
     const expectedRole = route.data['expectedRoles'];
-    const roleMatches = expectedRole.includes(roleName);
-    console.log(roleMatches)
-    if (!roleMatches) {
-      // this.router.navigate(['/login']);
-      // remove token
-      // this.token.signOut();
-      return !roleMatches;
-    }
-    return roleMatches;
+    // check if roleName matches in expectedRole
+    const matchRoles = expectedRole.includes(roleName);
+    console.log(matchRoles);
+    // if (!matchROles) {
+
+    // }
+    return matchRoles ? true : false;
   }
 
 }
