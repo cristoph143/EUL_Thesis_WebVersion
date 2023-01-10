@@ -93,7 +93,16 @@ export class AuthService {
             sessionStorage.removeItem("token");
             this.router.navigate(["approve"]);
           } else {
-            this.router.navigate(["home"]);
+            // if role is admin, redirect to admin
+            if (parseToken.role == 'Admin') {
+              this.router.navigate(["/admin"]);
+            }
+            if (parseToken.role == 'Chairman') {
+              this.router.navigate(["/chairman"]);
+            }
+            if (parseToken.role == 'Teacher' || parseToken.role == 'Student') {
+              this.router.navigate(["/home"]);
+            }
           }
         }),
         catchError(

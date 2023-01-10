@@ -30,6 +30,7 @@ export class RoleGuardsComponent implements CanActivate {
     const roleName = toJson.role;
     console.log(roleName)
     const expectedRole = route.data['expectedRoles'];
+    console.log(expectedRole)
     // check if roleName matches in expectedRole
     const matchRoles = expectedRole.includes(roleName);
     console.log(matchRoles);

@@ -10,6 +10,7 @@ import { ApproveComponent } from './users/approve/approve.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ChairmanDashboardComponent } from './chairman/chairman-dashboard/chairman-dashboard.component';
 import { RoleGuardsComponent } from './authentication/services/core/role-guards.service';
+import { NotFoundScreenComponent } from './not-found-screen/not-found-screen.component';
 const routes: Routes = [
   {
     path: '',
@@ -101,11 +102,15 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: '**',
+    component: NotFoundScreenComponent,
+  }
 ];
 
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

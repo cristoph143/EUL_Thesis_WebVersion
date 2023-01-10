@@ -50,6 +50,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ListOfTeacherComponent } from './admin/list-of-teacher/list-of-teacher.component';
 import { ListOfStudentComponent } from './admin/list-of-student/list-of-student.component';
 import { AddChairmanComponent } from './admin/add-chairman/add-chairman.component';
+import { NotFoundScreenComponent } from './not-found-screen/not-found-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import { AddChairmanComponent } from './admin/add-chairman/add-chairman.componen
     ListOfTeacherComponent,
     ListOfStudentComponent,
     AddChairmanComponent,
+    NotFoundScreenComponent,
   ],
   imports: [
     BrowserModule,
