@@ -403,10 +403,6 @@ export class ListOfTeacherComponent implements OnInit, AfterViewInit {
   private getRole() {
     this.accService.fetchAllRoles().subscribe((data: any) => {
       this.roles = data[0];
-      this.roles = data[0].filter((role: any) => role.roleID !== 1 && role.roleID !== 2);
-      // add Admin and Chairman into this.roles
-      this.roles.push({ roleID: 1, roleName: 'Admin' });
-      this.roles.push({ roleID: 2, roleName: 'Chairman' });
     });
   }
 

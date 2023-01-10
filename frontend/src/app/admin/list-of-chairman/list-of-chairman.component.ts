@@ -1,5 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/authentication/services/account.service';
 import { AuthService } from 'src/app/authentication/services/core/auth.service';
 import { AccountColumns } from '../../authentication/model/account'
+import { AddChairmanComponent } from './../add-chairman/add-chairman.component';
 export interface ListOfChairman {
   id: number;
   SchoolID: string;
@@ -44,6 +46,7 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     private accService: AccountService,
     private _liveAnnouncer: LiveAnnouncer,
     private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
   ) {
   }
 
@@ -150,10 +153,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = this.search.trim().toLowerCase();
   }
 
-  addRow() {
-    console.log('add')
-  }
-
   removeSelectedRows(id: any) {
     if (confirm("Are you sure you want to delete this research?")) {
       // ask user for input password
@@ -185,16 +184,16 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
     console.log(this.ListOfChairmanCopy[0].SchoolID)
     let index = this.ListOfChairmanCopy.findIndex((item: any) => item.id === element.id);
     console.log(index)
-    // use index to copy the row in this.ListOfChairmanCopy
     let arr = this.ListOfChairmanCopy[index];
     console.log(arr)
-    // check if this.ListOfChairman is equal to the index of this.ListOfChairmanCopy
-    // if it is equal then return true
-    // if it is not equal then return false
-    if (this.ListOfChairmanCopy.some((item: any) => item.SchoolID === element.SchoolID.trim() &&
-      item.FirstName === element.FirstName.trim() && item.LastName === element.LastName.trim() &&
-      item.Email === element.Email.trim() && item.Role === element.Role.trim() &&
-      item.Department === element.Department.trim() && item.Approve === element.Approve)) {
+    const isSchoolID = arr.SchoolID.trim() === element.SchoolID.trim();
+    const isFirstName = arr.FirstName.trim() === element.FirstName.trim();
+    const isLastName = arr.LastName.trim() === element.LastName.trim();
+    const isEmail = arr.Email.trim() === element.Email.trim();
+    const isRole = arr.Role.trim() === element.Role.trim();
+    const isDepartment = arr.Department.trim() === element.Department.trim();
+    const isApprove = arr.Approve === element.Approve;
+    if (isSchoolID && isFirstName && isLastName && isEmail && isRole && isDepartment && isApprove) {
       return;
     }
     // use id to get the index of the row in this.ListOfChairmanCopy
@@ -231,7 +230,6 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
 
 
   private errorChecking(element: any, check: boolean, arr: any) {
-
     let SchoolIDCheck = this.ListOfChairmanCopy.some((item: any) => item.SchoolID === element.SchoolID.trim());
     let userNameCheck = this.ListOfChairmanCopy.some((item: any) => item.FirstName === element.FirstName.trim() && item.LastName === element.LastName.trim() && item.SchoolID !== element.SchoolID.trim())
     let emailCheck = this.ListOfChairmanCopy.some((item: any) => item.Email === element.Email.trim());
@@ -403,11 +401,32 @@ export class ListOfChairmanComponent implements OnInit, AfterViewInit {
   private getRole() {
     this.accService.fetchAllRoles().subscribe((data: any) => {
       this.roles = data[0];
-      this.roles = data[0].filter((role: any) => role.roleID !== 1 && role.roleID !== 2);
-      // add Admin and Chairman into this.roles
-      this.roles.push({ roleID: 1, roleName: 'Admin' });
-      this.roles.push({ roleID: 2, roleName: 'Chairman' });
     });
+  }
+  addRow() {
+   let dialogConfig = new MatDialogConfig();
+   dialogConfig = {
+     disableClose: true,
+     autoFocus: true,
+     position: {
+       left: '1px'
+     },
+     height: '100%',
+     width: '100vw',
+     maxWidth: '100vw',
+     panelClass: 'full-screen-modal'
+   }
+   dialogConfig.data = {
+     original: this.listOfChairman,
+     copy: this.ListOfChairmanCopy,
+     role: this.roles,
+     department: this.departments
+   };
+
+   const dialogRef = this.dialog.open(AddChairmanComponent, dialogConfig);
+
+   dialogRef.afterClosed().subscribe();
+ 
   }
 
   private getDepartment() {
