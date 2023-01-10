@@ -66,12 +66,19 @@ export class AuthService {
       .pipe(
         first(),
         tap((tokenObject: any) => {
-          this.userId = tokenObject.userid;
-          this.token = tokenObject.token;
           const token = tokenObject.token;
-          // concat school_id and token into string
-          const tokenString = JSON.stringify({school_id, token});
-          localStorage.setItem("token", tokenString);
+          const parseToken = this.parseJwt(token);
+          console.log(parseToken)
+          // copy value from parseToken to new variable
+          const tokenString = JSON.stringify({
+            school_id: parseToken.school_id,
+            email: parseToken.email,
+            role: parseToken.role,
+            approve: parseToken.approve,
+            exp: parseToken.exp,
+            expiresIn: parseToken.expiresIn,
+            iat: parseToken.iat
+          })
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("token", tokenString);
           // store user details and jwt token in session storage to keep user logged in between page refreshes
@@ -114,5 +121,16 @@ export class AuthService {
 
   isUserAuthenticated(): boolean {
     return !!localStorage.getItem("token");
+  }
+
+  
+  parseJwt(token: any) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 }

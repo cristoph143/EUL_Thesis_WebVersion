@@ -81,9 +81,23 @@ exports.login = async(req, res, next) => {
             throw error;
         }
 
+        // getRoles
+        const roles = await Account.getRoles(school_id);
+        // iterate roles to match current role_roleID to roles[0][i].roleID
+        let role = '';
+        for (let i = 0; i < roles[0].length; i++) {
+            console.log(roles[0][i].roleID)
+            if (roles[0][i].roleID === storedUser.role_roleID) {
+                role = roles[0][i].roleName;
+                break;
+            }
+        }
+
         const token = jwt.sign({
                 email: storedUser.email,
                 school_id: storedUser.school_id,
+                role: role,
+                approve: storedUser.approve,
                 // expiresIn in minutes format
                 expiresIn: '1h'
             },
